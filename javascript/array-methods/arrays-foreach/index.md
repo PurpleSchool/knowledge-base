@@ -1,8 +1,8 @@
 ---
-metaTitle: Как работает метод forEach()
-metaDescription: Разбираемся как использовать метод forEach() правильно
+metaTitle: forEach() – JavaScript Array – Методы массивов в JS
+metaDescription: Как работает метод forEach() в JavaScript. Всё о методах работы с массивами в JavaScript | База знаний PurpleSchool
 author: Виталий Котов
-title: Как работает метод forEach()
+title: Как работает метод forEach() - JavaScript
 preview: Метод forEach() последовательно перебирает все элементы массива и выполняет для каждой полученную в параметрах функцию...
 ---
 

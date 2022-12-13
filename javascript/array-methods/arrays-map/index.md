@@ -1,8 +1,8 @@
 ---
-metaTitle: Как работает метод map()
-metaDescription: Разбираемся как использовать метод map() правильно
+metaTitle: map() – JavaScript Array – Методы массивов в JS
+metaDescription: Как работает метод map() в JavaScript. Всё о методах работы с массивами в JavaScript | База знаний PurpleSchool
 author: Виталий Котов
-title: Как работает метод map()
+title: Как работает метод map() - JavaScript
 preview: Метод map() создаёт новый массив с результатами вызова функции для каждого элемента массива...
 ---
 

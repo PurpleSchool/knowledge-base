@@ -31,8 +31,8 @@ console.log(square_numbers);
 
 Синтаксис метода `map()` следующий:
 
-```
-arr.map(callback(currentValue), thisArg)
+```javascript
+arr.map(callback(currentValue), thisArg);
 ```
 
 Где `arr` - это массив.
@@ -103,13 +103,13 @@ console.log(newArr);
 
 Вывод в консоль:
 
-```
+```javascript
 [
-  { name: 'Adam', netEarning: 4500 },
-  { name: 'Noah', netEarning: 7000 },
-  { name: 'Fabiano', netEarning: 1800 },
-  { name: 'Alireza', netEarning: 4600 }
-]
+  { name: "Adam", netEarning: 4500 },
+  { name: "Noah", netEarning: 7000 },
+  { name: "Fabiano", netEarning: 1800 },
+  { name: "Alireza", netEarning: 4600 },
+];
 ```
 
 > Примечание: метод `map()` присваивает значение `undefined` новому массиву, если `callback` функция возвращает `undefined` или ничего.

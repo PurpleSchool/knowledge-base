@@ -1,6 +1,6 @@
 ---
-metaTitle: База знаний JavaScript
-metaDescription: Ответы на вопросы по JavaScript
+metaTitle: База знаний JavaScript - обучение JS с нуля самостоятельно
+metaDescription: Основы JavaScript для начинающих. Изучите язык программирования JavaScript самостоятельно с базой знаний PurpleSchool
 title: JavaScript
 ---
 

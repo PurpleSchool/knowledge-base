@@ -60,6 +60,7 @@ arr.reduce(callback(accumulator, currentValue), initialValue);
 
 ## Примеры
 
+
 ### Пример 1: Сумма всех элементов массива
 
 ```javascript

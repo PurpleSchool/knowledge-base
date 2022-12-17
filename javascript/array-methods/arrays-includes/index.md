@@ -3,10 +3,10 @@ metaTitle: includes() – JavaScript Array – Методы массивов в 
 metaDescription: Как работает метод includes() в JavaScript. Всё о методах работы с массивами в JavaScript | База знаний PurpleSchool
 author: Виталий Котов
 title: Как работает метод includes() - JavaScript
-preview: Метод include() проверяет, содержит ли массив указанный элемент или нет...
+preview: Метод includes() проверяет, содержит ли массив указанный элемент или нет...
 ---
 
-Метод `include()` проверяет, содержит ли массив указанный элемент или нет.
+Метод `includes()` проверяет, содержит ли массив указанный элемент или нет.
 
 ### Пример
 
@@ -52,7 +52,7 @@ arr.includes(valueToFind, fromIndex);
 
 ## Примеры
 
-### Пример 1: Использование метода include()
+### Пример 1: Использование метода includes()
 
 ```javascript
 let languages = ["JavaScript", "Java", "C", "C++"];
@@ -108,7 +108,7 @@ false
 
 Это происходит потому, что метод чувствителен к регистру и рассматривает `'Python'` и `'python'` как две разные строки.
 
-### Пример 3: include() с двумя параметрами
+### Пример 3: includes() с двумя параметрами
 
 ```javascript
 let languages = ["JavaScript", "Java", "C", "Python"];

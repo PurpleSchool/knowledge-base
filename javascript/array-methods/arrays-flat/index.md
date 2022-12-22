@@ -3,7 +3,7 @@ metaTitle: flat() – JavaScript Array – Методы массивов в JS
 metaDescription: Как работает метод flat() в JavaScript. Всё о методах работы с массивами в JavaScript | База знаний PurpleSchool
 author: Виталий Котов
 title: Как работает метод flat() - JavaScript
-preview:
+preview: Метод flat() возвращает новый массив, сократив его вложенность до указанного уровня...
 ---
 
 Метод `flat()` возвращает новый массив, сократив его вложенность до указанного уровня.

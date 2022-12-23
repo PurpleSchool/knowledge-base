@@ -15,10 +15,10 @@ const string = "Hello World!";
 // поиск символа по индексу 1
 let index1 = string.charAt(1);
 
-console.log("Character at index 1 is " + index1);
+console.log("Символ по индексу 1: " + index1);
 
 // Вывод в консоль:
-// Символ в индексе 1 - это "e"
+// Символ по индексу 1: e
 ```
 
 ## Синтаксис charAt()

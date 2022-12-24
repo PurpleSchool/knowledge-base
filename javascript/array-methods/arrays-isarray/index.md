@@ -3,7 +3,7 @@ metaTitle: isArray() – JavaScript Array – Методы массивов в J
 metaDescription: Как работает метод isArray() в JavaScript. Всё о методах работы с массивами в JavaScript | База знаний PurpleSchool
 author: Виталий Котов
 title: Как работает метод isArray() - JavaScript
-preview: Метод isArray() проверяет, является ли переданный аргумент массивом или нет.
+preview: Метод isArray() проверяет, является ли переданный аргумент массивом или нет...
 ---
 
 Метод `isArray()` проверяет, является ли переданный аргумент массивом или нет.

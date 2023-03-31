@@ -12,12 +12,12 @@ preview: Псевдоклассы - необходимый инструмент 
 
 ```css
 :root {
-  --primary-color: #007bff;
+	--primary-color: #007bff;
 }
 
 button {
-  background-color: var(--primary-color);
-  color: white;
+	background-color: var(--primary-color);
+	color: white;
 }
 ```
 
@@ -31,11 +31,11 @@ button {
 
 ```css
 ul li:first-child {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 ul li:last-child {
-  color: forestgreen;
+	color: forestgreen;
 }
 ```
 
@@ -47,18 +47,18 @@ ul li:last-child {
 
 ```html
 <section>
-  <p>Я едиственный параграф в секции, значит - стану красным</p>
+	<p>Я едиственный параграф в секции, значит - стану красным</p>
 
-  <section>
-    <span></span>
+	<section>
+		<span></span>
 
-    <p>Я едиственный параграф в секции, значит - стану красным</p>
+		<p>Я едиственный параграф в секции, значит - стану красным</p>
 
-    <section>
-      <p>Красный - не наш цвет</p>
-      <p>Красный - не наш цвет</p>
-    </section>
-  </section>
+		<section>
+			<p>Красный - не наш цвет</p>
+			<p>Красный - не наш цвет</p>
+		</section>
+	</section>
 </section>
 ```
 
@@ -66,7 +66,7 @@ ul li:last-child {
 
 ```css
 section > p:only-of-type {
-  background-color: red;
+	background-color: red;
 }
 ```
 
@@ -77,65 +77,64 @@ section > p:only-of-type {
 Используются для выборки дочерних элементов, которые соответствуют формуле, основаной на их положении в родительском элементе,. Число n в круглых скобках - это формула, используемая для определения того, какие дочерние элементы будут выбраны.
 
 В качестве примера рассмотрим верстку календаря:
-
-![[https://cdn-bucket.hb.bizmrg.com/purple-images/knowladge-base/calendar.png]]
+<img src="https://cdn-bucket.hb.bizmrg.com/purple-images/knowladge-base/calendar.png" />
 
 Структуру календаря представим в виде 35 дивов, которые будут находиться внутри grid контейнера. Верстку и стили можете найти ниже.
 
 ```html
 <div class="calendar">
-  <span class="day-name">Пн</span>
-  <span class="day-name">Вт</span>
-  <span class="day-name">Ср</span>
-  <span class="day-name">Чт</span>
-  <span class="day-name">Пт</span>
-  <span class="day-name">Сб</span>
-  <span class="day-name">Вс</span>
-  <div class="day disabled">26</div>
-  <div class="day disabled">27</div>
-  <div class="day disabled">28</div>
-  <div class="day">1</div>
+	<span class="day-name">Пн</span>
+	<span class="day-name">Вт</span>
+	<span class="day-name">Ср</span>
+	<span class="day-name">Чт</span>
+	<span class="day-name">Пт</span>
+	<span class="day-name">Сб</span>
+	<span class="day-name">Вс</span>
+	<div class="day disabled">26</div>
+	<div class="day disabled">27</div>
+	<div class="day disabled">28</div>
+	<div class="day">1</div>
 
-  <!-- добавляем ячейки с 2 по 29  -->
+	<!-- добавляем ячейки с 2 по 29  -->
 
-  <div class="day">31</div>
-  <div class="day disabled">1</div>
+	<div class="day">31</div>
+	<div class="day disabled">1</div>
 </div>
 ```
 
 ```css
 .calendar {
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(7, minmax(100px, 1fr));
-  grid-template-rows: 50px;
-  grid-auto-rows: 120px;
-  overflow: auto;
+	display: grid;
+	width: 100%;
+	grid-template-columns: repeat(7, minmax(100px, 1fr));
+	grid-template-rows: 50px;
+	grid-auto-rows: 120px;
+	overflow: auto;
 }
 
 .day-name {
-  font-size: 12px;
-  color: #99a1a7;
-  text-align: center;
-  border-bottom: 1px solid rgba(166, 168, 179, 0.12);
-  line-height: 50px;
-  font-weight: 500;
+	font-size: 12px;
+	color: #99a1a7;
+	text-align: center;
+	border-bottom: 1px solid rgba(166, 168, 179, 0.12);
+	line-height: 50px;
+	font-weight: 500;
 }
 
 .day {
-  border-bottom: 1px solid rgba(166, 168, 179, 0.12);
-  border-right: 1px solid rgba(166, 168, 179, 0.12);
-  text-align: right;
-  padding: 14px 20px;
-  letter-spacing: 1px;
-  font-size: 12px;
-  color: #98a0a6;
+	border-bottom: 1px solid rgba(166, 168, 179, 0.12);
+	border-right: 1px solid rgba(166, 168, 179, 0.12);
+	text-align: right;
+	padding: 14px 20px;
+	letter-spacing: 1px;
+	font-size: 12px;
+	color: #98a0a6;
 }
 
 .disabled {
-  color: rgba(152, 160, 166, 0.6);
-  background-color: #fff;
-  background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23f9f9fa' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+	color: rgba(152, 160, 166, 0.6);
+	background-color: #fff;
+	background-image: url('data:image/svg+xml,....');
 }
 ```
 
@@ -145,41 +144,41 @@ section > p:only-of-type {
 
 ```css
 .day:nth-of-type(n + 1):nth-of-type(-n + 7) {
-  grid-row: 2;
+	grid-row: 2;
 }
 .day:nth-of-type(n + 8):nth-of-type(-n + 14) {
-  grid-row: 3;
+	grid-row: 3;
 }
 .day:nth-of-type(n + 15):nth-of-type(-n + 21) {
-  grid-row: 4;
+	grid-row: 4;
 }
 .day:nth-of-type(n + 22):nth-of-type(-n + 28) {
-  grid-row: 5;
+	grid-row: 5;
 }
 .day:nth-of-type(n + 29):nth-of-type(-n + 35) {
-  grid-row: 6;
+	grid-row: 6;
 }
 
 .day:nth-child(7n + 1) {
-  grid-column: 1 / 1;
+	grid-column: 1 / 1;
 }
 .day:nth-child(7n + 2) {
-  grid-column: 2 / 2;
+	grid-column: 2 / 2;
 }
 .day:nth-child(7n + 3) {
-  grid-column: 3 / 3;
+	grid-column: 3 / 3;
 }
 .day:nth-child(7n + 4) {
-  grid-column: 4 / 4;
+	grid-column: 4 / 4;
 }
 .day:nth-child(7n + 5) {
-  grid-column: 5 / 5;
+	grid-column: 5 / 5;
 }
 .day:nth-child(7n + 6) {
-  grid-column: 6 / 6;
+	grid-column: 6 / 6;
 }
 .day:nth-child(7n + 7) {
-  grid-column: 7 / 7;
+	grid-column: 7 / 7;
 }
 ```
 
@@ -197,9 +196,9 @@ section > p:only-of-type {
 
 ```css
 div:empty {
-  background-image: url(loading.gif);
-  background-repeat: no-repeat;
-  background-position: center center;
+	background-image: url(loading.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
 }
 ```
 

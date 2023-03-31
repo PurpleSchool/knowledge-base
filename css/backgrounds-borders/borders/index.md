@@ -39,7 +39,7 @@ border-color: initial;
 
 ### **Значения**
 
-![[border-style.png]]
+![[https://cdn-bucket.hb.bizmrg.com/purple-images/knowladge-base/border-style.png]]
 
 - **none**(значение по умолчанию): рамка не отображается.
 - **hidden**: Эквивалентно none.
@@ -88,7 +88,6 @@ border-color: initial;
 
 - **inherit**: Наследует значение свойства от родительского элемента.
 
-
 ## **Cвойство border-width**
 
 Определяет ширину границы, выбирая из ряда значений, включая пиксели, em, rem, проценты и другие единицы CSS.
@@ -132,7 +131,7 @@ border-width: initial;
 
 ```css
 border: purple;
-border: .75vh dotted;
+border: 0.75vh dotted;
 border: dashed #f39b9f91;
 border: medium dashed rgb(0, 255, 234);
 border: revert-layer;

@@ -1,8 +1,8 @@
 ---
-metaTitle: parseInt() – JavaScript Numbers – Числа в JS
-metaDescription: Как работает parseInt() в JS | База знаний PurpleSchool
+metaTitle: parseFloat() – JavaScript Numbers – Числа в JS
+metaDescription: Как работает parseFloat() в JS | База знаний PurpleSchool
 author: Дмитрий Фандорин
-title: parseInt() в JavaScript
+title: parseFloat() в JavaScript
 preview: Глобальная функция parseFloat() - это встроенная функция JavaScript, которая принимает строку в качестве аргумента и пытается преобразовать ее в число с плавающей точкой (float)...
 ---
 

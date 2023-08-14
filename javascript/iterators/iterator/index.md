@@ -44,13 +44,13 @@ const iterator = buildIterator();
 И начнем последовательно вызывать метод `next()`:
 
 ```javascript
-iterator.next(); //  {done: false, value: 0}
+iterator.next(); // {done: false, value: 0}
 
-iterator.next(); //  {done: false, value: 1}
+iterator.next(); // {done: false, value: 1}
 
-iterator.next(); //  {done: false, value: 2}
+iterator.next(); // {done: false, value: 2}
 
-iterator.next(); //  {done: true, value: undefined} - перебор закончен
+iterator.next(); // {done: true, value: undefined} - перебор закончен
 ```
 
 Когда метод `next()` возвращает `{ done: true }`, то обход элементов прекращается. В этом случае, каждый последующий вызов метода, будет возвращать один и тот же результат - `{ done: true }`
@@ -79,7 +79,7 @@ for (const value of ["1", "2", "3"]) {
 }
 ```
 
-> **Примечание:** Для того чтобы объект стал **_итерируемым_**, он должен иметь свойство `Symbol.iterator`, которое является функцией и возвращает **_объек-итератор_**.
+> **Примечание:** Для того чтобы объект стал **_итерируемым_**, он должен иметь свойство `Symbol.iterator`, которое является функцией и возвращает **_объект-итератор_**.
 
 В примере выше, наш объект `iterator` не возможно перебрать в цикле, так как у него нет свойства `Symbol.iterator`
 

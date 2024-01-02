@@ -1,0 +1,208 @@
+---
+metaTitle: TypeScript в React
+metaDescription: Разбираемся как использовать TypeScript в React
+author: Вячеслав Руденко
+title: TypeScript в React
+preview: Стабильность и эффективность в разработке React с TypeScript. Узнайте, как типы улучшают процесс frontend-разработки
+---
+
+# Введение
+
+Frontend-разработка в наше время ставит перед нами вызов повышения эффективности и безопасности кода. В этом контексте TypeScript, надстройка над JavaScript с добавленной статической типизацией, выступает как ключевой инструмент для достижения этих целей. Мы рассмотрим роль TypeScript в разработке React-приложений, подчеркивая преимущества, которые статическая типизация приносит в процесс кодирования.
+
+# Типизация хуков
+
+## userState()
+
+Хук `useState` предоставляет простой способ добавления локального состояния в функциональные компоненты. В TypeScript, мы можем улучшить надежность и понимание кода, используя явную типизацию для `useState`.
+
+Пример типизации использования `useState`:
+
+```tsx
+import React, {useState} from 'react';
+
+const MyComponent: React.FC = () => {
+  // Используем useState с явным указанием типа начального состояния
+  const initialState = 0;
+  const [count, setCount] = useState<number>(initialState);
+
+  // Теперь count имеет тип number, а setCount принимает параметр с таким же типом
+  const increment = () => {
+    setCount((prevCount) => prevCount + 1);
+  };
+
+  return (
+    <>
+      <p>Count: {count}</p>
+      <button onClick={increment}>Increment</button>
+    </>
+  );
+};
+```
+
+Единственное нужно помнить, что несмотря на уточнение типа, при отсутствии `initialState`, состояние будет принадлежать к объединению `T | undefined`.
+
+## useEffect() и useLayoutEffect()
+
+Поскольку у данных хуков отсутствует возвращаемое значение, сложно представить сценарий в котором возникает ошибка связанная с передачей аргументов. Поэтому подробное рассмотрение и пояснение будет опущено.
+
+## useContext()
+
+Чтобы использовать `useContext` в TypeScript, сначала нужно создать объект `context` с параметром `generic type`, который задает тип значения контекста.
+
+Вот пример того, как это сделать:
+
+```tsx
+import {createContext} from 'react';
+
+interface Theme {
+  color: string;
+  background: string;
+}
+
+const ThemeContext = createContext<Theme>({
+  color: 'black',
+  background: 'white',
+});
+```
+
+В этом примере мы создали объект контекста `ThemeContext`, который хранит объект `Theme` со свойствами `color` и `background`. Функция `createContext` принимает в качестве аргумента значение по умолчанию, которое будет использоваться, если значение контекста не предоставлено родительским компонентом.
+
+Создав объект контекста, вы можете использовать хук `useContext` для использования значения контекста в компоненте функции. Вот пример того, как это сделать:
+
+```tsx
+import {useContext} from 'react';
+
+function MyComponent() {
+  const theme = useContext(ThemeContext);
+
+  return <div style={{color: theme.color, background: theme.background}}>Hello World!</div>;
+}
+```
+
+Чтобы предоставить значение контекста компоненту функции, можно использовать компонент `Context.Provider`. Этот компонент принимает значение `prop`, которое является значением, предоставляемым всем компонентам, потребляющим контекст. Вот пример использования `Context.Provider`:
+
+```tsx
+import {ThemeContext} from './ThemeContext';
+
+function App() {
+  const theme = {color: 'white', background: 'black'};
+
+  return (
+    <ThemeContext.Provider value={theme}>
+      <MyComponent />
+    </ThemeContext.Provider>
+  );
+}
+```
+
+В этом примере мы импортировали объект `ThemeContext` и создали объект темы с белым цветом текста и черным фоном. Затем мы обернули наш `MyComponent` в компонент `ThemeContext.Provider` и передали объект темы в качестве значения prop. Это сделает объект темы доступным для всех компонентов, которые используют `ThemeContext`.
+
+# Типизация компонентов
+
+## Типизация пропсов компонента
+
+В React компоненты принимают данные через пропсы и могут иметь внутренний стейт. Использование TypeScript позволяет нам явно определить ожидаемые типы данных, что улучшает понимание и предотвращает ошибки на этапе разработки.
+
+Рассмотрим пример функционального компонента:
+
+```tsx
+import React, {useState} from 'react';
+
+interface MyComponentProps {
+  name: string;
+  age: number;
+}
+
+const MyComponent: React.FC<MyComponentProps> = ({name, age}) => {
+  return (
+    <div>
+      <p>{`Name: ${name}, Age: ${age}`}</p>
+    </div>
+  );
+};
+```
+
+В этом примере мы определяем интерфейс `MyComponentProps` для пропсов, указывая, что они должны содержать `name` (строка) и `age` (число).
+
+## Типизация самого компонента
+
+Давайте типизируем компонент `CustomInput` с использованием `InputHTMLAttributes<HTMLInputElement>` для автоматического включения всех стандартных атрибутов инпута:
+
+```tsx
+import React, {InputHTMLAttributes} from 'react';
+
+// Определяем тип для пропсов, включая все стандартные атрибуты инпута
+interface CustomInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  value: string;
+  onChange: (newValue: string) => void;
+}
+
+const CustomInput: React.FC<CustomInputProps> = ({value, onChange, ...inputProps}) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(event.target.value);
+  };
+
+  return (
+    <input
+      type='text'
+      value={value}
+      onChange={handleChange}
+      placeholder='Type something...'
+      {...inputProps} // Включаем все стандартные атрибуты инпута
+    />
+  );
+};
+
+export default CustomInput;
+```
+
+В этом примере:
+
+- `React.FC` (Functional Component) - это обобщенный тип, который принимает интерфейс пропсов (`CustomInputProps` в данном случае).
+- Мы использовали `InputHTMLAttributes<HTMLInputElement>`, чтобы включить все стандартные атрибуты инпута в интерфейс `CustomInputProps`.
+- Мы добавили `{...inputProps}` в атрибуты `<input>`, чтобы передать все стандартные атрибуты инпута.
+- Теперь `CustomInput` будет автоматически включать любые стандартные атрибуты инпута, переданные через пропсы.
+
+## Типизация event
+
+Давайте разберем типизацию для параметра `event` в функции `handleChange` из примера выше:
+
+```tsx
+const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  onChange(event.target.value);
+};
+```
+
+`React.ChangeEvent<HTMLInputElement>` - это обобщенный типс события, предоставляемый React. Он представляет тип объекта события для события `change` на элементе `<input>`.
+
+Теперь давайте взглянем на другой пример:
+
+```tsx
+import React from 'react';
+
+export default function Button() {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    console.log('Submit button clicked!');
+  };
+
+  return <button onClick={handleClick}>Submit</button>;
+}
+```
+
+`React.MouseEvent<HTMLButtonElement>` - это обобщенный тип события, предоставляемый React. Мы указываем, что это событие относится к элементу `<button>`. C использованием этой типизации TypeScript будет уведомлять вас о доступных свойствах и методах объекта `event`, специфичных для события клика на кнопке.
+
+# Заключение
+
+Внедрение TypeScript в разработку React-приложений предоставляет значительные преимущества в области надежности кода, поддержки и ясности разработки. В данной статье мы рассмотрели основные аспекты типизации, фокусируясь на использовании TypeScript вместе с хуками и компонентами.
+Типизация компонентов: Явное указание типов для пропсов и состояний в функциональных и классовых компонентах обеспечивает четкость и предотвращает множество ошибок на этапе разработки.
+
+- **Типизация хуков**: Хуки приобретают дополнительную стабильность и интеллектуальную поддержку благодаря правильному использованию типов.
+
+- **Обработка событий**: Указание типов для параметров событий, таких как `MouseEvent` или `ChangeEvent`, обеспечивает точное понимание взаимодействия с элементами и предотвращает потенциальные ошибки.
+
+- **Безопасность и автодополнение**: TypeScript предоставляет безопасность типов, что снижает вероятность ошибок, а также обеспечивает лучшую поддержку среды разработки через автодополнение и подсказки.
+
+- **Читаемость кода и поддержка**: Явная типизация делает код более читаемым, а также упрощает поддержку и сопровождение кодовой базы.
+
+В целом, использование TypeScript в React улучшает структурированность и надежность приложений, делая их более масштабируемыми и легко поддерживаемыми. Внедрение этого мощного инструмента в процесс разработки позволяет создавать более надежные и устойчивые к изменениям приложения.

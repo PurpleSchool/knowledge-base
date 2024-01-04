@@ -172,7 +172,7 @@ export default CustomInput;
 
 `React.ChangeEvent<HTMLInputElement>` - это обобщенный тип, предоставляемый React, который представляет событие изменения для элемента `<input>`. В данном случае, мы явно указываем, что событие `event` относится к элементу `<input>`.
 
-Теперь давайте взглянем на другой пример:
+Давайте взглянем на другой пример:
 
 ```tsx
 import React, {ButtonHTMLAttributes} from 'react';
@@ -191,7 +191,7 @@ const CustomButton: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({...but
 export default CustomButton;
 ```
 
-`React.MouseEvent<HTMLButtonElement>` - это обобщенный тип события, предоставляемый React. Мы указываем, что это событие относится к элементу `<button>`. C использованием этой типизации TypeScript будет уведомлять вас о доступных свойствах и методах объекта `event`, специфичных для события клика на кнопке.
+`React.MouseEvent<HTMLButtonElement>` - это обобщенный тип события, предоставляемый React. Мы указываем, что это событие относится к элементу `<button>`. C использованием этой типизации TypeScript будет уведомлять вас о доступных свойствах и методах объекта `event`, специфичных для события клика по кнопке.
 
 # Заключение
 

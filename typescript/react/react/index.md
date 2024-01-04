@@ -132,23 +132,9 @@ const MyComponent: React.FC<MyComponentProps> = ({name, age}) => {
 ```tsx
 import React, {InputHTMLAttributes} from 'react';
 
-// Определяем тип для пропсов, включая все стандартные атрибуты инпута
-interface CustomInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  value: string;
-  onChange: (newValue: string) => void;
-}
-
-const CustomInput: React.FC<CustomInputProps> = ({value, onChange, ...inputProps}) => {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(event.target.value);
-  };
-
+const CustomInput: React.FC<InputHTMLAttributes<HTMLInputElement>> = ({...inputProps}) => {
   return (
     <input
-      type='text'
-      value={value}
-      onChange={handleChange}
-      placeholder='Type something...'
       {...inputProps} // Включаем все стандартные атрибуты инпута
     />
   );
@@ -159,35 +145,50 @@ export default CustomInput;
 
 В этом примере:
 
-- `React.FC` (Functional Component) - это обобщенный тип, который принимает интерфейс пропсов (`CustomInputProps` в данном случае).
-- Мы использовали `InputHTMLAttributes<HTMLInputElement>`, чтобы включить все стандартные атрибуты инпута в интерфейс `CustomInputProps`.
-- Мы добавили `{...inputProps}` в атрибуты `<input>`, чтобы передать все стандартные атрибуты инпута.
-- Теперь `CustomInput` будет автоматически включать любые стандартные атрибуты инпута, переданные через пропсы.
+- `React.FC<InputHTMLAttributes<HTMLInputElement>>` - это функциональный компонент, типизированный с использованием `InputHTMLAttributes<HTMLInputElement>`, что позволяет автоматически включить все стандартные атрибуты `<input>`.
+- `InputHTMLAttributes` - предоставляет обобщенный тип для HTML-атрибутов элемента `<input>`. Путем передачи этого типа в React.FC мы обеспечиваем правильную типизацию и автоматическое включение всех стандартных атрибутов.
+- `{...inputProps}` - спред оператор используется для передачи всех стандартных атрибутов `<input>` в компонент. Это позволяет избежать явного перечисления каждого атрибута, делая компонент более гибким и легко поддерживаемым.
+
+Теперь, при использовании `CustomInput`, любые стандартные атрибуты `<input>`, переданные через пропсы, будут автоматически включены в рендер компонента.
 
 ## Типизация event
 
-Давайте разберем типизацию для параметра `event` в функции `handleChange` из примера выше:
+Давайте разберем типизацию для параметра `event` в функции `handleChange`:
 
 ```tsx
-const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  onChange(event.target.value);
+import React, {InputHTMLAttributes} from 'react';
+
+const CustomInput: React.FC<InputHTMLAttributes<HTMLInputElement>> = ({...inputProps}) => {
+  const [value, setValue] = React.useState<string>('');
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value);
+  };
+
+  return <input {...inputProps} onChange={handleChange} />;
 };
+export default CustomInput;
 ```
 
-`React.ChangeEvent<HTMLInputElement>` - это обобщенный типс события, предоставляемый React. Он представляет тип объекта события для события `change` на элементе `<input>`.
+`React.ChangeEvent<HTMLInputElement>` - это обобщенный тип, предоставляемый React, который представляет событие изменения для элемента `<input>`. В данном случае, мы явно указываем, что событие `event` относится к элементу `<input>`.
 
 Теперь давайте взглянем на другой пример:
 
 ```tsx
-import React from 'react';
+import React, {ButtonHTMLAttributes} from 'react';
 
-export default function Button() {
+const CustomButton: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({...buttonProps}) => {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log('Submit button clicked!');
+    console.log(event);
   };
 
-  return <button onClick={handleClick}>Submit</button>;
-}
+  return (
+    <button {...buttonProps} onClick={handleClick}>
+      Submit
+    </button>
+  );
+};
+export default CustomButton;
 ```
 
 `React.MouseEvent<HTMLButtonElement>` - это обобщенный тип события, предоставляемый React. Мы указываем, что это событие относится к элементу `<button>`. C использованием этой типизации TypeScript будет уведомлять вас о доступных свойствах и методах объекта `event`, специфичных для события клика на кнопке.

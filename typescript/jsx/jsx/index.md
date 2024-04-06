@@ -270,24 +270,3 @@ const a = (
   </div>
 );
 ```
-
-## Интеграция с React
-
-Для работы JSX с React необходимо использовать React typings. Эти типы определяют пространство имён `JSX` для корректного использования с React.
-
-```tsx
-/// <reference path="react.d.ts" />
-
-interface Props {
-  foo: string;
-}
-
-class MyComponent extends React.Component<Props, {}> {
-  render() {
-    return <span>{this.props.foo}</span>
-  }
-}
-
-<MyComponent foo="bar" />; // хорошо
-<MyComponent foo={0} />; // ошибка
-```

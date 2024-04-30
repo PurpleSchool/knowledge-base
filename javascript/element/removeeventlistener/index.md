@@ -1,0 +1,94 @@
+---
+metaTitle: .removeEventListener() в JavaScript
+metaDescription: Разбираемся как использовать .removeEventListener() в JavaScript
+author: Дмитрий Нечаев
+title: .removeEventListener() в JavaScript
+preview: Учимся пользоваться .removeEventListener() в JavaScript. Разбираем примеры использования
+---
+
+В разработке веб-приложений JavaScript часто требуется отслеживать действия пользователя и реагировать на них. Метод `.addEventListener()` позволяет назначить обработчики событий, но что если вам нужно временно перестать отслеживать определенное событие? В этой статье мы рассмотрим метод `.removeEventListener()`, который позволяет отключать обработчики событий, когда они больше не нужны.
+
+## Введение в `.removeEventListener()`
+
+`.removeEventListener()` - это метод, который позволяет удалить обработчик события, который ранее был назначен с помощью метода `.addEventListener()`. Это может быть полезно, когда вы хотите временно приостановить реакцию вашего приложения на определенное событие или когда обработчик больше не нужен и должен быть удален для экономии ресурсов.
+
+Синтаксис `.removeEventListener()` выглядит следующим образом:
+
+```jsx
+element.removeEventListener(event, handlerFunction);
+
+```
+
+Где:
+
+- `element` - это HTML-элемент, на котором был ранее назначен обработчик события.
+- `event` - это строка, представляющая событие, на которое был назначен обработчик.
+- `handlerFunction` - это функция-обработчик, которую вы хотите удалить.
+
+## Примеры использования `.removeEventListener()`
+
+Давайте рассмотрим несколько примеров использования метода `.removeEventListener()` для удаления обработчиков событий.
+
+### 1. Удаление обработчика события клика мышью
+
+```html
+<button id="myButton">Нажми меня</button>
+
+```
+
+```jsx
+const myButton = document.getElementById('myButton');
+
+// Объявляем функцию-обработчик
+function clickHandler() {
+  alert('Кнопка была нажата!');
+}
+
+// Добавляем обработчик события для клика на кнопку
+myButton.addEventListener('click', clickHandler);
+
+// Удаляем обработчик события после первого клика
+myButton.addEventListener('click', function() {
+  myButton.removeEventListener('click', clickHandler);
+});
+
+```
+
+После первого клика на кнопку, обработчик события будет удален, и больше не будет реагировать на последующие клики.
+
+### 2. Удаление обработчика события наведения курсора мыши
+
+```html
+<div id="myDiv">Наведи курсор на меня</div>
+
+```
+
+```jsx
+const myDiv = document.getElementById('myDiv');
+
+// Объявляем функции-обработчики
+function mouseOverHandler() {
+  myDiv.style.color = 'red';
+}
+
+function mouseOutHandler() {
+  myDiv.style.color = 'black';
+}
+
+// Добавляем обработчики событий для наведения и выхода курсора на элемент
+myDiv.addEventListener('mouseover', mouseOverHandler);
+myDiv.addEventListener('mouseout', mouseOutHandler);
+
+// Удаляем обработчики событий после некоторого времени
+setTimeout(() => {
+  myDiv.removeEventListener('mouseover', mouseOverHandler);
+  myDiv.removeEventListener('mouseout', mouseOutHandler);
+}, 3000); // Удаляем через 3 секунды
+
+```
+
+После некоторого времени (в данном случае через 3 секунды), обработчики событий для наведения и выхода курсора будут удалены, и элемент больше не будет реагировать на эти события.
+
+## Заключение
+
+Метод `.removeEventListener()` - это важный инструмент в арсенале веб-разработчика, позволяющий управлять обработчиками событий и делать приложения более гибкими и эффективными. Мы рассмотрели его базовый синтаксис и примеры использования для удаления обработчиков событий различных типов. Надеюсь, теперь вы чувствуете уверенность в использовании `.removeEventListener()` в ваших проектах JavaScript.

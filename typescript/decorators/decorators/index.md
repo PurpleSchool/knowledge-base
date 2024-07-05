@@ -1,8 +1,8 @@
 ---
-metaTitle: Декораторы в TypeScript
+metaTitle: Обзор использования декораторов в TypeScript
 metaDescription: Разбираемся как использовать декораторы в TypeScript
 author: Дмитрий Нечаев
-title: Декораторы в TypeScript
+title: Обзор использования декораторов в TypeScript
 preview: Учимся пользоваться декораторами в TypeScript. Разбираем примеры использования
 ---
 

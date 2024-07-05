@@ -1,6 +1,6 @@
 ---
-metaTitle: Async в JavaScript
-metaDescription: Async в JavaScript
+metaTitle: Асинхронное выполнение в JavaScript
+metaDescription: Разбираеся в работе асинхронного кода в JavaScript
 title: Async в JavaScript
 ---
 

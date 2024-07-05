@@ -1,7 +1,7 @@
 ---
-metaTitle: Объекты в JavaScript
+metaTitle: Разбор объектов в JavaScript
 metaDescription: Всё об объектах в JavaScript
-title: JavaScript объекты
+title: Разбор объектов в JavaScript
 ---
 
 JavaScript объекты

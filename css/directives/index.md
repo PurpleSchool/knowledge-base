@@ -1,6 +1,6 @@
 ---
-metaTitle: Функции в CSS
-metaDescription: Функции в CSS
+metaTitle: Directives в CSS
+metaDescription: Директивы — это конструкции, которая позволяет создавать в CSS инструкции для изменения отображения либо поведения элементов страницы.
 title: Функции в CSS
 ---
 

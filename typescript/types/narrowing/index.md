@@ -46,7 +46,7 @@ function printText(text: string | null) {
 
 ```tsx
 function printLength(x: string | string[]) {
-  if (x === "string") {
+  if (typeof x === "string") {
     console.log(x.length); // x теперь имеет тип string
   } else {
     console.log(x.length); // x теперь имеет тип string[]

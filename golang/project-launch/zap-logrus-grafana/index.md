@@ -1,8 +1,8 @@
 ---
-metaTitle: Работа с Zap и Logrus и интеграция с Grafana 
-metaDescription: Разбираемся c Zap и Logrus и интеграция с Grafana 
+metaTitle: Работа с Zap, Logrus, Loki и интеграция с Grafana 
+metaDescription: Разбираемся c Zap, Logrus, Loki и интеграция с Grafana 
 author: Александр Гольцман
-title: Логирование в Golang. Zap, Logrus и интеграция с Grafana 
+title: Логирование в Golang. Zap, Logrus, Loki, Grafana 
 preview: В этой статье я покажу, как использовать их для логирования в Go-приложениях, а также как интегрировать логи с Grafana для удобного анализа.
 ---
 

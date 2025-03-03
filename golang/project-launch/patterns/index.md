@@ -15,39 +15,30 @@ Golang, или Go, — это высокоэффективный язык про
 
 ### Singleton
 
-#### Описание
-
 Паттерн Singleton предназначен для ограничения инстанцирования класса одним объектом. Это может быть полезно для управления общими ресурсами, такими как базы данных или конфигурационные менеджеры. 
-
-#### Пример кода
 
 ``` go
 package main
 
 import (
-	"fmt"
-	"sync"
+ "fmt"
+ "sync"
 )
 
-type Singleton struct {}
+type Singleton struct{}
 
 var instance *Singleton
 var once sync.Once
 
 func GetInstance() *Singleton {
-	once.Do(func() {
-		instance = &Singleton{}
-	})
-	return instance
+ once.Do(func() { instance = &Singleton{} })
+ return instance
 }
 
 func main() {
-	s1 := GetInstance()
-	s2 := GetInstance()
-
-	if s1 == s2 {
-		fmt.Println("Обе переменные указывают на один и тот же экземпляр.")
-	}
+ s1 := GetInstance()
+ s2 := GetInstance()
+ fmt.Println(s1 == s2) // true
 }
 ```
 
@@ -55,44 +46,27 @@ func main() {
 
 ### Factory Method
 
-#### Описание
-
 Factory Method — это паттерн, позволяющий создавать объекты классов при помощи интерфейса, что обеспечивает гибкость использования различных производных классов.
-
-#### Пример кода
 
 ``` go
 package main
 
 import "fmt"
 
-type IAnimal interface {
-	Speak() string
-}
+type Animal interface { Speak() string }
+type Dog struct{}   //nolint:unused
+func (d Dog) Speak() string { return "Woof!" }
+type Cat struct{}  //nolint:unused
+func (c Cat) Speak() string { return "Meow!" }
 
-type Dog struct{}
-func (d Dog) Speak() string {
-	return "Woof!"
-}
-
-type Cat struct{}
-func (c Cat) Speak() string {
-	return "Meow!"
-}
-
-func NewAnimal(animalType string) IAnimal {
-	if animalType == "dog" {
-		return Dog{}
-	}
-	return Cat{}
+func NewAnimal(t string) Animal {
+ if t == "dog" { return Dog{} }
+ return Cat{}
 }
 
 func main() {
-	dog := NewAnimal("dog")
-	fmt.Println(dog.Speak())
-
-	cat := NewAnimal("cat")
-	fmt.Println(cat.Speak())
+ a := NewAnimal("dog")
+ fmt.Println(a.Speak()) // Woof!
 }
 ```
 
@@ -100,79 +74,28 @@ func main() {
 
 ### Observer
 
-#### Описание
-
 Observer — это паттерн, где один объект (наблюдатель) подписывается на события другого объекта (субъекта), чтобы получать уведомления об изменениях состояния.
-
-#### Пример кода
 
 ``` go
 package main
 
 import "fmt"
 
-type Observer interface {
-	Update(string)
-}
+type Observer interface { Update(string) }
+type Item struct {  obs []Observer; name string }
+func (i *Item) Register(o Observer) { i.obs = append(i.obs, o) }
+func (i *Item) Notify(s string) { for _, o := range i.obs { o.Update(s) } }
 
-type Subject interface {
-	Register(Observer)
-	Deregister(Observer)
-	NotifyAll()
-}
-
-type Item struct {
-	observers []Observer
-	name      string
-	available bool
-}
-
-func (i *Item) Register(o Observer) {
-	i.observers = append(i.observers, o)
-}
-
-func (i *Item) Deregister(o Observer) {
-	var indexToRemove int
-	for i, observer := range i.observers {
-		if observer == o {
-			indexToRemove = i
-			break
-		}
-	}
-	i.observers = append(i.observers[:indexToRemove], i.observers[indexToRemove+1:]...)
-}
-
-func (i *Item) NotifyAll() {
-	for _, observer := range i.observers {
-		observer.Update(i.name)
-	}
-}
-
-func (i *Item) SetAvailability(available bool) {
-	i.available = available
-	if available {
-		i.NotifyAll()
-	}
-}
-
-type Customer struct {
-	name string
-}
-
-func (c *Customer) Update(itemName string) {
-	fmt.Printf("Уважаемый %s, %s теперь доступно для заказа.\n", c.name, itemName)
+type Customer struct { name string }
+func (c *Customer) Update(s string) {
+ fmt.Printf("%s received: %s\n", c.name, s)
 }
 
 func main() {
-	shirtItem := &Item{name: "Футболка"}
-
-	customer1 := &Customer{name: "Олег"}
-	customer2 := &Customer{name: "Мария"}
-
-	shirtItem.Register(customer1)
-	shirtItem.Register(customer2)
-
-	shirtItem.SetAvailability(true)
+ item := Item{name: "Shirt"}
+ c1 := Customer{name: "Alice"}
+ item.Register(&c1)
+ item.Notify("New Item Available!")
 }
 ```
 
@@ -180,4 +103,4 @@ func main() {
 
 ## Заключение
 
-Паттерны проектирования являются основой для написания структурированного и понятного кода. Использование этих паттернов в Golang помогает разработчикам создавать устойчивые и поддерживаемые приложения с четкими архитектурными решениями. Каждый паттерн, будь то Singleton, Factory Method или Observer, решает специфические задачи и повышает гибкость и масштабируемость программного обеспечения, что особенно важно в сложных системах. Изучение и правильное применение паттернов проектирования позволяет эффективно решать повседневные задачи разработки и способствует общему улучшению качества кода.
+Паттерны проектирования являются основой для написания структурированного и понятного кода. Использование этих паттернов в Golang помогает разработчикам значительно облегчить создание устойчивых и поддерживаемых приложений с четкими архитектурными решениями. Например, Singleton может обеспечить единый экземпляр логгера, Factory Method - упростить создание различных типов объектов, а Observer - оповещать пользовательский интерфейс об изменениях данных. Каждый паттерн решает специфические задачи и повышает гибкость и масштабируемость программного обеспечения, что особенно важно в сложных системах. Изучение и правильное применение паттернов проектирования позволяет эффективно решать повседневные задачи разработки и способствует общему улучшению качества кода. Важно помнить, что эффективность паттернов проектирования зависит от их правильного применения и понимания контекста задачи.

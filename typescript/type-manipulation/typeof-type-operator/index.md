@@ -44,7 +44,7 @@ type PriceType = ReturnType<typeof product.getPrice>;  // Тип будет { am
 
 ```
 
-В данном случае, typeof product.getPrice возвращает тип самой функции getPrice. Чтобы получить тип возвращаемого значения getPrice, ReturnType<typeof product.getPrice> корректно выводит тип { amount: number; currency: string; }. Использование ReturnType помогает избежать путаницы и обеспечивает точное определение типа возвращаемого значения функции.
+В данном случае, `typeof product.getPrice` возвращает тип самой функции `getPrice`. Чтобы получить тип возвращаемого значения `getPrice`, `ReturnType<typeof product.getPrice>` корректно выводит тип `{ amount: number; currency: string; }`. Использование `ReturnType` помогает избежать путаницы и обеспечивает точное определение типа возвращаемого значения функции.
 
 ### Заключение
 

@@ -42,9 +42,9 @@ Vuetify — реализация material design для Vue.js. Поддержк
 
 **Пример установки:**
 ```sh
-# Для Vue 3
+// Для Vue 3
 npm install vuetify@next
-# Для Vue 2
+// Для Vue 2
 npm install vuetify
 ```
 
@@ -54,11 +54,10 @@ npm install vuetify
 import { createApp } from 'vue'
 import App from './App.vue'
 import vuetify from './plugins/vuetify' // предварительно настройте плагины!
-
 createApp(App).use(vuetify).mount('#app')
 ```
 
-```vue
+```js
 <!-- Использование компонента Button из Vuetify -->
 <template>
   <v-btn color="primary">Нажми меня</v-btn>
@@ -84,13 +83,12 @@ npm install element-plus
 import { createApp } from 'vue'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-
 const app = createApp(App)
 app.use(ElementPlus)
 app.mount('#app')
 ```
 
-```vue
+```js
 <el-button type="primary">Кликни меня</el-button>
 ```
 
@@ -160,14 +158,13 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-
 createApp(App).use(ElementPlus).mount('#app')
 ```
 
 ### Шаг 3. Использование компонентов в шаблонах
 
 Теперь вы можете использовать любой компонент из библиотеки без дополнительного импорта.
-```vue
+```js
 <template>
   <el-form>
     <el-form-item label="Имя">
@@ -178,7 +175,6 @@ createApp(App).use(ElementPlus).mount('#app')
     </el-form-item>
   </el-form>
 </template>
-
 <script>
 export default {
   data() {
@@ -208,7 +204,6 @@ export default {
 
 ```js
 import { ElButton, ElInput } from 'element-plus'
-
 const app = createApp(App)
 app.component(ElButton.name, ElButton)
 app.component(ElInput.name, ElInput)
@@ -220,7 +215,7 @@ app.component(ElInput.name, ElInput)
 
 ### Пример: Кастомная кнопка
 
-```vue
+```js
 <template>
   <button
     :class="['my-button', color]"
@@ -229,7 +224,6 @@ app.component(ElInput.name, ElInput)
     <slot />
   </button>
 </template>
-
 <script>
 export default {
   name: 'MyButton',
@@ -241,7 +235,6 @@ export default {
   }
 }
 </script>
-
 <style>
 .my-button {
   border: none;
@@ -249,7 +242,6 @@ export default {
   cursor: pointer;
   font-size: 16px;
 }
-
 /* Стилизация в зависимости от класса color */
 .my-button.primary {
   background: #409EFF;
@@ -277,7 +269,6 @@ export default {
 Пример подключения своей темы:
 ```js
 import { createVuetify } from 'vuetify'
-
 const vuetify = createVuetify({
   theme: {
     themes: {
@@ -310,7 +301,7 @@ const vuetify = createVuetify({
 
 ### Пример layout во Vuetify
 
-```vue
+```js
 <template>
   <v-container>
     <v-row>

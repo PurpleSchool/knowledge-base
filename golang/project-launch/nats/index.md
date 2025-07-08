@@ -338,3 +338,5 @@ NATS и NSQ — надёжные, простые и эффективные event
 ### Как ограничить количество parallel-обработчиков в NSQ consumer?
 
 Используйте метод `consumer.ChangeMaxInFlight(n)` для регулировки одновременных сообщений, которые consumer может обрабатывать. Например, `consumer.ChangeMaxInFlight(10)` — будет обрабатывать не больше 10 сообщений одновременно.
+
+Теперь вы знаете, как настроить шину событий NATS и NSQ в Go. Чтобы систематизировать свои знания Go и научиться писать отказоустойчивый backend код, обратите внимание на курс [Продвинутый Golang](https://purpleschool.ru/course/go-advanced?utm_source=knowledgebase&utm_medium=text&utm_campaign=nastroyka-shiny-sobytiy-nats-nsq-v-go). В первых 3 модулях уже доступно бесплатное содержание — начните погружаться в Go прямо сегодня и станьте уверенным разработчиком.

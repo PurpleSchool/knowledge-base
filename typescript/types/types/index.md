@@ -135,7 +135,6 @@ console.log(user[key_2]); // 30
 
 Пример:
 
-TODO: подумать над нормальным примером
 
 ```typescript
 let unassignedVariable: undefined = undefined;
@@ -227,7 +226,7 @@ enum TypeMedia {
 
 function playMedia(type: TypeMedia): void {
   switch (type) {
-    case TypeMedia.Video:
+    case TypeMedia.Image:
       console.log('Отображение изображения');
       // Логика для отображения изображения
       break;

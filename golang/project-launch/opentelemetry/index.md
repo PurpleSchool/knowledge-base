@@ -353,3 +353,5 @@ exp, _ := stdouttrace.New(stdouttrace.WithPrettyPrint())
 ### Как исключить из трейсинга определённые endpoint'ы (например, healthcheck)?
 
 Используйте фильтрацию в middleware, например, не оборачивайте обработчик `/healthz` в otelhttp.NewHandler или пишите дополнительную логику в интерцепторе, чтобы игнорировать определённые пути или методы.
+
+Теперь вы знаете, как использовать OpenTelemetry для трейсинга запросов в Go. Чтобы систематизировать свои знания Go и научиться писать отказоустойчивый backend код, обратите внимание на курс [Продвинутый Golang](https://purpleschool.ru/course/go-advanced?utm_source=knowledgebase&utm_medium=text&utm_campaign=treysing-zaprosov-s-opentelemetry-v-go). В первых 3 модулях уже доступно бесплатное содержание — начните погружаться в Go прямо сегодня и станьте уверенным разработчиком.

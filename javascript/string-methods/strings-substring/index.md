@@ -28,6 +28,8 @@ str.substring(indexStart, indexEnd);
 
 Где `str` - это строка.
 
+Метод `substring()` извлекает часть строки между двумя указанными индексами. Это важный инструмент для обработки текста и извлечения необходимых фрагментов. Чтобы эффективно использовать `substring()` и другие методы работы со строками, необходимо понимать их особенности и принципы работы. Если вы хотите детальнее погрузиться в особенности работы со строками в JavaScript — приходите на наш большой курс [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-substring-v-javascript). На курсе 198 уроков и 30 упражнений, AI-тренажеры для безлимитной практики с кодом и задачами 24/7, решение задач с живым ревью наставника, еженедельные встречи с менторами.
+
 ## Параметры substring()
 
 Метод `substring()` принимает:
@@ -113,3 +115,5 @@ console.log(newString); // JavaScript Tutorials
 ```
 JavaScript Tutorials
 ```
+
+Освоив метод `substring()`, вы сделали важный шаг к мастерству работы со строками. Но на этом пути вас ждет еще много интересного. Чтобы уверенно разрабатывать современные веб-приложения, вам потребуется глубокое понимание JavaScript, включая работу с массивами, объектами и DOM. На курсе [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-substring-v-javascript) вы найдете все необходимое для построения прочного фундамента знаний. В первых 3 модулях уже доступно бесплатное содержание — начните погружаться в JavaScript прямо сегодня.

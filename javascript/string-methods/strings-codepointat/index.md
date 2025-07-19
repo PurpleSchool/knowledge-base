@@ -30,6 +30,8 @@ str.codePointAt(pos);
 
 Где `str` - это строка.
 
+Изучение метода `codePointAt()` позволяет получить кодовую точку символа в строке. Для уверенной работы с этим методом и эффективной обработки сложных символов Unicode необходимо понимание продвинутых концепций JavaScript. Если вы хотите детальнее погрузиться в продвинутые знания языка — приходите на наш большой курс [JavaScript Advanced](https://purpleschool.ru/course/javascript-advanced?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-codepointat-javascript). На курсе 196 уроков и 18 упражнений, AI-тренажеры для безлимитной практики с кодом и задачами 24/7, решение задач с живым ревью наставника, еженедельные встречи с менторами.
+
 ## Параметры codePointAt()
 
 Метод `codePointAt()` принимает:
@@ -115,3 +117,5 @@ undefined
 В приведенном выше примере мы использовали метод `codePointAt()` для доступа к unicode позиции символа с индексом **53**.
 
 Однако в строке `"Happy Birthday"` нет символа с индексом **53**. Следовательно, `message.codePointAt(53)` возвращает `undefined`.
+
+Понимание работы с кодовыми точками и их представлением в JavaScript необходимо для создания современных веб-приложений, поддерживающих различные языки и символы. Чтобы углубить свои знания и узнать о других продвинутых методах работы со строками, посетите наш курс [JavaScript Advanced](https://purpleschool.ru/course/javascript-advanced?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-codepointat-javascript). В первых 3 модулях уже доступно бесплатное содержание — начните погружаться в продвинутый JavaScript прямо сегодня.

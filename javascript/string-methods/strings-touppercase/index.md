@@ -28,6 +28,8 @@ str.toUpperCase();
 
 Где `str` - это строка.
 
+Метод `toUpperCase()` преобразует все символы строки в верхний регистр. Это часто используется для приведения строк к единому формату, например, при сравнении текста без учета регистра. Для понимания принципов работы этого и других методов изменения регистра необходимо знать основы работы со строками в JavaScript. Если вы хотите детальнее погрузиться в работу со строками и их преобразованиями — приходите на наш большой курс [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-touppercase-v-javascript). На курсе 198 уроков и 30 упражнений, AI-тренажеры для безлимитной практики с кодом и задачами 24/7, решение задач с живым ревью наставника, еженедельные встречи с менторами.
+
 ## Параметры toUpperCase()
 
 Метод `toUpperCase()` не принимает никаких параметров.
@@ -62,3 +64,5 @@ console.log(uppercase); // JAVA IS TO JAVASCRIPT WHAT CAR IS TO CARPET.
 HELLO WORLD!
 JAVA IS TO JAVASCRIPT WHAT CAR IS TO CARPET.
 ```
+
+Понимание принципа работы `toUpperCase()` – важный шаг. Но для создания сложных и эффективных веб-приложений, вам потребуется более глубокое понимание JavaScript, чем знание отдельных строковых методов. На курсе [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-touppercase-v-javascript) вы изучите основы языка, научитесь работать с различными типами данных и создавать интерактивные пользовательские интерфейсы. В первых 3 модулях уже доступно бесплатное содержание — начните погружаться в JavaScript прямо сегодня.

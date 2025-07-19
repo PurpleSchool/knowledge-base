@@ -17,6 +17,8 @@ const searchParams = new URLSearchParams(window.location.search);
 console.log(searchParams.get('query')); // выводит значение параметра "query" из текущего URL
 ```
 
+Работа с URL-параметрами часто становится необходимостью при разработке веб-приложений. URLSearchParams предоставляет удобный интерфейс для манипулирования этими параметрами. Но чтобы эффективно использовать этот и другие API браузера, важно хорошо понимать основы JavaScript. Если вы хотите детальнее погрузиться в мир JavaScript, освоить его синтаксис и принципы работы, приходите на наш большой курс [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=urlsearchparams-v-javascript). На курсе 198 уроков и 30 упражнений, AI-тренажеры для безлимитной практики с кодом и задачами 24/7, решение задач с живым ревью наставника, еженедельные встречи с менторами.
+
 ## Форма записи
 
 ### Создание экземпляра класса
@@ -152,3 +154,5 @@ console.log(searchParamsString);
 ## Заключение
 
 URLSearchParams - это удобный инструмент для работы с параметрами поиска в URL. Он предоставляет множество методов для получения, добавления, удаления и изменения параметров поиска в URL. При использовании URLSearchParams необходимо учитывать, что он доступен только в браузере и не поддерживается в Node.js.
+
+URLSearchParams упрощает работу с URL, но для создания сложных веб-приложений часто требуются более продвинутые навыки JavaScript. Рассмотрите возможность углубленного изучения языка с помощью курса [JavaScript Advanced](https://purpleschool.ru/course/javascript-advanced?utm_source=knowledgebase&utm_medium=text&utm_campaign=urlsearchparams-v-javascript). В первых 3 модулях уже доступно бесплатное содержание — начните погружаться в мир продвинутого JavaScript прямо сегодня.

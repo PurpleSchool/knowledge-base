@@ -29,6 +29,8 @@ String.fromCodePoint(num1, ..., numN)
 
 Метод `fromCodePoint()`, будучи статическим методом, вызывается с использованием имени класса `String`.
 
+Работа с кодовыми точками Unicode в JavaScript требует внимательности и понимания. Чтобы в полной мере понимать, как `fromCodePoint()` взаимодействует с символами и кодировками, важно иметь четкое представление об основах языка. Если вы хотите детальнее погрузиться в фундаментальные знания языка — приходите на наш большой курс [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-fromcodepoint-javascript). На курсе 198 уроков и 30 упражнений, AI-тренажеры для безлимитной практики с кодом и задачами 24/7, решение задач с живым ревью наставника, еженедельные встречи с менторами.
+
 ## Параметры fromCodePoint()
 
 Метод `fromCodePoint()` принимает `num1, ..., numN` - последовательность кодовых позиций.
@@ -99,3 +101,5 @@ console.log(string3);
 ```
 RangeError: Invalid code point Infinity
 ```
+
+Владение методами работы со строками — важный навык для JavaScript-разработчика. Чтобы уверенно использовать `fromCodePoint()` и другие строковые методы, важно хорошо понимать основы языка и уметь применять их на практике. На нашем курсе [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-fromcodepoint-javascript) вы изучите все необходимые основы. В первых 3 модулях уже доступно бесплатное содержание — начните погружаться в JavaScript прямо сегодня.

@@ -14,6 +14,8 @@ const ages: number[] = [18, 35, 51, 28, 12];
 
 В этом примере мы объявляем массив с именем ages, который содержит только числовые значения. Это означает, что при попытке добавить в массив что-то другое, TypeScript выдаст ошибку на этапе компиляции.
 
+Правильная типизация массивов — это фундамент безопасного и предсказуемого кода. Ошибки в типизации массивов могут привести к непредсказуемым runtime-ошибкам и затруднить отладку. Если вы хотите детальнее изучить систему типов TypeScript и научиться писать надежный код — приходите на наш большой [курс TypeScript с нуля](https://purpleschool.ru/course/typescript?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-tipizirovat-massivy-typescript). На курсе 192 уроков и 17 упражнений, AI-тренажеры для безлимитной практики с кодом и задачами 24/7, решение задач с живым ревью наставника, еженедельные встречи с менторами.
+
 ## Array<string>
 
 Для более сложных случаев, когда вы хотите определить типы элементов массива более подробно, вы можете использовать обобщенные типы. Например:
@@ -81,3 +83,5 @@ const fruits: readonly string[] = ['Яблоко', 'Банан', 'Апельси
 fruits.push('Груша'); // Property 'push' does not exist on type 'readonly string[]
 fruits[1] = 'Груша'; // Index signature in type 'readonly string[]' only permits reading
 ```
+
+Глубокое понимание типизации массивов невозможно без знания продвинутых концепций TypeScript, таких как generics, mapped types и conditional types. На нашем [курсе TypeScript с нуля](https://purpleschool.ru/course/typescript?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-tipizirovat-massivy-typescript) вы получите комплексные знания о системе типов TypeScript и научитесь эффективно использовать их на практике. В первых 3 модулях уже доступно бесплатное содержание — начните погружаться в TypeScript прямо сегодня.

@@ -41,6 +41,8 @@ str.toLowerCase();
 > - Метод `toLowerCase()` вызывает ошибку `TypeError` при вызове c `null` или `undefined`.
 > - Метод `toLowerCase()` не изменяет исходную строку.
 
+Метод `toLowerCase()` преобразует все символы строки в нижний регистр. Это часто используется для нормализации строк, чтобы сравнение текста не зависело от регистра символов. Глубокое понимание работы со строками, включая изменение регистра, необходимо для создания надежных веб-приложений. Если вы хотите детальнее погрузиться в работу со строками и их преобразованиями — приходите на наш большой курс [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-tolowercase-v-javascript). На курсе 198 уроков и 30 упражнений, AI-тренажеры для безлимитной практики с кодом и задачами 24/7, решение задач с живым ревью наставника, еженедельные встречи с менторами.
+
 ## Примеры
 
 ### Пример 1: Использование метода toLowerCase()
@@ -62,3 +64,5 @@ console.log(lowercase); // java is to javascript what car is to carpet.
 hello world!
 java is to javascript what car is to carpet.
 ```
+
+Умение приводить строки к нижнему регистру, безусловно, полезно. Но настоящая сила JavaScript раскрывается тогда, когда вы владеете не только отдельными методами, но и понимаете принципы объектно-ориентированного программирования, асинхронности и работы с DOM. На курсе [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-tolowercase-v-javascript) вы получите все необходимые знания и навыки. В первых 3 модулях уже доступно бесплатное содержание — начните погружаться в JavaScript прямо сегодня.

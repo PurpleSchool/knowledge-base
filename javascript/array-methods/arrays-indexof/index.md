@@ -30,6 +30,8 @@ arr.indexOf(searchElement, fromIndex);
 
 Где `arr` - это массив.
 
+Метод `indexOf()` позволяет найти индекс первого вхождения указанного элемента в массиве. Этот метод широко используется для поиска и манипуляции данными. Если вы хотите детальнее погрузиться в JavaScript и узнать больше о методах поиска в массивах, — приходите на наш большой курс [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-indexof-javascript). На курсе 198 уроков и 30 упражнений, AI-тренажеры для безлимитной практики с кодом и задачами 24/7, решение задач с живым ревью наставника, еженедельные встречи с менторами.
+
 ## Параметры indexOf()
 
 Метод `indexOf()` принимает:
@@ -143,3 +145,5 @@ checkOrAdd(parts, "Mouse"); // Mouse уже находится в массиве
 [ 'Monitor', 'Keyboard', 'Mouse', 'Speaker', 'CPU' ]
 Mouse уже находится в массиве.
 ```
+
+`indexOf()` - один из базовых методов для работы с массивами. Чтобы эффективно использовать его и другие методы поиска, важно понимать структуру массивов и принципы их обработки. Курс [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-indexof-javascript) даст вам прочную основу для работы с массивами. В первых 3 модулях уже доступно бесплатное содержание — начните погружаться в мир JavaScript прямо сегодня.

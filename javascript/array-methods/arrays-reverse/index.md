@@ -31,6 +31,8 @@ arr.reverse();
 
 Где `arr` - это массив.
 
+Метод `reverse()` изменяет порядок элементов в массиве на обратный. Зная методы работы с массивами, разработчик может эффективно манипулировать данными. Если вы хотите детальнее погрузиться в JavaScript — приходите на наш большой курс [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-reverse-javascript). На курсе 198 уроков и 30 упражнений, AI-тренажеры для безлимитной практики с кодом и задачами 24/7, решение задач с живым ревью наставника, еженедельные встречи с менторами.
+
 ## Параметры reverse()
 
 Метод `reverse()` не принимает никаких параметров.
@@ -96,3 +98,5 @@ console.log("Исходный массив:", languages);
 Перевёрнутый массив: [ 'Lua', 'Java', 'C++', 'Python', 'JavaScript' ]
 Исходный массив: [ 'JavaScript', 'Python', 'C++', 'Java', 'Lua' ]
 ```
+
+`reverse()` - простой, но полезный метод. Однако, для полноценной работы с данными в JavaScript необходимо знать и другие методы массивов, а также понимать, как правильно выбирать структуру данных для конкретной задачи. Все это рассматривается на курсе [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-reverse-javascript). В первых 3 модулях уже доступно бесплатное содержание — начните погружаться в мир JavaScript прямо сегодня.

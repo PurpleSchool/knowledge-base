@@ -35,6 +35,8 @@ arr.reduce(callback(accumulator, currentValue), initialValue);
 
 Где `arr` - это массив.
 
+Метод `reduce()` позволяет свернуть массив в одно значение, применяя функцию-аккумулятор к каждому элементу. Это мощный инструмент для обработки данных. Для освоения `reduce()` и других методов работы с массивами, важно обладать хорошей базой знаний JavaScript. Если вы хотите детальнее погрузиться в JavaScript — приходите на наш большой курс [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-reduce-javascript). На курсе 198 уроков и 30 упражнений, AI-тренажеры для безлимитной практики с кодом и задачами 24/7, решение задач с живым ревью наставника, еженедельные встречи с менторами.
+
 ## Параметры reduce()
 
 Метод `reduce()` принимает:
@@ -178,3 +180,5 @@ console.log(groupedPeople);
   ]
 }
 ```
+
+`reduce()` предоставляет широкие возможности для обработки данных. Но для эффективного использования этого и других методов, важно понимать принципы работы с массивами, функции высшего порядка и другие концепции JavaScript. Курс [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-reduce-javascript) поможет вам освоить все необходимые навыки. В первых 3 модулях уже доступно бесплатное содержание — начните погружаться в мир JavaScript прямо сегодня.

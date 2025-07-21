@@ -30,6 +30,8 @@ arr.forEach(callback(currentValue), thisArg);
 
 Где `arr` - это массив.
 
+Метод `forEach()` позволяет выполнить функцию для каждого элемента массива. Это один из основных способов итерации по массивам в JavaScript. Для эффективного использования `forEach()` необходимо хорошее понимание основ JavaScript и работы с функциями. Если вы хотите детальнее погрузиться в JavaScript — приходите на наш большой курс [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-foreach-javascript). На курсе 198 уроков и 30 упражнений, AI-тренажеры для безлимитной практики с кодом и задачами 24/7, решение задач с живым ревью наставника, еженедельные встречи с менторами.
+
 ## Параметры forEach()
 
 Метод `forEach()` принимает:
@@ -111,3 +113,5 @@ console.log(obj.product); // 1440
 ```
 
 Здесь мы снова видим, что метод `forEach()` пропускает пустой элемент. `thisArg` передается как `this` внутри определения метода `execute` объекта `Counter`.
+
+`forEach()` - это базовый метод для итерации по массивам. Чтобы уверенно использовать этот и другие методы, необходимо понимать структуру массивов, принципы работы с функциями и концепцию callback-функций. Курс [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-foreach-javascript) предоставит вам все необходимые знания. В первых 3 модулях уже доступно бесплатное содержание — начните погружаться в мир JavaScript прямо сегодня.

@@ -35,6 +35,8 @@ arr.findIndex(callback(element, index, arr), thisArg);
 
 Где `arr` - это массив.
 
+Метод `findIndex()` возвращает индекс первого элемента в массиве, который удовлетворяет заданному условию. Этот метод предоставляет мощный способ для поиска элементов в массивах по определенным критериям. Для эффективного использования `findIndex()` необходимо хорошее знание основ JavaScript и работы с функциями. Если вы хотите детальнее погрузиться в JavaScript — приходите на наш большой курс [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-findindex-javascript). На курсе 198 уроков и 30 упражнений, AI-тренажеры для безлимитной практики с кодом и задачами 24/7, решение задач с живым ревью наставника, еженедельные встречи с менторами.
+
 ## Параметры findIndex()
 
 Метод `findIndex()` принимает:
@@ -125,3 +127,5 @@ console.log(team.findIndex(isAdult)); // 2
 ```
 2
 ```
+
+`findIndex()` - это важный инструмент для поиска элементов в массивах. Чтобы уверенно использовать этот и другие методы поиска, необходимо понимать структуру массивов, принципы работы с функциями и концепцию callback-функций. Курс [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-findindex-javascript) предоставит вам все необходимые знания. В первых 3 модулях уже доступно бесплатное содержание — начните погружаться в мир JavaScript прямо сегодня.

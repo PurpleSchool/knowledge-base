@@ -33,6 +33,8 @@ arr.find(callback(element, index, arr), thisArg);
 
 Где `arr` - это массив.
 
+Метод `find()` возвращает значение первого элемента в массиве, который удовлетворяет заданному условию. Он предоставляет удобный способ для поиска конкретных элементов. Для эффективного использования `find()` необходимо хорошее понимание основ JavaScript и работы с функциями. Если вы хотите детальнее погрузиться в JavaScript и узнать больше о методах поиска в массивах, — приходите на наш большой курс [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-find-javascript). На курсе 198 уроков и 30 упражнений, AI-тренажеры для безлимитной практики с кодом и задачами 24/7, решение задач с живым ревью наставника, еженедельные встречи с менторами.
+
 ## Параметры find()
 
 Метод `find()` принимает:
@@ -100,3 +102,5 @@ console.log(adultMember); // { name: 'Alan', age: 20 }
 { name: 'Alan', age: 20 }
 { name: 'Alan', age: 20 }
 ```
+
+`find()` - это мощный инструмент для поиска элементов в массивах. Чтобы уверенно использовать этот и другие методы, необходимо понимать структуру массивов, принципы работы с функциями и концепцию callback-функций. Курс [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-find-javascript) предоставит вам все необходимые знания. В первых 3 модулях уже доступно бесплатное содержание — начните погружаться в мир JavaScript прямо сегодня.

@@ -33,6 +33,8 @@ arr.some(callback(currentValue), thisArg);
 
 Где `arr` - это массив.
 
+Метод `some()` позволяет проверить, удовлетворяет ли хотя бы один элемент массива заданному условию. Понимание принципов работы с массивами и подобных методов существенно упрощает разработку. Если вы хотите детальнее погрузиться в JavaScript и освоить все необходимые основы, — приходите на наш большой курс [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-some-javascript). На курсе 198 уроков и 30 упражнений, AI-тренажеры для безлимитной практики с кодом и задачами 24/7, решение задач с живым ревью наставника, еженедельные встречи с менторами.
+
 ## Параметры some()
 
 Метод `some()` принимает:
@@ -108,3 +110,5 @@ At least one of the students failed.
 Мы передали `callback` в метод как `scoreObtained.some(studentIsPassed)`, который возвращает `true`. Потому что `scoreObtained` содержит по крайней мере один элемент, т.е. 20, что меньше 40.
 
 Поскольку тестовое выражение в операторе `if` истинно, программа выводит - `At least one of the students failed.`
+
+`some()` - это лишь один из множества полезных методов для работы с массивами. Чтобы эффективно применять их на практике, необходимо понимать, как работают массивы, как итерировать по ним и как использовать другие методы, такие как `map()`, `filter()` и `reduce()`. Курс [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-some-javascript) поможет вам освоить эти навыки. В первых 3 модулях уже доступно бесплатное содержание — начните погружаться в мир JavaScript прямо сегодня.

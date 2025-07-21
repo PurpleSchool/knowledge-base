@@ -18,6 +18,8 @@ arr.every(callback(currentValue), thisArg);
 
 Где `arr` - это массив.
 
+Метод `every()` проверяет, удовлетворяют ли все элементы массива заданному условию. Этот метод полезен для проверки соответствия массива определенным критериям. Для эффективного использования `every()` необходимо хорошее понимание основ JavaScript и работы с функциями. Если вы хотите детальнее погрузиться в JavaScript и узнать больше о методах проверки массивов, — приходите на наш большой курс [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-every-javascript). На курсе 198 уроков и 30 упражнений, AI-тренажеры для безлимитной практики с кодом и задачами 24/7, решение задач с живым ревью наставника, еженедельные встречи с менторами.
+
 ## Параметры every()
 
 Метод `every()` принимает:
@@ -62,3 +64,5 @@ console.log(check1);
 All members must be at least 18 years of age.
 false
 ```
+
+`every()` - это важный метод для проверки массивов на соответствие определенным условиям. Чтобы уверенно использовать этот и другие методы проверки, необходимо понимать структуру массивов, принципы работы с функциями и концепцию callback-функций. Курс [JavaScript с нуля](https://purpleschool.ru/course/javascript-basics?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-rabotaet-metod-every-javascript) предоставит вам все необходимые знания. В первых 3 модулях уже доступно бесплатное содержание — начните погружаться в мир JavaScript прямо сегодня.

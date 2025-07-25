@@ -1,8 +1,8 @@
 ---
-metaTitle: Работа с HTML в Nuxt - возможности nuxt-html
+metaTitle: Как настроить HTML-шаблон в Nuxt
 metaDescription: Изучите нюансы работы с HTML в Nuxt с помощью nuxt-html - улучшайте SSR, внедряйте пользовательские теги и управляйте HEAD благодаря удобным средствам
 author: Олег Марков
-title: Nuxt HTML - как работать с данными HTML в Nuxt
+title: Как настроить HTML-шаблон в Nuxt
 preview: Освойте работу с HTML в Nuxt с помощью nuxt-html - добавление тегов, управление HEAD, внедрение SEO. Пошаговые инструкции и актуальные примеры для фронтендеров.
 ---
 

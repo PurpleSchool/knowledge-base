@@ -72,7 +72,7 @@ pages/
 ```
 
 #### Пример динамического маршрута:
-```vue
+```js
 <script setup>
 // Файл pages/blog/[slug].vue
 const route = useRoute()
@@ -89,7 +89,7 @@ const { data } = await useFetch(`/api/post/${route.params.slug}`)
 Лэйауты и middleware реализованы декларативно, с поддержкой автоматического импорта соответствующих функций.
 
 #### Использование layout:
-```vue
+```js
 <script setup>
 definePageMeta({ layout: 'custom-layout' }) // Назначаем макет для этой страницы
 </script>
@@ -172,7 +172,7 @@ export const useUserStore = defineStore('user', {
 })
 ```
 И используем в компоненте:
-```vue
+```js
 <script setup>
 import { useUserStore } from '~/stores/useUserStore'
 
@@ -191,7 +191,7 @@ const userStore = useUserStore()
 В Nuxt 4 асинхронная загрузка — базовая возможность через composables.
 
 #### Пример useFetch:
-```vue
+```js
 <script setup>
 const { data, pending, error } = await useFetch('/api/items')
 // pending и error упростят отображение лоадеров и ошибок
@@ -199,7 +199,7 @@ const { data, pending, error } = await useFetch('/api/items')
 ```
 
 #### Пример useAsyncData:
-```vue
+```js
 <script setup>
 const { data, refresh } = await useAsyncData('items', () =>
   $fetch('/api/items')
@@ -222,7 +222,7 @@ composables/
   useColorMode.ts
 // можно просто использовать useColorMode в любом компоненте без импортов
 ```
-```vue
+```js
 <script setup>
 const { mode, setMode } = useColorMode() // Работает сразу, если файл есть
 </script>
@@ -244,7 +244,7 @@ export default defineNuxtPlugin(nuxtApp => {
 })
 ```
 Использование в компоненте:
-```vue
+```js
 <script setup>
 const { $hello } = useNuxtApp()
 console.log($hello()) // Выведет 'Hello Nuxt 4!'

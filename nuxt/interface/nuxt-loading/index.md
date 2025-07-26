@@ -100,7 +100,7 @@ export default {
 
 Теперь во время загрузки Nuxt будет рендерить ваш компонент. Пример простого кастомного loader-компонента:
 
-```vue
+```js
 <!-- components/MyCustomLoader.vue -->
 <template>
   <div class="my-loader">
@@ -173,7 +173,7 @@ export default defineNuxtConfig({
 
 Я покажу вам классическую схему с использованием Nuxt composable:
 
-```vue
+```js
 <template>
   <div>
     <div v-if="pending">
@@ -252,7 +252,7 @@ npm install vue-loading-overlay
 
 2. Импортируем компонент в нужном месте и показываем при загрузке:
 
-```vue
+```js
 <template>
   <div>
     <loading :active.sync="isLoading" />

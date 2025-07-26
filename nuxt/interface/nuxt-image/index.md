@@ -75,7 +75,7 @@ export default defineNuxtConfig({
 
 Основной компонент — `<NuxtImg>` (или `<nuxt-img>` для Nuxt 2).
 
-```vue
+```js
 <template>
   <NuxtImg src="/images/sample.jpg" width="400" height="300" alt="Пример изображения" />
 </template>
@@ -93,7 +93,7 @@ export default defineNuxtConfig({
 
 Nuxt Image умеет работать с внешними ссылками. Например:
 
-```vue
+```js
 <NuxtImg src="https://images.unsplash.com/photo-1541233349642-6e425fe6190e" width="600" />
 ```
 
@@ -123,7 +123,7 @@ export default defineNuxtConfig({
 
 Теперь используйте пресет так:
 
-```vue
+```js
 <NuxtImg src="/profile.jpg" preset="avatar" alt="Фото профиля" />
 ```
 
@@ -133,7 +133,7 @@ export default defineNuxtConfig({
 
 По умолчанию Nuxt Image внедряет **lazy loading**. Но вы можете также добавить визуальные эффекты для плавной загрузки:
 
-```vue
+```js
 <NuxtImg
   src="/gallery.jpg"
   width="700"
@@ -154,7 +154,7 @@ export default defineNuxtConfig({
 
 Модуль Nuxt Image умеет автоматически отдавать лучший формат для браузера пользователя. Вручную можно указать желаемый формат (например, если у вас специфические требования):
 
-```vue
+```js
 <NuxtImg src="/banner.jpg" format="webp" />
 ```
 
@@ -168,7 +168,7 @@ Nuxt Image автоматически сгенерирует теги `<picture>
 
 Очень важно отдавать для retina-экранов большее разрешение, но только там, где это нужно. Nuxt Image делает это так:
 
-```vue
+```js
 <NuxtImg
   src="/logo.png"
   width="120"
@@ -190,7 +190,7 @@ Nuxt Image автоматически сгенерирует теги `<picture>
 
 Все это настраивается глобально или в каждой картинке.
 
-```vue
+```js
 <NuxtImg
   src="/photo.jpg"
   width="400"
@@ -227,7 +227,7 @@ export default defineNuxtConfig({
 
 Теперь вы можете использовать изображения из Cloudinary и работать с ними как обычно:
 
-```vue
+```js
 <NuxtImg provider="cloudinary" src="sample.jpg" width="500" />
 ```
 
@@ -303,7 +303,7 @@ SVG востребован для иконок и логотипов. Главн
 - SVG можно импортировать прямо как компонент, используя nuxt-svg-loader или @nuxt/svg.
 - Можно встроить SVG в HTML, что позволяет управлять цветом, анимациями и т.д.
 
-```vue
+```js
 <template>
   <svg width="24" height="24" viewBox="0 0 24 24">
     <!-- ...контент SVG... -->

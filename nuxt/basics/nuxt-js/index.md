@@ -60,7 +60,7 @@ my-nuxt-app/
 
 Все файлы в `pages` автоматически становятся страницами вашего приложения. Например, если создать файл `about.vue`, то страница будет доступна по адресу `/about`. Это делает настройку маршрутизации очень простой.
 
-```vue
+```js
 <!-- pages/about.vue -->
 <template>
   <div>
@@ -75,7 +75,7 @@ my-nuxt-app/
 
 Макеты (layouts) позволяют определить общий шаблон для страницы или группы страниц. Например, можно сделать основной макет с “шапкой” и “подвалом” сайта.
 
-```vue
+```js
 <!-- layouts/default.vue -->
 <template>
   <div>
@@ -95,7 +95,7 @@ import Footer from '../components/Footer.vue'
 ```
 Чтобы изменить макет для конкретной страницы, пропишите:
 
-```vue
+```js
 <script setup>
 definePageMeta({
   layout: 'custom' // Используем макет custom.vue
@@ -107,7 +107,7 @@ definePageMeta({
 
 В эту папку помещаются все Vue-компоненты, которые будут использоваться внутри страниц и макетов. Nuxt поддерживает автоматическое подключение компонентов — не нужно явно их импортировать внутри каждой страницы.
 
-```vue
+```js
 <!-- components/Button.vue -->
 <template>
   <button class="my-btn"><slot /></button>
@@ -182,7 +182,7 @@ Nuxt использует file-based routing — маршруты создают
 
 #### Пример динамического маршрута:
 
-```vue
+```js
 <!-- pages/posts/[id].vue -->
 <template>
   <div>
@@ -202,7 +202,7 @@ const id = route.params.id
 
 Для навигации используйте компонент `<NuxtLink>` (аналоги router-link из Vue Router):
 
-```vue
+```js
 <NuxtLink to="/about">О нас</NuxtLink>
 ```
 Он позволяет делать переходы между страницами без перезагрузки.
@@ -215,7 +215,7 @@ Nuxt поддерживает работу с сервером и API-запро
 
 С помощью `useAsyncData` вы можете получать данные при загрузке страницы. Давайте рассмотрим пример, где мы получаем список пользователей с тестового API:
 
-```vue
+```js
 <template>
   <div>
     <h2>Пользователи</h2>
@@ -271,7 +271,7 @@ export default defineNuxtConfig({
 
 Внутри любого компонента вы можете использовать `<style scoped>`, чтобы стили применялись только к текущему компоненту.
 
-```vue
+```js
 <template>
   <div class="card">Контент</div>
 </template>
@@ -298,7 +298,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 ```
 Теперь этот метод доступен во всех компонентах:
 
-```vue
+```js
 <script setup>
 const { $hello } = useNuxtApp()
 console.log($hello('Вася')) // Выведет: Привет, Вася!
@@ -361,7 +361,7 @@ export const useCounter = defineStore('counter', {
 
 Используем в компоненте:
 
-```vue
+```js
 <script setup>
 const counter = useCounter()
 </script>
@@ -444,7 +444,7 @@ export default defineNuxtPlugin(() => {
 
 **Вопрос 4. Как делать глобальную обработку ошибок в Nuxt?**  
 Используйте error middleware или глобальный layout с обработкой error:
-```vue
+```js
 <template>
   <div>
     <NuxtErrorBoundary>

@@ -225,7 +225,7 @@ export default {
 ```
 Для индивидуальных ресурсов используйте nuxt/head:
 
-```vue
+```js
 <template>
   <div />
 </template>

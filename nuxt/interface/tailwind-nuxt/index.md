@@ -96,7 +96,7 @@ module.exports = {
 
 Теперь вы сможете использовать Tailwind в любых Vue-файлах. Вот простой пример компонента:
 
-```vue
+```js
 <template>
   <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
     Кнопка Tailwind
@@ -154,7 +154,7 @@ module.exports = {
 
 Часто дизайнеры просят вас реализовать свой набор компонентов с фирменным стилем. Покажу, как создать базовый компонент, обертывающий Tailwind классы:
 
-```vue
+```js
 <!-- components/BaseButton.vue -->
 <template>
   <button
@@ -180,7 +180,7 @@ defineProps({
 
 Теперь используйте этот компонент во всем проекте:
 
-```vue
+```js
 <BaseButton color="primary">Главная кнопка</BaseButton>
 <BaseButton color="secondary">Вторичная кнопка</BaseButton>
 ```
@@ -191,7 +191,7 @@ defineProps({
 
 Tailwind работает без ограничений во всех Nuxt-структурах — layouts, страницах, компонентах. Для глобального оформления добавьте базовые классы в разметку `app.vue` или default layout:
 
-```vue
+```js
 <!-- layouts/default.vue -->
 <template>
   <div class="min-h-screen bg-gray-50">
@@ -268,7 +268,7 @@ module.exports = {
 
 Если классы генерируются динамически, убедитесь, что Tailwind не удаляет их из финальной сборки. Например:
 
-```vue
+```js
 <template>
   <div :class="`bg-${color}-500`"></div>
 </template>
@@ -322,7 +322,7 @@ module.exports = {
 
 2. Используйте классы с префиксом `dark:`:
 
-```vue
+```js
 <template>
   <div class="bg-white text-black dark:bg-gray-900 dark:text-white">
     Контент приложения
@@ -362,7 +362,7 @@ document.documentElement.classList.toggle('dark');
 
 Теперь используйте класс `btn-primary` в разметке:
 
-```vue
+```js
 <button class="btn-primary">Кнопка</button>
 ```
 

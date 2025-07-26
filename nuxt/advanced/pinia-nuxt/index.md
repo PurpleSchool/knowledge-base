@@ -263,7 +263,7 @@ export const usePostsStore = defineStore('posts', {
 
 В компонентах можно вызывать такие actions точно так же, как синхронные:
 
-```vue
+```js
 <script setup>
 import { usePostsStore } from '@/stores/posts'
 const postsStore = usePostsStore()

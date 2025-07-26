@@ -78,7 +78,7 @@ my-nuxt-app/
 
 Допустим, у вас есть следующий компонент (MyButton.vue):
 
-```vue
+```js
 <template>
   <button @click="handleClick">
     <slot></slot>
@@ -101,7 +101,7 @@ const handleClick = () => {
 
 Nuxt автоматически регистрирует все компоненты в папке `components/`. Просто используйте компонент в любом шаблоне страницы (например, в `pages/index.vue`):
 
-```vue
+```js
 <template>
   <div>
     <MyButton>Привет из компонента!</MyButton>
@@ -138,7 +138,7 @@ export default defineNuxtPlugin(nuxtApp => {
 
 Теперь любой компонент Element Plus можно использовать в ваших шаблонах:
 
-```vue
+```js
 <template>
   <el-button>Нажмите меня</el-button>
 </template>
@@ -159,7 +159,7 @@ export default defineNuxtPlugin(nuxtApp => {
 
 Стандартная страница во Vue:
 
-```vue
+```js
 <template>
   <div>
     <h1>Мой профиль</h1>
@@ -174,7 +174,7 @@ export default {
 
 В Nuxt 3 эта страница просто размещается в `pages/profile.vue`, роутинг происходит автоматически:
 
-```vue
+```js
 <template>
   <div>
     <h1>Мой профиль в Nuxt</h1>
@@ -192,7 +192,7 @@ Nuxt 3 предоставляет интеграцию для загрузки �
 
 Посмотрите пример получения данных на сервере:
 
-```vue
+```js
 <script setup>
 const { data: posts, error } = await useFetch('https://jsonplaceholder.typicode.com/posts')
 // posts теперь содержит результат fetch-запроса
@@ -218,7 +218,7 @@ const { data: posts, error } = await useFetch('https://jsonplaceholder.typicode.
 
 В папке `layouts/` вы можете создавать шаблоны, общие для групп страниц. Например, файл `default.vue` определяет базовый layout:
 
-```vue
+```js
 <template>
   <div>
     <header>Заголовок приложения</header>
@@ -230,7 +230,7 @@ const { data: posts, error } = await useFetch('https://jsonplaceholder.typicode.
 
 В каждой странице вы можете указать свой layout:
 
-```vue
+```js
 <script setup>
 definePageMeta({
   layout: "default"
@@ -253,7 +253,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
 
 Подключите middleware в нужной странице:
 
-```vue
+```js
 <script setup>
 definePageMeta({
   middleware: 'auth'
@@ -265,7 +265,7 @@ definePageMeta({
 
 Nuxt 3 позволяет удобно управлять мета-тегами страницы:
 
-```vue
+```js
 <script setup>
 useHead({
   title: 'О нас - Мой сайт',
@@ -313,7 +313,7 @@ export const useCounterStore = defineStore('counter', {
 
 В компоненте используйте так:
 
-```vue
+```js
 <script setup>
 import { useCounterStore } from '~/stores/counter'
 const counter = useCounterStore()
@@ -341,7 +341,7 @@ export default defineNuxtPlugin(nuxtApp => {
 
 И используем её в компоненте:
 
-```vue
+```js
 <script setup>
 const nuxtApp = useNuxtApp()
 const message = nuxtApp.$sayHello('Анна')
@@ -378,7 +378,7 @@ export const useCounter = () => {
 
 Он сразу будет доступен в любом компоненте:
 
-```vue
+```js
 <script setup>
 const { count, increment } = useCounter()
 </script>

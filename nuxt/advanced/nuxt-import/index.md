@@ -183,7 +183,7 @@ export default defineNuxtConfig({
 
 Если библиотека предназначена только для ручного импорта:
 
-```vue
+```js
 <script setup>
 import { ElButton } from 'element-plus'
 </script>

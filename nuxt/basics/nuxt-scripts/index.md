@@ -90,7 +90,7 @@ useHead({
 
 Смотрите, как это можно сделать в Nuxt 3, добавив скрипт в конкретную страницу:
 
-```vue
+```js
 <!-- pages/checkout.vue -->
 <script setup>
 useHead({
@@ -342,7 +342,7 @@ export default {
 
 ### Facebook Pixel (Nuxt 3, отдельная страница)
 
-```vue
+```js
 <script setup>
 useHead({
   script: [

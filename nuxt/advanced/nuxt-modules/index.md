@@ -146,7 +146,7 @@ export default {
 
 Теперь во всех компонентах можно вызывать метод `this.$hello('Nuxt')`
 
-```vue
+```js
 <template>
   <div>{{ message }}</div>
 </template>

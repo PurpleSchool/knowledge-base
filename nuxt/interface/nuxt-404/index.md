@@ -43,7 +43,7 @@ project-root/
 
 Вот самый простой пример такого файла:
 
-```vue
+```js
 <template>
   <div class="error-container">
     <h1>{{ error.statusCode }}</h1>
@@ -86,7 +86,7 @@ export default {
 
 Вот как можно это реализовать:
 
-```vue
+```js
 <template>
   <div>
     <component :is="viewComponent" :error="error" />
@@ -143,7 +143,7 @@ async asyncData({ error, params }) {
 
 #### Пример файла app/error.vue
 
-```vue
+```js
 <script setup>
 // Получаем информацию об ошибке через useError()
 const error = useError()
@@ -204,7 +204,7 @@ onMounted(async () => {
 - В `app/error.vue` делайте рендеринг под условием статуса ошибки.
 - Если дизайн сильно отличается, можно подключать отдельные компоненты:
 
-```vue
+```js
 <template>
   <div>
     <Error404 v-if="error.statusCode === 404" />
@@ -239,7 +239,7 @@ if (error.statusCode === 404) {
 
 Добавляйте мета-теги и title прямо в 404 страницу (в error.vue или через composable):
 
-```vue
+```js
 <template>
   <head>
     <title>Страница не найдена — MySite</title>
@@ -261,7 +261,7 @@ if (error.statusCode === 404) {
 
 Дайте пользователю варианты: переход на главную, поиск, навигация по популярным страницам. Обычно это увеличивает вероятность, что пользователь не уйдет с сайта.
 
-```vue
+```js
 <template>
   <div>
     <h1>404 — похоже, такой страницы нет</h1>

@@ -111,7 +111,7 @@ export default function({ $config }, inject) {
 
 Пример использования API в странице:
 
-```vue
+```js
 <script setup>
 const { data: user } = await useFetch('/user', {
   baseURL: useRuntimeConfig().public.apiBase
@@ -174,7 +174,7 @@ export const useLogin = async ({ email, password }) => {
 
 ### Тестируем авторизацию
 
-```vue
+```js
 <script setup>
 import { useLogin } from '~/composables/useAuth'
 

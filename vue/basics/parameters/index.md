@@ -18,7 +18,7 @@ Props (от "properties") — это способ передачи данных 
 
 Посмотрите простой пример передачи параметра:
 
-```vue
+```js
 <!-- ParentComponent.vue -->
 <template>
   <ChildComponent :message="parentMsg" />
@@ -37,7 +37,7 @@ export default {
 </script>
 ```
 
-```vue
+```js
 <!-- ChildComponent.vue -->
 <template>
   <p>{{ message }}</p> <!-- message получен от родителя -->
@@ -50,6 +50,8 @@ export default {
 </script>
 ```
 Здесь `message` в дочернем компоненте — это prop, который получает значение `parentMsg` из родителя. Как только родитель изменяет `parentMsg`, дочерний компонент получит актуальное значение.
+
+Управление параметрами и динамическими данными во Vue является важным аспектом разработки интерактивных и отзывчивых приложений. Использование `props` и реактивное управление данными позволяют эффективно оптимизировать компоненты и создавать более гибкие интерфейсы. Чтобы узнать, как работать с параметрами и динамическими данными во Vue, включая передачу пропсов, реактивное управление данными и оптимизацию компонентов, посетите наш курс [Vue.js 3, Vue Router и Pinia](https://purpleschool.ru/course/vuejs?utm_source=knowledgebase&utm_medium=article&utm_campaign=upravlenie-parametrami-i-dinamicheskimi-dannymi-vo-vue). На курсе 173 уроков и 21 упражнение, AI-тренажеры для безлимитной практики с кодом и задачами 24/7, решение задач с живым ревью наставника, еженедельные встречи с менторами.
 
 ### Подробное определение props
 
@@ -85,7 +87,7 @@ this.message = 'Новое значение';
 
 Когда дочерний компонент хочет отправить данные или уведомить родителя о каком-либо действии, он вызывает событие через `$emit`:
 
-```vue
+```js
 <!-- ChildComponent.vue -->
 <template>
   <button @click="notifyParent">Сообщить родителю</button>
@@ -103,7 +105,7 @@ export default {
 </script>
 ```
 
-```vue
+```js
 <!-- ParentComponent.vue -->
 <template>
   <ChildComponent @childClicked="handleChildClick" />
@@ -132,7 +134,7 @@ export default {
 
 Рассмотрим кастомный инпут:
 
-```vue
+```js
 <!-- CustomInput.vue -->
 <template>
   <input :value="modelValue" @input="(e) => $emit('update:modelValue', e.target.value)">
@@ -144,7 +146,7 @@ export default {
 };
 </script>
 ```
-```vue
+```js
 <!-- Usage in parent -->
 <CustomInput v-model="userInput" />
 
@@ -166,7 +168,7 @@ export default {
 
 Slots позволяют родителю внедрять части разметки в дочерние компоненты. Это мощная концепция для переиспользуемых компонентов с динамическим содержимым.
 
-```vue
+```js
 <!-- Dialog.vue -->
 <template>
   <div class="dialog">
@@ -175,7 +177,7 @@ Slots позволяют родителю внедрять части разме
   </div>
 </template>
 ```
-```vue
+```js
 <!-- Parent.vue -->
 <Dialog>
   <template #header>
@@ -190,7 +192,7 @@ Slots позволяют родителю внедрять части разме
 
 Слоты могут передавать параметры из дочернего компонента родителю:
 
-```vue
+```js
 <!-- UserList.vue -->
 <template>
   <ul>
@@ -204,7 +206,7 @@ export default {
 }
 </script>
 ```
-```vue
+```js
 <!-- Parent.vue -->
 <UserList :users="userData">
   <template #default="{ user }">
@@ -297,7 +299,7 @@ methods: {
 
 ### Пример динамического списка
 
-```vue
+```js
 <template>
   <ul>
     <li v-for="item in items" :key="item.id">
@@ -329,7 +331,7 @@ export default {
 
 Vue позволяет динамически подменять компоненты с помощью элемента `<component :is="componentName">`. Такой подход используется для вкладок, отображения разных форм и других подобных интерактивных ситуаций.
 
-```vue
+```js
 <template>
   <component :is="currentComponent" />
 </template>
@@ -435,7 +437,7 @@ provide() {
 
 ### Пример: динамическая форма
 
-```vue
+```js
 <template>
   <div v-for="(field, index) in fields" :key="field.id">
     <input v-model="field.value" :placeholder="field.name" />
@@ -473,7 +475,9 @@ export default {
 
 ## Заключение
 
-Управление параметрами и динамическими данными — фундаментальная часть работы с Vue. Вы научились передавать параметры через props, возвращать значения обратно через события и `v-model`, применять слоты для гибкого шаблонирования, использовать provide/inject для глубоких связей данных, подключать асинхронные данные и строить динамические формы. Понимание этих паттернов позволяет создавать сложные, интерактивные и поддерживаемые приложения на Vue.
+Вы научились передавать параметры через props, возвращать значения обратно через события и `v-model`, применять слоты для гибкого шаблонирования, использовать provide/inject для глубоких связей данных, подключать асинхронные данные и строить динамические формы. Понимание этих паттернов позволяет создавать сложные, интерактивные и поддерживаемые приложения на Vue.
+
+Управление параметрами и динамическими данными - важный навык для Vue разработчика, который можно существенно улучшить на практике. Прокачайте свои навыки на курсе [Vue.js 3, Vue Router и Pinia](https://purpleschool.ru/course/vuejs?utm_source=knowledgebase&utm_medium=article&utm_campaign=upravlenie-parametrami-i-dinamicheskimi-dannymi-vo-vue). В первых 3 модулях уже доступно бесплатное содержание — начните погружаться в мир Vue прямо сейчас.
 
 ## Частозадаваемые технические вопросы
 

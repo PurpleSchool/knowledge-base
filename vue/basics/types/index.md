@@ -23,6 +23,8 @@ TypeScript значительно увеличивает надежность к
 - **Ясность структуры данных** — проще поддерживать и расширять проект.
 - **Улучшение документации** — типы выступают как дополнительная документация для вашей команды.
 
+Использование TypeScript в Vue.js проектах значительно повышает надежность кода, упрощает его поддержку и позволяет избежать многих ошибок на этапе разработки. Однако, для эффективного применения TypeScript необходимо глубокое понимание системы типов и особенностей интеграции с Vue. Если вы хотите освоить эффективные подходы к типизации в Vue, научиться интегрировать TypeScript в свои проекты и организовывать типы — приходите на наш большой курс [Vue.js 3, Vue Router и Pinia](https://purpleschool.ru/course/vuejs?utm_source=knowledgebase&utm_medium=article&utm_campaign=tipizaciya-i-ispolzovanie-typescript-v-vuejs). На курсе 173 уроков и 21 упражнение, AI-тренажеры для безлимитной практики с кодом и задачами 24/7, решение задач с живым ревью наставника, еженедельные встречи с менторами.
+
 ### Начало работы: настройка окружения
 
 Для начала потребуется создать проект Vue с поддержкой TypeScript. Самый простой способ — использовать официальный Vue CLI.
@@ -79,7 +81,7 @@ npm create vite@latest my-vue-ts-app -- --template vue-ts
 
 Это рекомендуемый подход: каждый компонент живет в своем `.vue` файле.
 
-```vue
+```js
 <template>
   <div>{{ count }}</div>
 </template>
@@ -128,7 +130,7 @@ export default class HelloWorld extends Vue {
 
 Composition API, появившийся в Vue 3, предлагает компактный синтаксис и лучшую интеграцию с TypeScript.
 
-```vue
+```js
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
 
@@ -152,7 +154,7 @@ TypeScript позволяет явно указывать типы props с по
 
 Vue 3 поддерживает `<script setup>` — это самый лаконичный способ сочетания Vue и TypeScript.
 
-```vue
+```js
 <script lang="ts" setup>
 interface Props {
   title: string
@@ -165,7 +167,7 @@ const props = defineProps<Props>()
 
 Для дефолтных значений используйте defineProps + слияние с default-значениями:
 
-```vue
+```js
 <script lang="ts" setup>
 interface Props {
   title: string
@@ -202,7 +204,7 @@ export default defineComponent({
 
 События можно типизировать с помощью defineEmits.
 
-```vue
+```js
 <script lang="ts" setup>
 const emit = defineEmits<{
   (e: 'increment', value: number): void
@@ -217,7 +219,7 @@ function inc() {
 
 ### Типизация slots
 
-```vue
+```js
 <script lang="ts" setup>
 interface Slots {
   default: (props: { text: string }) => any
@@ -371,6 +373,8 @@ TypeScript серьезно упрощает жизнь разработчика
 
 Обратная совместимость, большой выбор инструментов, поддержка сторонних библиотек и удобный DX делают связку Vue.js + TypeScript лучшим выбором для профессиональной разработки современного фронтенда. Используйте типы для props, events, slots, реактивных данных, глобальных свойств, выносите типы в отдельные файлы и тестируйте их — так вы избежите массы неприятных сюрпризов на продакшн-этапе.
 
+Важно также понимать принципы работы с компонентами, маршрутизацией и управлением состоянием.  Освойте все необходимые навыки для создания современных веб-приложений на Vue с помощью курса [Vue.js 3, Vue Router и Pinia](https://purpleschool.ru/course/vuejs?utm_source=knowledgebase&utm_medium=article&utm_campaign=tipizaciya-i-ispolzovanie-typescript-v-vuejs). В первых 3 модулях уже доступно бесплатное содержание — начните погружаться в мир Vue прямо сейчас.
+
 ## Частозадаваемые технические вопросы по теме статьи и ответы на них
 
 #### Как правильно типизировать refs на DOM-элементы?
@@ -389,7 +393,7 @@ onMounted(() => {
 #### Как типизировать параметры v-model с TypeScript?
 
 Если используете v-model, обязательно используйте явную типизацию:
-```vue
+```js
 <script lang="ts" setup>
 const modelValue = defineModel<string>()
 </script>

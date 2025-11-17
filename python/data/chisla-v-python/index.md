@@ -97,5 +97,5 @@ print(abs(-10))         # 10
 
 Работа с числами в Python включает использование различных типов, арифметических операций, функций и преобразование типов. Эти навыки необходимы для решения практических задач и разработки приложений.
 
-Для системного изучения работы с числами, математических операций и закрепления практики рекомендуется курс [Основы Python](https://purpleschool.ru/course/python-basics?utm_source=knowledgebase&utm_medium=article&utm_campaign=Kak_rabotat_s_chislami_v_Python).
+Для системного изучения работы с числами, математических операций и закрепления практики рекомендуется курс [Основы Python](https://purpleschool.ru/course/python-basics?utm_source=knowledgebase&utm_medium=article&utm_campaign=Kak_rabotat_z_chislami_v_Python).
 Курс даёт полное понимание работы с числами и позволяет применять знания на практике.

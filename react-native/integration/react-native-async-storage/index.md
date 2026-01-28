@@ -296,13 +296,22 @@ const user = jsonString ? JSON.parse(jsonString) : null;
 
 ### Проверка токена при запуске приложения
 
-Разрешите мне продемонстрировать, как реализовать автоавторизацию через сохранённый токен:
+Ниже - упрощённый пример автоавторизации.
+
+Важно: **не храните access/refresh token в AsyncStorage**, если вы рассчитываете на защиту от компрометации устройства. На Android (и в целом на мобильных устройствах) локальное хранилище можно извлечь при наличии вредоносного ПО, root/jailbreak, debug-сборки, бэкапов и т.п.
+
+Для токенов используйте **secure storage**:
+- iOS: Keychain
+- Android: Keystore
+- Кросс-платформенно: `react-native-keychain` или `expo-secure-store`
+
+А в AsyncStorage/MMKV держите только *нечувствительные* данные (флаги, настройки, кеш, id пользователя).
 
 ```javascript
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 
 const checkToken = async () => {
-  const token = await AsyncStorage.getItem('auth_token');
+  const token = await SecureStore.getItemAsync('auth_token');
   if (token) {
     // Пользователь авторизован
   } else {
@@ -325,7 +334,9 @@ storage.clearAll();
 
 ## Лучшие практики безопасности и производительности
 
-- Не храните чувствительные данные в открытом виде. Для паролей используйте secure storage.
+- Не храните чувствительные данные в открытом виде.
+- **Токены авторизации (access/refresh token) не храните в AsyncStorage/MMKV** - используйте secure storage (Keychain/Keystore).
+- Для паролей и секретов используйте secure storage.
 - Не используйте локальное хранилище в качестве базы долгосрочных данных для критичных бизнес-процессов – обновления или удаление приложения могут привести к потере данных.
 - Проверяйте обратную совместимость: миграции между версиями схемы хранения могут потребовать преобразований.
 - Используйте асинхронные API, чтобы не блокировать главный поток приложения.

@@ -80,13 +80,36 @@ docker-compose up -d
 
 #### Установка Zabbix-агента в Docker
 
-Чтобы установить агента, также можно использовать Docker. Запустите следующую команду:
+Чтобы установить агента, также можно использовать Docker.
 
+Важно: имя `zabbix-server` как хост работает только **внутри одной Docker network**, где запущен сервис `zabbix-server` (в docker-compose это имя сервиса).
+Если вы запускаете агент отдельной командой `docker run` **вне** этой сети, он не сможет резолвить `zabbix-server` и в логах появится ошибка вида `getaddrinfo() failed for 'zabbix-server'`.
+
+**Вариант A (агент в той же сети docker-compose):**
+
+1) Узнайте имя сети (обычно `<project>_default`):
 ```bash
-docker run --name zabbix-agent -e ZBX_SERVER_HOST="zabbix-server" zabbix/zabbix-agent:latest
+docker network ls
 ```
 
-Эта команда создаст и запустит контейнер с Zabbix-агентом, который будет передавать данные на ваш Zabbix-сервер.
+2) Запустите агента в этой сети:
+```bash
+docker run -d --name zabbix-agent \
+  --network <project>_default \
+  -e ZBX_SERVER_HOST="zabbix-server" \
+  zabbix/zabbix-agent:latest
+```
+
+**Вариант B (агент на хосте/в другой сети):**
+
+Укажите реальный адрес сервера (IP/FQDN), например:
+```bash
+docker run -d --name zabbix-agent \
+  -e ZBX_SERVER_HOST="<server_ip_or_fqdn>" \
+  zabbix/zabbix-agent:latest
+```
+
+Эти команды создадут и запустят контейнер с Zabbix-агентом, который будет передавать данные на ваш Zabbix-сервер.
 
 ## Основные возможности
 

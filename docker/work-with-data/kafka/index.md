@@ -44,26 +44,35 @@ Apache Kafka — это мощная платформа для обработк�
 
 1. **Создание Docker Compose файла**:
 
-   Docker Compose позволяет описать и запустить многокомпонентные Docker приложения. Для Kafka это особенно полезно, так как она требует несколько сервисов для работы. Создайте файл `docker-compose.yml` со следующим содержимым:
+   Docker Compose позволяет описать и запустить многокомпонентные Docker приложения. Для Kafka это особенно полезно, так как она требует несколько сервисов для работы. Создайте файл `docker-compose.yml` со следующим содержимым (образы Confluent используют актуальный формат манифеста и не вызывают предупреждение про устаревшие Docker image specs):
 
    ```yaml
-   version: '2'
+   version: '3.8'
+
    services:
      zookeeper:
-       image: wurstmeister/zookeeper:3.4.6
+       image: confluentinc/cp-zookeeper:7.6.0
+       environment:
+         ZOOKEEPER_CLIENT_PORT: 2181
+         ZOOKEEPER_TICK_TIME: 2000
        ports:
          - "2181:2181"
+
      kafka:
-       image: wurstmeister/kafka:latest
+       image: confluentinc/cp-kafka:7.6.0
+       depends_on:
+         - zookeeper
        ports:
          - "9092:9092"
        environment:
+         KAFKA_BROKER_ID: 1
          KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
          KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
-       volumes:
-         - /var/run/docker.sock:/var/run/docker.sock
+         KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+         KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
    ```
-   // В этом файле определены два сервиса: Zookeeper и Kafka. Zookeeper необходим для координации Kafka брокеров.
+
+   В этом файле определены два сервиса: Zookeeper и Kafka. Zookeeper необходим для координации Kafka брокеров.
 
 2. **Запуск сервисов**:
 

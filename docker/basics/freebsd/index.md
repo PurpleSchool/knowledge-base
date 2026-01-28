@@ -22,12 +22,14 @@ Docker — это платформа программного обеспечен
 
 ```shell
 # Установите bhyve из пакетов
-sudo pkg install -y grub2-bhyve uefi-edk2-bhyve bhyve-firmware
+sudo pkg install -y grub2-bhyve bhyve-firmware
 
 # Если вы предпочитаете использовать порты:
 # cd /usr/ports/sysutils/grub2-bhyve && sudo make install clean
-# cd /usr/ports/sysutils/uefi-edk2-bhyve && sudo make install clean
 # cd /usr/ports/sysutils/bhyve-firmware && sudo make install clean
+
+# Примечание: порт uefi-edk2-bhyve удалён из Ports Collection, поэтому ставить его не нужно.
+# UEFI-прошивки для bhyve доступны в пакете bhyve-firmware (например, /usr/local/share/uefi-firmware/BHYVE_UEFI.fd).
 ```
 
 В этом примере мы устанавливаем необходимые компоненты `bhyve`, которые понадобятся для работы виртуальных машин. Убедитесь, что вы выполнили установку от пользователя с правами суперпользователя.

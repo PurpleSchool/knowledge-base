@@ -1,6 +1,6 @@
 ---
 metaTitle: Отладка Bash — bash -x, strict mode и ShellCheck
-metaDescription: Полный разбор отладки Bash-скриптов: трассировка, set -euo pipefail, shellcheck и диагностика сложных багов.
+metaDescription: "Полный разбор отладки Bash-скриптов: трассировка, set -euo pipefail, shellcheck и диагностика сложных багов."
 author: Олег Марков
 title: Отладка Bash-скриптов — практический разбор
 preview: Научимся быстро находить ошибки в Bash с помощью bash -x, логирования и линтера ShellCheck.

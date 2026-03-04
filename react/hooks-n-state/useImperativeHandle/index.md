@@ -1,6 +1,6 @@
 ---
 metaTitle: useImperativeHandle в React — настройка ref дочернего компонента
-metaDescription: Полное руководство по useImperativeHandle в React: как кастомизировать ref, передаваемый родителю через forwardRef, практические примеры, TypeScript и лучшие практики
+metaDescription: "Полное руководство по useImperativeHandle в React: как кастомизировать ref, передаваемый родителю через forwardRef, практические примеры, TypeScript и лучшие практики"
 author: Олег Марков
 title: useImperativeHandle в React — настройка ref дочернего компонента
 preview: Узнайте, как использовать хук useImperativeHandle в React для управления тем, какие методы и свойства дочернего компонента доступны через ref родителю, и как это помогает создавать удобные компонентные API

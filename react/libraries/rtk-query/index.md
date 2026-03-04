@@ -1,368 +1,434 @@
 ---
-metaTitle: RTK Query - работа с API в React и Redux Toolkit
-metaDescription: Полное руководство по RTK Query — встроенному инструменту для работы с API в Redux Toolkit. Кэширование, запросы, мутации, инвалидация кэша, TypeScript и оптимистичные обновления
+metaTitle: "RTK Query - работа с API в Redux Toolkit"
+metaDescription: "Полное руководство по RTK Query: createApi, fetchBaseQuery, queries, mutations, кэширование, инвалидация тегов, оптимистичные обновления, пагинация, TypeScript и сравнение с React Query"
 author: Олег Марков
 title: RTK Query - работа с API
-preview: Узнайте, как использовать RTK Query для загрузки данных, кэширования, мутаций и инвалидации кэша в React-приложениях — с минимумом шаблонного кода и полной интеграцией с Redux DevTools
+preview: RTK Query — мощный инструмент для работы с API, встроенный в Redux Toolkit. Изучите создание API срезов, управление кэшем, мутации, оптимистичные обновления и пагинацию с полными примерами кода.
 ---
 
 ## Введение
 
-Работа с API — одна из самых рутинных задач в разработке React-приложений. Типичный сценарий: загрузить данные, показать состояние загрузки, обработать ошибки, кэшировать результат, инвалидировать кэш после мутации. Если делать это вручную через `createAsyncThunk`, приходится писать значительный объём шаблонного кода для каждого эндпоинта.
+RTK Query — это инструмент для получения данных и кэширования, встроенный в Redux Toolkit. Он позволяет значительно сократить количество шаблонного кода при работе с API, автоматически управляет кэшированием, инвалидацией и синхронизацией данных.
 
-**RTK Query** — это мощный инструмент для загрузки и кэширования данных, встроенный в Redux Toolkit. Он автоматически генерирует хуки для запросов и мутаций, управляет кэшем, обрабатывает загрузку и ошибки, а также полностью интегрируется с Redux DevTools.
+В отличие от написания вручную thunk-экшенов, редьюсеров и селекторов для каждого запроса, RTK Query позволяет определить всё API в одном месте и автоматически генерирует React-хуки для использования в компонентах.
 
-RTK Query вдохновлён библиотеками React Query и SWR, но работает внутри Redux-экосистемы, что позволяет видеть все запросы и кэш в Redux DevTools.
+## Установка и настройка
 
-## Почему RTK Query
-
-### Проблема: ручное управление запросами
-
-```typescript
-// Без RTK Query: много шаблонного кода для каждого запроса
-interface PostsState {
-  posts: Post[];
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
-  error: string | null;
-}
-
-const fetchPosts = createAsyncThunk('posts/fetchAll', async () => {
-  const response = await fetch('/api/posts');
-  return response.json();
-});
-
-const postsSlice = createSlice({
-  name: 'posts',
-  initialState: { posts: [], status: 'idle', error: null } as PostsState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchPosts.pending, (state) => { state.status = 'loading'; })
-      .addCase(fetchPosts.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.posts = action.payload;
-      })
-      .addCase(fetchPosts.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message ?? null;
-      });
-  },
-});
-
-// И это только для одного запроса. Для каждого CRUD — новый thunk + обработчики
-```
-
-### Решение с RTK Query
-
-```typescript
-// С RTK Query: весь API — в одном месте
-const postsApi = createApi({
-  reducerPath: 'postsApi',
-  baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
-  endpoints: (builder) => ({
-    getPosts: builder.query<Post[], void>({
-      query: () => '/posts',
-    }),
-    getPostById: builder.query<Post, number>({
-      query: (id) => `/posts/${id}`,
-    }),
-    createPost: builder.mutation<Post, Partial<Post>>({
-      query: (body) => ({ url: '/posts', method: 'POST', body }),
-    }),
-  }),
-});
-
-// Автоматически генерируются хуки:
-// useGetPostsQuery, useGetPostByIdQuery, useCreatePostMutation
-```
-
-## Установка
-
-RTK Query входит в `@reduxjs/toolkit` — устанавливать ничего дополнительно не нужно:
+RTK Query входит в состав Redux Toolkit, поэтому дополнительная установка не требуется:
 
 ```bash
 npm install @reduxjs/toolkit react-redux
 ```
 
-## createApi — основа RTK Query
+## Создание API с помощью createApi
 
-Весь API-слой описывается с помощью `createApi`:
+Основа RTK Query — функция `createApi`. Она принимает объект конфигурации и возвращает API-объект с хуками и утилитами.
 
 ```typescript
+// src/services/api.ts
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-export const apiSlice = createApi({
-  // Ключ в Redux store, где будет храниться кэш
-  reducerPath: 'api',
-
-  // Базовая функция для выполнения запросов
-  baseQuery: fetchBaseQuery({
-    baseUrl: 'https://jsonplaceholder.typicode.com',
-    // Заголовки по умолчанию
-    prepareHeaders: (headers, { getState }) => {
-      // Можно получить токен из стора
-      const token = (getState() as RootState).auth.token;
-      if (token) {
-        headers.set('Authorization', `Bearer ${token}`);
-      }
-      return headers;
-    },
-  }),
-
-  // Теги для управления кэшем и инвалидацией
-  tagTypes: ['Post', 'User', 'Comment'],
-
-  // Эндпоинты
-  endpoints: (builder) => ({
-    // ... описываем запросы и мутации
-  }),
-});
-```
-
-## Запросы (Queries)
-
-Запросы используются для **получения данных** (GET-запросы).
-
-### Базовый запрос
-
-```typescript
-interface Post {
+export interface Post {
   id: number;
   title: string;
   body: string;
   userId: number;
 }
 
+export interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
 export const postsApi = createApi({
+  // Уникальный ключ для хранения в Redux store
   reducerPath: 'postsApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://jsonplaceholder.typicode.com' }),
-  endpoints: (builder) => ({
-    // Запрос без параметров
-    getPosts: builder.query<Post[], void>({
-      query: () => '/posts',
-    }),
-
-    // Запрос с параметром
-    getPostById: builder.query<Post, number>({
-      query: (id) => `/posts/${id}`,
-    }),
-
-    // Запрос с несколькими параметрами
-    getPostsByUser: builder.query<Post[], { userId: number; limit?: number }>({
-      query: ({ userId, limit = 10 }) =>
-        `/posts?userId=${userId}&_limit=${limit}`,
-    }),
+  
+  // Базовая конфигурация запросов
+  baseQuery: fetchBaseQuery({ 
+    baseUrl: 'https://jsonplaceholder.typicode.com/' 
   }),
-});
-
-// Автогенерация хуков
-export const {
-  useGetPostsQuery,
-  useGetPostByIdQuery,
-  useGetPostsByUserQuery,
-} = postsApi;
-```
-
-### Использование в компоненте
-
-```tsx
-function PostsList() {
-  const {
-    data: posts,     // Данные
-    isLoading,       // true при первой загрузке
-    isFetching,      // true при любой загрузке (включая обновление)
-    isSuccess,       // true при успешном запросе
-    isError,         // true при ошибке
-    error,           // Объект ошибки
-    refetch,         // Функция для повторного запроса
-  } = useGetPostsQuery();
-
-  if (isLoading) return <p>Загрузка...</p>;
-  if (isError) return <p>Ошибка: {JSON.stringify(error)}</p>;
-
-  return (
-    <div>
-      <button onClick={refetch}>Обновить</button>
-      <ul>
-        {posts?.map((post) => (
-          <li key={post.id}>{post.title}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function PostDetail({ id }: { id: number }) {
-  const { data: post, isLoading } = useGetPostByIdQuery(id);
-
-  if (isLoading) return <p>Загрузка...</p>;
-
-  return (
-    <article>
-      <h2>{post?.title}</h2>
-      <p>{post?.body}</p>
-    </article>
-  );
-}
-```
-
-### Опции запроса
-
-```tsx
-function PostsList() {
-  const { data } = useGetPostsQuery(undefined, {
-    // Пропустить запрос (например, если нет авторизации)
-    skip: !isAuthenticated,
-
-    // Автоматически повторять запрос каждые 30 секунд
-    pollingInterval: 30000,
-
-    // Считать кэш устаревшим и перезапрашивать при фокусе окна
-    refetchOnFocus: true,
-
-    // Перезапрашивать при восстановлении соединения
-    refetchOnReconnect: true,
-
-    // Игнорировать кэш и всегда делать новый запрос
-    refetchOnMountOrArgChange: true,
-
-    // Использовать данные из кэша в течение N секунд
-    selectFromResult: ({ data, isLoading }) => ({
-      posts: data?.filter((p) => p.userId === currentUserId),
-      isLoading,
-    }),
-  });
-}
-```
-
-### Условные запросы
-
-```tsx
-function UserPosts({ userId }: { userId: number | null }) {
-  // Запрос выполнится только если userId не null
-  const { data } = useGetPostsByUserQuery(
-    { userId: userId! },
-    { skip: userId === null }
-  );
-
-  // Или с хуком skipToken
-  const { data: user } = useGetUserQuery(userId ?? skipToken);
-}
-```
-
-## Мутации (Mutations)
-
-Мутации используются для **изменения данных** (POST, PUT, PATCH, DELETE).
-
-### Определение мутаций
-
-```typescript
-export const postsApi = createApi({
-  reducerPath: 'postsApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://jsonplaceholder.typicode.com' }),
-  tagTypes: ['Post'],
+  
+  // Теги для инвалидации кэша
+  tagTypes: ['Post', 'User'],
+  
+  // Определение эндпоинтов
   endpoints: (builder) => ({
     getPosts: builder.query<Post[], void>({
-      query: () => '/posts',
+      query: () => 'posts',
       providesTags: ['Post'],
     }),
-
-    createPost: builder.mutation<Post, Omit<Post, 'id'>>({
-      query: (newPost) => ({
-        url: '/posts',
+    
+    getPostById: builder.query<Post, number>({
+      query: (id) => `posts/${id}`,
+      providesTags: (result, error, id) => [{ type: 'Post', id }],
+    }),
+    
+    createPost: builder.mutation<Post, Partial<Post>>({
+      query: (body) => ({
+        url: 'posts',
         method: 'POST',
-        body: newPost,
+        body,
       }),
-      // Инвалидирует кэш тега 'Post' — запрос getPosts выполнится заново
       invalidatesTags: ['Post'],
     }),
-
-    updatePost: builder.mutation<Post, Partial<Post> & { id: number }>({
+    
+    updatePost: builder.mutation<Post, Partial<Post> & Pick<Post, 'id'>>({
       query: ({ id, ...patch }) => ({
-        url: `/posts/${id}`,
+        url: `posts/${id}`,
         method: 'PATCH',
         body: patch,
       }),
-      invalidatesTags: (_result, _error, { id }) => [{ type: 'Post', id }],
+      invalidatesTags: (result, error, { id }) => [{ type: 'Post', id }],
     }),
-
-    deletePost: builder.mutation<void, number>({
+    
+    deletePost: builder.mutation<{ success: boolean }, number>({
       query: (id) => ({
-        url: `/posts/${id}`,
+        url: `posts/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (_result, _error, id) => [{ type: 'Post', id }],
+      invalidatesTags: ['Post'],
     }),
   }),
 });
 
+// Экспортируем автоматически сгенерированные хуки
 export const {
   useGetPostsQuery,
+  useGetPostByIdQuery,
   useCreatePostMutation,
   useUpdatePostMutation,
   useDeletePostMutation,
 } = postsApi;
 ```
 
-### Использование мутаций
+## Подключение к Redux Store
+
+```typescript
+// src/store.ts
+import { configureStore } from '@reduxjs/toolkit';
+import { postsApi } from './services/api';
+
+export const store = configureStore({
+  reducer: {
+    // Добавляем редьюсер API
+    [postsApi.reducerPath]: postsApi.reducer,
+  },
+  // Добавляем middleware для кэширования, инвалидации и polling
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(postsApi.middleware),
+});
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+```
 
 ```tsx
-function CreatePostForm() {
-  const [createPost, { isLoading, isSuccess, isError, error }] =
-    useCreatePostMutation();
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
+// src/main.tsx
+import { Provider } from 'react-redux';
+import { store } from './store';
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const result = await createPost({ title, body, userId: 1 }).unwrap();
-      console.log('Создан пост:', result);
-      setTitle('');
-      setBody('');
-    } catch (err) {
-      console.error('Ошибка создания:', err);
-    }
-  };
-
+function App() {
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Заголовок"
-        disabled={isLoading}
-      />
-      <textarea
-        value={body}
-        onChange={(e) => setBody(e.target.value)}
-        placeholder="Текст"
-        disabled={isLoading}
-      />
-      <button type="submit" disabled={isLoading}>
-        {isLoading ? 'Создание...' : 'Создать'}
-      </button>
-      {isSuccess && <p>✅ Пост создан!</p>}
-      {isError && <p>❌ Ошибка: {JSON.stringify(error)}</p>}
-    </form>
+    <Provider store={store}>
+      <YourApp />
+    </Provider>
   );
 }
 ```
 
+## Использование Query-хуков
+
+### Базовый запрос
+
+```tsx
+import { useGetPostsQuery } from './services/api';
+
+function PostsList() {
+  // Хук возвращает объект с состоянием запроса
+  const { 
+    data: posts,      // Данные ответа
+    isLoading,        // true при первой загрузке
+    isFetching,       // true при любой загрузке (включая refetch)
+    isSuccess,        // true если запрос успешен
+    isError,          // true при ошибке
+    error,            // Объект ошибки
+    refetch,          // Функция для ручного перезапроса
+  } = useGetPostsQuery();
+
+  if (isLoading) return <div>Загрузка...</div>;
+  if (isError) return <div>Ошибка: {JSON.stringify(error)}</div>;
+
+  return (
+    <ul>
+      {posts?.map((post) => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+### Запрос с аргументом
+
+```tsx
+import { useGetPostByIdQuery } from './services/api';
+
+function PostDetail({ postId }: { postId: number }) {
+  const { data: post, isLoading } = useGetPostByIdQuery(postId);
+
+  if (isLoading) return <div>Загрузка поста...</div>;
+  
+  return (
+    <div>
+      <h1>{post?.title}</h1>
+      <p>{post?.body}</p>
+    </div>
+  );
+}
+```
+
+### Условные запросы
+
+```tsx
+function ConditionalPost({ postId }: { postId: number | null }) {
+  // Запрос не выполняется, если postId равен null
+  const { data } = useGetPostByIdQuery(postId!, {
+    skip: postId === null,
+  });
+
+  return <div>{data?.title}</div>;
+}
+```
+
+### Polling (автоматическое обновление)
+
+```tsx
+function LiveData() {
+  // Обновляем данные каждые 30 секунд
+  const { data } = useGetPostsQuery(undefined, {
+    pollingInterval: 30000,
+  });
+
+  return <div>{/* ... */}</div>;
+}
+```
+
+### Опции запросов
+
+```tsx
+const { data } = useGetPostsQuery(undefined, {
+  // Не выполнять запрос
+  skip: false,
+  
+  // Интервал опроса в миллисекундах
+  pollingInterval: 0,
+  
+  // Перезапрашивать при фокусе окна
+  refetchOnFocus: true,
+  
+  // Перезапрашивать при восстановлении соединения
+  refetchOnReconnect: true,
+  
+  // Перезапрашивать при монтировании компонента
+  refetchOnMountOrArgChange: true,
+  
+  // Считать данные свежими N секунд после последнего запроса
+  refetchOnMountOrArgChange: 60,
+});
+```
+
+## Мутации
+
+Мутации используются для изменения данных на сервере (POST, PUT, PATCH, DELETE).
+
+```tsx
+import { useCreatePostMutation, useUpdatePostMutation, useDeletePostMutation } from './services/api';
+
+function PostForm() {
+  const [createPost, { isLoading: isCreating }] = useCreatePostMutation();
+  const [updatePost, { isLoading: isUpdating }] = useUpdatePostMutation();
+  const [deletePost] = useDeletePostMutation();
+
+  const handleCreate = async () => {
+    try {
+      // unwrap() выбрасывает ошибку если запрос завершился неудачно
+      const newPost = await createPost({
+        title: 'Новый пост',
+        body: 'Содержимое поста',
+        userId: 1,
+      }).unwrap();
+      
+      console.log('Создан пост:', newPost);
+    } catch (error) {
+      console.error('Ошибка создания:', error);
+    }
+  };
+
+  const handleUpdate = async (id: number) => {
+    await updatePost({ id, title: 'Обновлённый заголовок' }).unwrap();
+  };
+
+  const handleDelete = async (id: number) => {
+    await deletePost(id).unwrap();
+  };
+
+  return (
+    <div>
+      <button onClick={handleCreate} disabled={isCreating}>
+        {isCreating ? 'Создаём...' : 'Создать пост'}
+      </button>
+    </div>
+  );
+}
+```
+
+### Состояния мутации
+
+```tsx
+const [createPost, mutationResult] = useCreatePostMutation();
+
+const {
+  isLoading,    // Мутация выполняется
+  isSuccess,    // Мутация успешно завершена
+  isError,      // Мутация завершилась ошибкой
+  error,        // Объект ошибки
+  data,         // Данные ответа
+  reset,        // Сброс состояния мутации
+} = mutationResult;
+```
+
+## fetchBaseQuery: настройка базового запроса
+
+`fetchBaseQuery` — упрощённая обёртка над `fetch`, поддерживающая типичные сценарии:
+
+```typescript
+import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import type { RootState } from '../store';
+
+const baseQuery = fetchBaseQuery({
+  // Базовый URL
+  baseUrl: 'https://api.example.com/',
+  
+  // Добавление заголовков к каждому запросу
+  prepareHeaders: (headers, { getState }) => {
+    // Получаем токен из Redux state
+    const token = (getState() as RootState).auth.token;
+    
+    if (token) {
+      headers.set('authorization', `Bearer ${token}`);
+    }
+    
+    headers.set('Content-Type', 'application/json');
+    return headers;
+  },
+  
+  // Кастомный обработчик ответа
+  responseHandler: 'json', // 'json' | 'text' | 'blob' | custom function
+  
+  // Валидация статуса (по умолчанию 200-299)
+  validateStatus: (response, body) => response.status === 200 && body.success,
+});
+```
+
+## Кастомный baseQuery
+
+Для более сложных сценариев можно написать полностью кастомный baseQuery. Например, с обновлением токена:
+
+```typescript
+import { 
+  fetchBaseQuery,
+  BaseQueryFn,
+  FetchArgs,
+  FetchBaseQueryError,
+} from '@reduxjs/toolkit/query/react';
+import { tokenReceived, loggedOut } from './authSlice';
+
+const baseQuery = fetchBaseQuery({
+  baseUrl: 'https://api.example.com',
+  prepareHeaders: (headers, { getState }) => {
+    const token = (getState() as RootState).auth.accessToken;
+    if (token) {
+      headers.set('authorization', `Bearer ${token}`);
+    }
+    return headers;
+  },
+});
+
+// baseQuery с автоматическим обновлением токена
+export const baseQueryWithReauth: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
+  let result = await baseQuery(args, api, extraOptions);
+
+  if (result.error && result.error.status === 401) {
+    // Пробуем обновить токен
+    const refreshResult = await baseQuery(
+      { url: '/auth/refresh', method: 'POST' },
+      api,
+      extraOptions
+    );
+
+    if (refreshResult.data) {
+      // Сохраняем новый токен
+      api.dispatch(tokenReceived(refreshResult.data));
+      // Повторяем оригинальный запрос
+      result = await baseQuery(args, api, extraOptions);
+    } else {
+      // Разлогиниваем пользователя
+      api.dispatch(loggedOut());
+    }
+  }
+
+  return result;
+};
+
+// Используем в createApi
+export const api = createApi({
+  baseQuery: baseQueryWithReauth,
+  endpoints: (builder) => ({ /* ... */ }),
+});
+```
+
 ## Теги и инвалидация кэша
 
-Теги — ключевой механизм RTK Query для синхронизации кэша. Запросы **предоставляют** теги, мутации их **инвалидируют**.
+Теги — ключевая концепция RTK Query для управления кэшем. Запросы "предоставляют" теги, а мутации "инвалидируют" их.
+
+### Базовые теги
 
 ```typescript
 const api = createApi({
-  reducerPath: 'api',
-  baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
-  tagTypes: ['Post', 'User'],
+  tagTypes: ['Post', 'User', 'Comment'],
   endpoints: (builder) => ({
-    // Запрос предоставляет теги
+    // Запрос предоставляет список тегов 'Post'
     getPosts: builder.query<Post[], void>({
-      query: () => '/posts',
-      // Предоставляет тег 'Post' для каждого поста + общий тег 'Post'
+      query: () => 'posts',
+      providesTags: ['Post'],
+    }),
+    
+    // Мутация инвалидирует все кэши с тегом 'Post'
+    addPost: builder.mutation<Post, Partial<Post>>({
+      query: (body) => ({ url: 'posts', method: 'POST', body }),
+      invalidatesTags: ['Post'],
+    }),
+  }),
+});
+```
+
+### Теги с идентификаторами
+
+Для точечной инвалидации используйте теги с ID:
+
+```typescript
+const api = createApi({
+  tagTypes: ['Post'],
+  endpoints: (builder) => ({
+    getPosts: builder.query<Post[], void>({
+      query: () => 'posts',
+      // Предоставляем LIST-тег и тег для каждого поста
       providesTags: (result) =>
         result
           ? [
@@ -371,33 +437,32 @@ const api = createApi({
             ]
           : [{ type: 'Post', id: 'LIST' }],
     }),
-
-    getPostById: builder.query<Post, number>({
-      query: (id) => `/posts/${id}`,
-      // Предоставляет тег для конкретного поста
-      providesTags: (_result, _error, id) => [{ type: 'Post', id }],
+    
+    getPost: builder.query<Post, number>({
+      query: (id) => `posts/${id}`,
+      providesTags: (result, error, id) => [{ type: 'Post', id }],
     }),
-
-    // Создание инвалидирует список
-    createPost: builder.mutation<Post, Partial<Post>>({
-      query: (body) => ({ url: '/posts', method: 'POST', body }),
+    
+    addPost: builder.mutation<Post, Partial<Post>>({
+      query: (body) => ({ url: 'posts', method: 'POST', body }),
+      // Инвалидируем только список, не отдельные посты
       invalidatesTags: [{ type: 'Post', id: 'LIST' }],
     }),
-
-    // Обновление инвалидирует конкретный пост
-    updatePost: builder.mutation<Post, { id: number; changes: Partial<Post> }>({
-      query: ({ id, changes }) => ({
-        url: `/posts/${id}`,
+    
+    updatePost: builder.mutation<Post, Partial<Post> & Pick<Post, 'id'>>({
+      query: ({ id, ...patch }) => ({
+        url: `posts/${id}`,
         method: 'PATCH',
-        body: changes,
+        body: patch,
       }),
-      invalidatesTags: (_result, _error, { id }) => [{ type: 'Post', id }],
+      // Инвалидируем только конкретный пост
+      invalidatesTags: (result, error, { id }) => [{ type: 'Post', id }],
     }),
-
-    // Удаление инвалидирует конкретный пост и список
+    
     deletePost: builder.mutation<void, number>({
-      query: (id) => ({ url: `/posts/${id}`, method: 'DELETE' }),
-      invalidatesTags: (_result, _error, id) => [
+      query: (id) => ({ url: `posts/${id}`, method: 'DELETE' }),
+      // Инвалидируем конкретный пост и список
+      invalidatesTags: (result, error, id) => [
         { type: 'Post', id },
         { type: 'Post', id: 'LIST' },
       ],
@@ -406,213 +471,542 @@ const api = createApi({
 });
 ```
 
-## Оптимистичные обновления
+## Трансформация данных
 
-RTK Query поддерживает оптимистичные обновления — UI обновляется сразу, без ожидания ответа сервера.
+Для преобразования ответа сервера используйте `transformResponse`:
 
 ```typescript
-updatePost: builder.mutation<Post, { id: number; changes: Partial<Post> }>({
-  query: ({ id, changes }) => ({
-    url: `/posts/${id}`,
-    method: 'PATCH',
-    body: changes,
+const api = createApi({
+  endpoints: (builder) => ({
+    getUsers: builder.query<User[], void>({
+      query: () => 'users',
+      // Преобразуем ответ: берём только нужные поля
+      transformResponse: (response: User[]) =>
+        response.map(({ id, name, email }) => ({ id, name, email })),
+    }),
+    
+    getPaginatedPosts: builder.query<{ posts: Post[]; total: number }, number>({
+      query: (page) => `posts?_page=${page}&_limit=10`,
+      // Используем заголовки ответа
+      transformResponse: (response: Post[], meta) => ({
+        posts: response,
+        total: parseInt(meta?.response?.headers.get('X-Total-Count') ?? '0'),
+      }),
+    }),
+    
+    getPost: builder.query<Post, number>({
+      query: (id) => `posts/${id}`,
+      // Трансформация ошибки
+      transformErrorResponse: (response: { status: string | number; data: unknown }) => ({
+        status: response.status,
+        message: 'Ошибка загрузки поста',
+      }),
+    }),
   }),
-  async onQueryStarted({ id, changes }, { dispatch, queryFulfilled }) {
-    // Оптимистично обновляем кэш
+});
+```
+
+## Оптимистичные обновления
+
+Оптимистичные обновления позволяют немедленно обновить UI до получения ответа сервера:
+
+```typescript
+const api = createApi({
+  endpoints: (builder) => ({
+    getPosts: builder.query<Post[], void>({
+      query: () => 'posts',
+      providesTags: ['Post'],
+    }),
+    
+    updatePost: builder.mutation<Post, Partial<Post> & Pick<Post, 'id'>>({
+      query: ({ id, ...patch }) => ({
+        url: `posts/${id}`,
+        method: 'PATCH',
+        body: patch,
+      }),
+      
+      // Оптимистичное обновление
+      async onQueryStarted({ id, ...patch }, { dispatch, queryFulfilled }) {
+        // Немедленно обновляем кэш
+        const patchResult = dispatch(
+          api.util.updateQueryData('getPosts', undefined, (draft) => {
+            const post = draft.find((p) => p.id === id);
+            if (post) {
+              Object.assign(post, patch);
+            }
+          })
+        );
+        
+        try {
+          // Ждём завершения запроса
+          await queryFulfilled;
+        } catch {
+          // При ошибке откатываем изменения
+          patchResult.undo();
+        }
+      },
+    }),
+  }),
+});
+```
+
+### Оптимистичное обновление отдельного элемента
+
+```typescript
+updatePost: builder.mutation<Post, Partial<Post> & Pick<Post, 'id'>>({
+  query: ({ id, ...patch }) => ({
+    url: `posts/${id}`,
+    method: 'PATCH',
+    body: patch,
+  }),
+  
+  async onQueryStarted({ id, ...patch }, { dispatch, queryFulfilled }) {
+    // Обновляем кэш конкретного поста
     const patchResult = dispatch(
       api.util.updateQueryData('getPostById', id, (draft) => {
-        Object.assign(draft, changes);
+        Object.assign(draft, patch);
       })
     );
-
+    
     try {
       await queryFulfilled;
-      // Запрос успешен — ничего не делаем, кэш уже обновлён
     } catch {
-      // Запрос провалился — откатываем изменения
       patchResult.undo();
     }
   },
 }),
 ```
 
-## Настройка стора
-
-```typescript
-// app/store.ts
-import { configureStore } from '@reduxjs/toolkit';
-import { postsApi } from './postsApi';
-import { usersApi } from './usersApi';
-
-export const store = configureStore({
-  reducer: {
-    [postsApi.reducerPath]: postsApi.reducer,
-    [usersApi.reducerPath]: usersApi.reducer,
-  },
-  // Добавляем middleware для кэширования, инвалидации и polling
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware()
-      .concat(postsApi.middleware)
-      .concat(usersApi.middleware),
-});
-
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
-```
-
-## Трансформация ответа
-
-```typescript
-endpoints: (builder) => ({
-  getUsers: builder.query<User[], void>({
-    query: () => '/users',
-    // Трансформируем ответ перед сохранением в кэш
-    transformResponse: (response: ApiUser[]) =>
-      response.map((user) => ({
-        id: user.id,
-        name: `${user.firstName} ${user.lastName}`,
-        email: user.email.toLowerCase(),
-        avatar: user.profileImage ?? '/default-avatar.png',
-      })),
-    // Трансформируем ошибку
-    transformErrorResponse: (response: { status: number; data: ApiError }) => ({
-      status: response.status,
-      message: response.data.message || 'Неизвестная ошибка',
-    }),
-  }),
-}),
-```
-
 ## Пагинация
 
+### Смещение (offset-based pagination)
+
 ```typescript
-interface PaginatedResponse<T> {
-  data: T[];
+interface PaginatedPosts {
+  posts: Post[];
   total: number;
   page: number;
-  perPage: number;
 }
 
-interface PaginationParams {
-  page: number;
-  perPage: number;
-  search?: string;
-}
-
-endpoints: (builder) => ({
-  getPaginatedPosts: builder.query<PaginatedResponse<Post>, PaginationParams>({
-    query: ({ page, perPage, search }) => ({
-      url: '/posts',
-      params: { page, perPage, search },
+const api = createApi({
+  endpoints: (builder) => ({
+    getPaginatedPosts: builder.query<PaginatedPosts, number>({
+      query: (page) => `posts?_page=${page}&_limit=10`,
+      transformResponse: (response: Post[], meta) => ({
+        posts: response,
+        total: parseInt(meta?.response?.headers.get('X-Total-Count') ?? '0'),
+        page: 1,
+      }),
+      providesTags: (result, error, page) => [{ type: 'Post', id: `PAGE_${page}` }],
     }),
-    providesTags: (result) =>
-      result
-        ? [
-            ...result.data.map(({ id }) => ({ type: 'Post' as const, id })),
-            { type: 'Post', id: 'PARTIAL-LIST' },
-          ]
-        : [{ type: 'Post', id: 'PARTIAL-LIST' }],
   }),
-}),
-```
+});
 
-```tsx
-function PaginatedPosts() {
+// Использование в компоненте
+function PaginatedList() {
   const [page, setPage] = useState(1);
-  const { data, isLoading, isFetching } = useGetPaginatedPostsQuery({
-    page,
-    perPage: 10,
-  });
+  const { data, isLoading, isFetching } = useGetPaginatedPostsQuery(page);
 
   return (
     <div>
-      {isFetching && <p>Обновление...</p>}
-      <ul>
-        {data?.data.map((post) => (
-          <li key={post.id}>{post.title}</li>
-        ))}
-      </ul>
-      <div>
-        <button
-          onClick={() => setPage((p) => p - 1)}
-          disabled={page === 1 || isLoading}
-        >
-          Назад
-        </button>
-        <span>Страница {page}</span>
-        <button
-          onClick={() => setPage((p) => p + 1)}
-          disabled={isLoading || !data || page * 10 >= data.total}
-        >
-          Вперёд
-        </button>
-      </div>
+      {isLoading ? (
+        <div>Загрузка...</div>
+      ) : (
+        <>
+          {data?.posts.map((post) => (
+            <div key={post.id}>{post.title}</div>
+          ))}
+          <div>
+            <button 
+              onClick={() => setPage(p => Math.max(1, p - 1))}
+              disabled={page === 1}
+            >
+              Назад
+            </button>
+            <span>Страница {page}</span>
+            <button onClick={() => setPage(p => p + 1)}>
+              Вперёд
+            </button>
+          </div>
+        </>
+      )}
+      {isFetching && <div>Обновление...</div>}
     </div>
   );
 }
 ```
 
-## TypeScript и генерация типов
-
-RTK Query отлично работает с TypeScript — типы API выводятся автоматически:
+### Бесконечная прокрутка с merge
 
 ```typescript
-// Типы для базового запроса с авторизацией
-import {
-  createApi,
-  fetchBaseQuery,
-  BaseQueryFn,
-  FetchArgs,
-  FetchBaseQueryError,
-} from '@reduxjs/toolkit/query/react';
+const api = createApi({
+  endpoints: (builder) => ({
+    getInfinitePosts: builder.query<Post[], number>({
+      query: (page) => `posts?_page=${page}&_limit=10`,
+      
+      // Объединяем данные при подгрузке следующих страниц
+      serializeQueryArgs: ({ endpointName }) => endpointName,
+      
+      merge: (currentCache, newItems) => {
+        currentCache.push(...newItems);
+      },
+      
+      forceRefetch({ currentArg, previousArg }) {
+        return currentArg !== previousArg;
+      },
+    }),
+  }),
+});
 
-// Кастомный baseQuery с обновлением токена
-const baseQueryWithReauth: BaseQueryFn<
-  string | FetchArgs,
-  unknown,
-  FetchBaseQueryError
-> = async (args, api, extraOptions) => {
-  let result = await baseQuery(args, api, extraOptions);
+function InfiniteList() {
+  const [page, setPage] = useState(1);
+  const { data: posts, isFetching } = useGetInfinitePostsQuery(page);
 
-  if (result.error?.status === 401) {
-    // Попытка обновить токен
-    const refreshResult = await baseQuery('/auth/refresh', api, extraOptions);
-    if (refreshResult.data) {
-      api.dispatch(setCredentials(refreshResult.data as AuthTokens));
-      // Повторяем оригинальный запрос
-      result = await baseQuery(args, api, extraOptions);
-    } else {
-      api.dispatch(logout());
-    }
-  }
-
-  return result;
-};
+  return (
+    <div>
+      {posts?.map((post) => (
+        <div key={post.id}>{post.title}</div>
+      ))}
+      <button onClick={() => setPage(p => p + 1)} disabled={isFetching}>
+        Загрузить ещё
+      </button>
+    </div>
+  );
+}
 ```
 
-## Сравнение RTK Query с React Query
+## TypeScript интеграция
 
-| Аспект | RTK Query | React Query / TanStack Query |
-|--------|-----------|------------------------------|
-| Интеграция | Встроен в Redux | Независимая библиотека |
-| DevTools | Redux DevTools | Отдельные React Query DevTools |
-| Размер | Часть RTK (~40 КБ) | ~13 КБ |
-| Настройка | Требует Redux | Только провайдер |
-| Мутации | Хуки + инвалидация | Хуки + инвалидация |
-| Infinite queries | Ограниченно | Полная поддержка |
-| Оптимистичные обновления | Да | Да |
-| SSR | Да | Отличная поддержка |
+RTK Query отлично интегрируется с TypeScript и обеспечивает полную типизацию:
 
-RTK Query лучше, если вы уже используете Redux. React Query — отличный выбор для проектов без Redux.
+### Типизация эндпоинтов
+
+```typescript
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+// Типы данных
+interface Todo {
+  id: number;
+  title: string;
+  completed: boolean;
+  userId: number;
+}
+
+interface CreateTodoRequest {
+  title: string;
+  completed?: boolean;
+  userId: number;
+}
+
+interface UpdateTodoRequest {
+  id: number;
+  title?: string;
+  completed?: boolean;
+}
+
+// Создание API с типизацией
+export const todosApi = createApi({
+  reducerPath: 'todosApi',
+  baseQuery: fetchBaseQuery({ baseUrl: '/api/' }),
+  tagTypes: ['Todo'],
+  endpoints: (builder) => ({
+    // builder.query<ResponseType, ArgType>
+    getTodos: builder.query<Todo[], void>({
+      query: () => 'todos',
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: 'Todo' as const, id })),
+              { type: 'Todo', id: 'LIST' },
+            ]
+          : [{ type: 'Todo', id: 'LIST' }],
+    }),
+    
+    // builder.mutation<ResponseType, ArgType>
+    createTodo: builder.mutation<Todo, CreateTodoRequest>({
+      query: (newTodo) => ({
+        url: 'todos',
+        method: 'POST',
+        body: newTodo,
+      }),
+      invalidatesTags: [{ type: 'Todo', id: 'LIST' }],
+    }),
+    
+    updateTodo: builder.mutation<Todo, UpdateTodoRequest>({
+      query: ({ id, ...changes }) => ({
+        url: `todos/${id}`,
+        method: 'PATCH',
+        body: changes,
+      }),
+      invalidatesTags: (result, error, { id }) => [{ type: 'Todo', id }],
+    }),
+  }),
+});
+
+export const {
+  useGetTodosQuery,
+  useCreateTodoMutation,
+  useUpdateTodoMutation,
+} = todosApi;
+```
+
+### Типизация хранилища
+
+```typescript
+// store.ts
+import { configureStore } from '@reduxjs/toolkit';
+import { todosApi } from './services/todosApi';
+import { useDispatch, useSelector } from 'react-redux';
+import type { TypedUseSelectorHook } from 'react-redux';
+
+export const store = configureStore({
+  reducer: {
+    [todosApi.reducerPath]: todosApi.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(todosApi.middleware),
+});
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
+// Типизированные хуки
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+```
+
+### Инжекция эндпоинтов
+
+Для разделения API на модули используйте `injectEndpoints`:
+
+```typescript
+// services/baseApi.ts
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+
+export const baseApi = createApi({
+  reducerPath: 'api',
+  baseQuery: fetchBaseQuery({ baseUrl: '/api/' }),
+  tagTypes: ['Post', 'User', 'Comment'],
+  endpoints: () => ({}),
+});
+
+// services/postsApi.ts
+import { baseApi } from './baseApi';
+
+export const postsApi = baseApi.injectEndpoints({
+  endpoints: (builder) => ({
+    getPosts: builder.query<Post[], void>({
+      query: () => 'posts',
+    }),
+  }),
+  overrideExisting: false,
+});
+
+export const { useGetPostsQuery } = postsApi;
+
+// services/usersApi.ts
+import { baseApi } from './baseApi';
+
+export const usersApi = baseApi.injectEndpoints({
+  endpoints: (builder) => ({
+    getUsers: builder.query<User[], void>({
+      query: () => 'users',
+    }),
+  }),
+  overrideExisting: false,
+});
+
+export const { useGetUsersQuery } = usersApi;
+```
+
+## Утилиты и ручное управление кэшем
+
+```typescript
+import { store } from './store';
+import { postsApi } from './services/api';
+
+// Ручной запрос без компонента
+const result = await store.dispatch(
+  postsApi.endpoints.getPosts.initiate()
+);
+
+// Ручное обновление кэша
+store.dispatch(
+  postsApi.util.updateQueryData('getPosts', undefined, (draft) => {
+    draft.push({ id: 999, title: 'Новый пост', body: '', userId: 1 });
+  })
+);
+
+// Ручная инвалидация тегов
+store.dispatch(postsApi.util.invalidateTags(['Post']));
+
+// Сброс всего кэша API
+store.dispatch(postsApi.util.resetApiState());
+
+// Предзагрузка данных
+store.dispatch(
+  postsApi.util.prefetch('getPosts', undefined, { force: false })
+);
+```
+
+### Предзагрузка в компонентах
+
+```tsx
+import { useGetPostsQuery } from './services/api';
+
+function PostsPreloader() {
+  const prefetchPosts = useGetPostsQuery.usePrefetch
+    ? postsApi.usePrefetchPost 
+    : undefined;
+    
+  // Или используйте хук предзагрузки
+  return (
+    <div 
+      onMouseEnter={() => {
+        // Предзагружаем при наведении
+        store.dispatch(
+          postsApi.util.prefetch('getPostById', 1, { ifOlderThan: 60 })
+        );
+      }}
+    >
+      Наведите для предзагрузки
+    </div>
+  );
+}
+```
+
+## RTK Query vs React Query
+
+Оба инструмента решают схожие задачи, но имеют разный подход:
+
+| Критерий | RTK Query | React Query |
+|----------|-----------|-------------|
+| **Интеграция** | Встроен в Redux Toolkit | Независимая библиотека |
+| **Хранилище** | Redux store | Собственный кэш |
+| **Bundle size** | ~9KB (если Redux уже есть) | ~13KB |
+| **Конфигурация** | Централизованная (createApi) | Распределённая (useQuery) |
+| **DevTools** | Redux DevTools | React Query DevTools |
+| **Мутации** | Автоматическая инвалидация тегов | Ручная инвалидация |
+| **Infinite queries** | Поддерживается (с serializeQueryArgs) | Встроенная поддержка (useInfiniteQuery) |
+| **Оптимистичные обновления** | onQueryStarted | onMutate |
+
+### Когда выбрать RTK Query
+
+- Проект уже использует Redux
+- Нужна централизованная конфигурация API
+- Важна типобезопасность в стиле Redux
+- Нужна глубокая интеграция с Redux state
+
+### Когда выбрать React Query
+
+- Нет Redux в проекте
+- Нужна более гибкая конфигурация отдельных запросов
+- Активно используется бесконечная прокрутка
+- Важен меньший размер бандла при отсутствии Redux
+
+## Лучшие практики
+
+### 1. Организация API файлов
+
+```
+src/
+├── store/
+│   ├── index.ts          # Конфигурация store
+│   └── hooks.ts          # Типизированные хуки
+└── services/
+    ├── baseApi.ts        # Базовый API (fetchBaseQuery)
+    ├── postsApi.ts       # Эндпоинты постов
+    └── usersApi.ts       # Эндпоинты пользователей
+```
+
+### 2. Обработка ошибок
+
+```tsx
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { SerializedError } from '@reduxjs/toolkit';
+
+function isApiError(error: unknown): error is FetchBaseQueryError {
+  return typeof error === 'object' && error !== null && 'status' in error;
+}
+
+function getErrorMessage(error: FetchBaseQueryError | SerializedError): string {
+  if (isApiError(error)) {
+    if (typeof error.status === 'number') {
+      return `HTTP ${error.status}: ${JSON.stringify(error.data)}`;
+    }
+    return error.error;
+  }
+  return error.message ?? 'Неизвестная ошибка';
+}
+
+function PostsList() {
+  const { data, error, isError } = useGetPostsQuery();
+
+  if (isError) {
+    return <div className="error">{getErrorMessage(error)}</div>;
+  }
+
+  return <ul>{data?.map(/* ... */)}</ul>;
+}
+```
+
+### 3. Кастомные базовые хуки
+
+```typescript
+// Хук с обработкой ошибок по умолчанию
+function usePostsWithToast() {
+  const result = useGetPostsQuery();
+  
+  useEffect(() => {
+    if (result.isError) {
+      toast.error('Не удалось загрузить посты');
+    }
+  }, [result.isError]);
+  
+  return result;
+}
+```
+
+### 4. Нормализация данных
+
+Для больших наборов данных используйте `createEntityAdapter` совместно с RTK Query:
+
+```typescript
+import { createEntityAdapter } from '@reduxjs/toolkit';
+
+const postsAdapter = createEntityAdapter<Post>();
+const initialState = postsAdapter.getInitialState();
+
+const api = createApi({
+  endpoints: (builder) => ({
+    getPosts: builder.query<ReturnType<typeof postsAdapter.setAll>, void>({
+      query: () => 'posts',
+      transformResponse: (response: Post[]) =>
+        postsAdapter.setAll(initialState, response),
+    }),
+  }),
+});
+
+// Получение нормализованных данных через selectors
+const selectPostsResult = api.endpoints.getPosts.select();
+const selectPostsData = createSelector(
+  selectPostsResult,
+  (result) => result.data ?? initialState
+);
+
+export const { selectAll: selectAllPosts, selectById: selectPostById } =
+  postsAdapter.getSelectors(
+    (state: RootState) => selectPostsData(state)
+  );
+```
 
 ## Заключение
 
-RTK Query — это серьёзный инструмент для работы с API, который берёт на себя всю рутину: кэширование, состояния загрузки, обработку ошибок и инвалидацию. Ключевые преимущества:
+RTK Query — мощный инструмент, который автоматизирует большинство задач при работе с API в React-приложениях. Благодаря встроенному кэшированию, автоматической инвалидации, поддержке TypeScript и интеграции с Redux DevTools, он значительно упрощает разработку и отладку.
 
-- **Автогенерация хуков** — не нужно писать thunks и reducers вручную
-- **Умный кэш** с тегами и автоматической инвалидацией
-- **Интеграция с Redux DevTools** — видите все запросы и кэш в реальном времени
-- **Оптимистичные обновления** для отзывчивого UI
-- **Полная поддержка TypeScript** из коробки
-
-Если ваш проект использует Redux Toolkit, RTK Query — естественный следующий шаг для работы с серверными данными.
+Основные преимущества:
+- **Меньше шаблонного кода**: автоматическая генерация хуков
+- **Умное кэширование**: автоматическое управление состоянием данных
+- **TypeScript-first**: полная типизация из коробки
+- **Оптимистичные обновления**: улучшение UX без сложного кода
+- **Интеграция с Redux**: единое хранилище для всего состояния приложения

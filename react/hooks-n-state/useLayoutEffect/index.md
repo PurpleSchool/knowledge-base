@@ -1,6 +1,6 @@
 ---
 metaTitle: useLayoutEffect в React — эффект до отрисовки
-metaDescription: Полное руководство по useLayoutEffect в React: отличие от useEffect, синтаксис, когда применять, практические примеры с DOM-измерениями, анимациями и TypeScript
+metaDescription: "Полное руководство по useLayoutEffect в React: отличие от useEffect, синтаксис, когда применять, практические примеры с DOM-измерениями, анимациями и TypeScript"
 author: Олег Марков
 title: useLayoutEffect в React — эффект до отрисовки
 preview: Разберитесь, чем useLayoutEffect отличается от useEffect, когда нужно выполнять код синхронно до отрисовки браузером и как правильно применять этот хук для работы с DOM

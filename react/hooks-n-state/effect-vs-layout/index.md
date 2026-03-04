@@ -1,6 +1,9 @@
 ---
 metaTitle: "useEffect vs useLayoutEffect в React — полное сравнение"
 metaDescription: "Подробное сравнение useEffect и useLayoutEffect в React: когда использовать каждый хук, различия в тайминге, работа в SSR, практические примеры и паттерны."
+author: "Олег Марков"
+title: "useEffect vs useLayoutEffect: в чём разница и какой хук выбрать?"
+preview: "Разбираем ключевые различия между useEffect и useLayoutEffect. Узнайте, как работает цикл рендеринга React, почему возникает мерцание интерфейса и какой хук использовать для измерения DOM-элементов, а какой — для запросов к API."
 ---
 
 # useEffect vs useLayoutEffect

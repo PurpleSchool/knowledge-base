@@ -1,16 +1,14 @@
 ---
-metaTitle: React Router v6 - основы маршрутизации в React
-metaDescription: Полное руководство по React Router v6 — новый синтаксис Routes, вложенные маршруты с Outlet, хуки useNavigate, useParams, useSearchParams, loader/action, защищённые маршруты
+metaTitle: React Router v6 - основы маршрутизации в React приложениях
+metaDescription: Полное руководство по React Router v6 - установка, базовые концепции, BrowserRouter, Routes, Route, Link, NavLink, useNavigate, useParams и практические примеры
 author: Олег Марков
 title: React Router v6 - основы
-preview: Освойте React Router v6 — изучите новый синтаксис Routes и Route, вложенные маршруты через Outlet, хуки навигации, работу с параметрами, защищённые маршруты и data API
+preview: Изучите React Router v6 - современную библиотеку маршрутизации для React. Разберём установку, основные компоненты BrowserRouter, Routes, Route, Link, хуки useNavigate и useParams с практическими примерами
 ---
 
-## Введение
+# React Router v6 - основы
 
-React Router — стандарт де-факто для маршрутизации в React-приложениях. Версия 6 принесла значительные изменения по сравнению с v5: упрощённый синтаксис, новый компонент `<Routes>`, улучшенные вложенные маршруты через `<Outlet>`, мощный Data API с loaders и actions.
-
-В этой статье вы узнаете, как настроить маршрутизацию в React-приложении с React Router v6, разберётесь с вложенными маршрутами, научитесь работать с параметрами и хуками навигации.
+React Router — самая популярная библиотека для реализации маршрутизации в React-приложениях. Версия 6 была полностью переработана: появился более простой API, улучшена работа с вложенными маршрутами, добавлены новые хуки. В этой статье разберём всё, что нужно знать для начала работы с React Router v6.
 
 ## Установка
 

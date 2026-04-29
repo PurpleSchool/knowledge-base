@@ -1,6 +1,6 @@
 ---
 metaTitle: React Spring - анимации на основе физики в React
-metaDescription: Полное руководство по React Spring: useSpring, useTrail, useTransition, физические анимации и gesture взаимодействия
+metaDescription: "Полное руководство по React Spring: useSpring, useTrail, useTransition, физические анимации и gesture взаимодействия"
 author: Олег Марков
 title: React Spring - анимации
 preview: Изучите React Spring для создания плавных физических анимаций в React. useSpring, useTrail, useTransition и gesture анимации

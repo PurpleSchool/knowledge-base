@@ -1,6 +1,6 @@
 ---
 metaTitle: Нативные модули в React Native — полное руководство
-metaDescription: Подробное руководство по нативным модулям в React Native: TurboModules, JSI, создание и использование готовых модулей, работа с Android и iOS
+metaDescription: "Подробное руководство по нативным модулям в React Native: TurboModules, JSI, создание и использование готовых модулей, работа с Android и iOS"
 author: Олег Марков
 title: Нативные модули в React Native
 preview: Разберитесь, как работают нативные модули в React Native — от базовой архитектуры до современных TurboModules на JSI, с практическими примерами для Android и iOS

@@ -1,6 +1,6 @@
 ---
 metaTitle: Utility Types в TypeScript — Partial, Pick, Omit, Record и другие
-metaDescription: Разбираем встроенные Utility Types в TypeScript: Partial, Required, Readonly, Pick, Omit, Record, Exclude, Extract, ReturnType и другие. Примеры кода.
+metaDescription: "Разбираем встроенные Utility Types в TypeScript: Partial, Required, Readonly, Pick, Omit, Record, Exclude, Extract, ReturnType и другие. Примеры кода."
 author: Антон Ларичев
 title: Utility Types в TypeScript — полный разбор встроенных утилит
 preview: Полный разбор Utility Types в TypeScript — Partial, Required, Readonly, Pick, Omit, Record, Exclude, Extract, ReturnType. Как работают и когда применять.

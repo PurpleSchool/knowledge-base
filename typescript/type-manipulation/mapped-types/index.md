@@ -1,6 +1,6 @@
 ---
 metaTitle: Mapped Types в TypeScript — маппинг типов
-metaDescription: Разбираем Mapped Types в TypeScript: синтаксис, встроенные утилиты Partial, Required, Readonly, Record, создание кастомных Mapped Types с примерами.
+metaDescription: "Разбираем Mapped Types в TypeScript: синтаксис, встроенные утилиты Partial, Required, Readonly, Record, создание кастомных Mapped Types с примерами."
 author: Антон Ларичев
 title: Mapped Types в TypeScript
 preview: Изучаем Mapped Types в TypeScript — мощный инструмент для трансформации типов. Разбираем встроенные утилиты и создаём собственные маппинговые типы.

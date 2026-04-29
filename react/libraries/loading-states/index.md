@@ -1,9 +1,9 @@
 ---
 metaTitle: Загрузка и индикаторы в React - Loading States и Skeleton
-metaDescription: Как реализовать индикаторы загрузки в React: спиннеры, skeleton loading, Suspense, progress bar и оптимистичные обновления
+metaDescription: "Как реализовать индикаторы загрузки в React: спиннеры, skeleton loading, Suspense, progress bar и оптимистичные обновления"
 author: Олег Марков
 title: Загрузка и индикаторы
-preview: Изучите паттерны загрузки данных в React: спиннеры, skeleton экраны, Suspense и оптимистичные обновления для лучшего UX
+preview: "Изучите паттерны загрузки данных в React: спиннеры, skeleton экраны, Suspense и оптимистичные обновления для лучшего UX"
 ---
 
 ## Введение

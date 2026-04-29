@@ -1,6 +1,6 @@
 ---
 metaTitle: Обработка ошибок API в React - fetch, Axios и Error Boundary
-metaDescription: Как обрабатывать ошибки API в React приложениях: fetch, Axios interceptors, Error Boundary, retry логика и отображение ошибок
+metaDescription: "Как обрабатывать ошибки API в React приложениях: fetch, Axios interceptors, Error Boundary, retry логика и отображение ошибок"
 author: Олег Марков
 title: Обработка ошибок API
 preview: Узнайте как правильно обрабатывать ошибки API в React. Обработка HTTP ошибок, Error Boundary, централизованная обработка и retry логика

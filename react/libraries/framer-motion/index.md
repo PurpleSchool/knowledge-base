@@ -1,6 +1,6 @@
 ---
 metaTitle: Framer Motion - библиотека анимаций для React
-metaDescription: Полное руководство по Framer Motion: motion компоненты, variants, AnimatePresence, жесты, layout анимации и scroll эффекты
+metaDescription: "Полное руководство по Framer Motion: motion компоненты, variants, AnimatePresence, жесты, layout анимации и scroll эффекты"
 author: Олег Марков
 title: Framer Motion - библиотека анимаций
 preview: Изучите Framer Motion для создания красивых анимаций в React. motion компоненты, variants, AnimatePresence, жесты и scroll-based анимации

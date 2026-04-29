@@ -2,7 +2,7 @@
 metaTitle: FastAPI Python — быстрый старт и основы фреймворка
 metaDescription: FastAPI на Python — установка, создание API, маршруты, Pydantic-модели, валидация данных, документация Swagger. Пошаговое руководство для начинающих.
 author: Антон Ларичев
-title: FastAPI Python — быстрый старт: создание REST API с нуля
+title: "FastAPI Python — быстрый старт: создание REST API с нуля"
 preview: Пошаговое руководство по FastAPI на Python — установка, создание маршрутов, Pydantic-модели, автоматическая документация Swagger. Пример рабочего API за 30 минут.
 ---
 

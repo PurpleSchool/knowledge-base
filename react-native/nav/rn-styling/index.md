@@ -1,9 +1,9 @@
 ---
 metaTitle: Стили в React Native — StyleSheet, Flexbox, темизация и адаптивный дизайн
-metaDescription: Полное руководство по стилизации в React Native: StyleSheet API, Flexbox, работа с размерами, платформо-зависимые стили, темизация и адаптивный дизайн
+metaDescription: "Полное руководство по стилизации в React Native: StyleSheet API, Flexbox, работа с размерами, платформо-зависимые стили, темизация и адаптивный дизайн"
 author: Олег Марков
 title: Стили в React Native
-preview: Изучите всё о стилизации в React Native: как работает StyleSheet, Flexbox с column по умолчанию, адаптивный дизайн, темизация и платформо-зависимые стили
+preview: "Изучите всё о стилизации в React Native: как работает StyleSheet, Flexbox с column по умолчанию, адаптивный дизайн, темизация и платформо-зависимые стили"
 ---
 
 ## Введение

@@ -1,6 +1,6 @@
 ---
 metaTitle: SWR - библиотека для запросов данных в React
-metaDescription: Полное руководство по SWR: useSWR, fetcher, мутации, pagination и стратегия stale-while-revalidate в React приложениях
+metaDescription: "Полное руководство по SWR: useSWR, fetcher, мутации, pagination и стратегия stale-while-revalidate в React приложениях"
 author: Олег Марков
 title: SWR - библиотека для запросов
 preview: Изучите SWR для управления серверными данными в React. useSWR, глобальная конфигурация, мутации и стратегия stale-while-revalidate

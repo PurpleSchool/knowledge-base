@@ -1,6 +1,6 @@
 ---
 metaTitle: Template Literal Types в TypeScript — шаблонные типы
-metaDescription: Разбираем Template Literal Types в TypeScript: строковые шаблонные типы, комбинации с union, утилиты Uppercase, Lowercase, Capitalize и практические примеры.
+metaDescription: "Разбираем Template Literal Types в TypeScript: строковые шаблонные типы, комбинации с union, утилиты Uppercase, Lowercase, Capitalize и практические примеры."
 author: Антон Ларичев
 title: Template Literal Types в TypeScript
 preview: Изучаем Template Literal Types в TypeScript — строковые шаблонные типы, их комбинации с union, встроенные утилиты Uppercase и Capitalize, практические примеры применения.

@@ -1,6 +1,6 @@
 ---
 metaTitle: Snapshot тестирование React компонентов с Jest
-metaDescription: Полное руководство по snapshot тестированию в React: создание снэпшотов, обновление, inline snapshots и best practices
+metaDescription: "Полное руководство по snapshot тестированию в React: создание снэпшотов, обновление, inline snapshots и best practices"
 author: Олег Марков
 title: Snapshots тестирование
 preview: Узнайте как использовать snapshot тесты для проверки UI компонентов React. Создание, обновление снэпшотов и когда их применять

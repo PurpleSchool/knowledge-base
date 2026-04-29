@@ -3,7 +3,7 @@ metaTitle: Типизация ref в React с TypeScript — useRef, forwardRef,
 metaDescription: Подробное руководство по типизации ref в React с TypeScript. Разбираем useRef для DOM, forwardRef, useImperativeHandle и паттерны работы с ссылками
 author: Олег Марков
 title: Типизация ref в React с TypeScript
-preview: Изучите правильную типизацию ref в React: useRef для DOM-элементов и мутабельных значений, forwardRef для передачи ссылок, useImperativeHandle для контроля API
+preview: "Изучите правильную типизацию ref в React: useRef для DOM-элементов и мутабельных значений, forwardRef для передачи ссылок, useImperativeHandle для контроля API"
 ---
 
 ## Введение

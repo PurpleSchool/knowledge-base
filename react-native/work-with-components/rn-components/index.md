@@ -1,6 +1,6 @@
 ---
 metaTitle: Основные компоненты React Native — полный обзор
-metaDescription: Изучите основные компоненты React Native: View, Text, Image, TextInput, ScrollView, FlatList, TouchableOpacity и другие — примеры кода и рекомендации
+metaDescription: "Изучите основные компоненты React Native: View, Text, Image, TextInput, ScrollView, FlatList, TouchableOpacity и другие — примеры кода и рекомендации"
 author: Олег Марков
 title: Основные компоненты React Native
 preview: Узнайте, какие компоненты входят в ядро React Native и как их использовать — подробный разбор View, Text, Image, TextInput, Button, ScrollView, FlatList с примерами

@@ -1,6 +1,6 @@
 ---
 metaTitle: React Query (TanStack Query) - работа с сервером в React
-metaDescription: Полное руководство по TanStack Query: useQuery, useMutation, кеширование, инвалидация данных и оптимистичные обновления
+metaDescription: "Полное руководство по TanStack Query: useQuery, useMutation, кеширование, инвалидация данных и оптимистичные обновления"
 author: Олег Марков
 title: React Query (TanStack Query) - работа с сервером
 preview: Изучите TanStack Query для управления серверным состоянием в React. useQuery, useMutation, кеширование и синхронизация данных с сервером

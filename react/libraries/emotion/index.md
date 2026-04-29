@@ -3,7 +3,7 @@ metaTitle: Emotion — библиотека CSS-in-JS для React
 metaDescription: Полное руководство по Emotion — высокопроизводительной библиотеке CSS-in-JS. Установка, css prop, styled API, серверный рендеринг, темизация и TypeScript
 author: Олег Марков
 title: Emotion — библиотека CSS-in-JS
-preview: Узнайте, как работает Emotion — гибкая CSS-in-JS библиотека с двумя API: css prop для инлайн-стилей и styled для создания стилизованных компонентов
+preview: "Узнайте, как работает Emotion — гибкая CSS-in-JS библиотека с двумя API: css prop для инлайн-стилей и styled для создания стилизованных компонентов"
 ---
 
 ## Введение

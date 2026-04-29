@@ -1,6 +1,6 @@
 ---
 metaTitle: Типизация пропсов React-компонентов с TypeScript
-metaDescription: Подробное руководство по типизации пропсов React-компонентов: interface vs type, ReactNode, FC, PropsWithChildren и лучшие практики
+metaDescription: "Подробное руководство по типизации пропсов React-компонентов: interface vs type, ReactNode, FC, PropsWithChildren и лучшие практики"
 author: Олег Марков
 title: Типизация пропсов компонентов в React с TypeScript
 preview: Узнайте, как правильно типизировать пропсы React-компонентов с TypeScript — выбор между interface и type, использование ReactNode, FC и PropsWithChildren

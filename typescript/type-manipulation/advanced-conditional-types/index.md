@@ -1,6 +1,6 @@
 ---
 metaTitle: Условные типы в TypeScript — infer и дистрибутивность
-metaDescription: Углублённый разбор Conditional Types в TypeScript: синтаксис T extends U ? X : Y, ключевое слово infer, дистрибутивные типы и утилиты на их основе.
+metaDescription: "Углублённый разбор Conditional Types в TypeScript: синтаксис T extends U ? X : Y, ключевое слово infer, дистрибутивные типы и утилиты на их основе."
 author: Антон Ларичев
 title: Продвинутые Conditional Types в TypeScript
 preview: Разбираем продвинутые возможности Conditional Types в TypeScript — ключевое слово infer, дистрибутивные условные типы и создание утилитных типов на их основе.

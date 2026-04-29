@@ -1,6 +1,6 @@
 ---
 metaTitle: Declaration Merging в TypeScript — слияние деклараций
-metaDescription: Разбираем Declaration Merging в TypeScript: слияние интерфейсов, расширение модулей, module augmentation и дополнение глобального namespace с примерами.
+metaDescription: "Разбираем Declaration Merging в TypeScript: слияние интерфейсов, расширение модулей, module augmentation и дополнение глобального namespace с примерами."
 author: Антон Ларичев
 title: Declaration Merging в TypeScript
 preview: Изучаем Declaration Merging в TypeScript — как TypeScript объединяет одноимённые декларации, слияние интерфейсов, расширение модулей и глобальных пространств имён.

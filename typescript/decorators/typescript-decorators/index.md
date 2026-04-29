@@ -1,9 +1,9 @@
 ---
 metaTitle: Декораторы в TypeScript — полное руководство
-metaDescription: Полное руководство по декораторам в TypeScript: class, method, property и parameter декораторы, включение experimentalDecorators, примеры с NestJS.
+metaDescription: "Полное руководство по декораторам в TypeScript: class, method, property и parameter декораторы, включение experimentalDecorators, примеры с NestJS."
 author: Антон Ларичев
 title: Декораторы в TypeScript — полное руководство
-preview: Изучаем все виды декораторов в TypeScript: классов, методов, свойств и параметров. Настройка experimentalDecorators, паттерны применения и примеры из NestJS.
+preview: "Изучаем все виды декораторов в TypeScript: классов, методов, свойств и параметров. Настройка experimentalDecorators, паттерны применения и примеры из NestJS."
 ---
 
 ## Введение

@@ -1,6 +1,6 @@
 ---
 metaTitle: React Testing Library - тестирование React компонентов
-metaDescription: Полное руководство по React Testing Library: установка, основные методы, запросы, примеры тестирования компонентов
+metaDescription: "Полное руководство по React Testing Library: установка, основные методы, запросы, примеры тестирования компонентов"
 author: Олег Марков
 title: React Testing Library
 preview: Узнайте как использовать React Testing Library для тестирования React компонентов. Основные методы, запросы и примеры

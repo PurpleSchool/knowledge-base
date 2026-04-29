@@ -1,6 +1,6 @@
 ---
 metaTitle: React Dropzone — загрузка файлов через drag & drop в React
-metaDescription: Полное руководство по react-dropzone: установка, useDropzone хук, настройка параметров, валидация файлов, загрузка на сервер с прогрессом и стилизация
+metaDescription: "Полное руководство по react-dropzone: установка, useDropzone хук, настройка параметров, валидация файлов, загрузка на сервер с прогрессом и стилизация"
 author: Олег Марков
 title: React Dropzone — загрузка файлов
 preview: Узнайте как реализовать загрузку файлов через drag & drop в React с помощью react-dropzone. Хук useDropzone, валидация, прогресс загрузки и стилизация с TypeScript

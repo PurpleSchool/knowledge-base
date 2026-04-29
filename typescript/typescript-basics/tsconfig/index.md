@@ -1,6 +1,6 @@
 ---
 metaTitle: tsconfig.json — полный разбор настроек TypeScript
-metaDescription: tsconfig.json в TypeScript — полный разбор compilerOptions: target, module, strict, paths, baseUrl, include, exclude. Настройка для React и Node.js проектов.
+metaDescription: "tsconfig.json в TypeScript — полный разбор compilerOptions: target, module, strict, paths, baseUrl, include, exclude. Настройка для React и Node.js проектов."
 author: Антон Ларичев
 title: tsconfig.json — полный разбор настроек TypeScript компилятора
 preview: Полный разбор tsconfig.json — compilerOptions, strict режим, target, module, paths, baseUrl. Готовые конфиги для React, Next.js и Node.js проектов.

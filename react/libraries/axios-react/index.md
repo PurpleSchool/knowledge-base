@@ -1,6 +1,6 @@
 ---
 metaTitle: Axios с React - HTTP запросы в React приложениях
-metaDescription: Полное руководство по использованию Axios в React: GET/POST запросы, interceptors, отмена запросов и TypeScript типизация
+metaDescription: "Полное руководство по использованию Axios в React: GET/POST запросы, interceptors, отмена запросов и TypeScript типизация"
 author: Олег Марков
 title: Axios с React
 preview: Изучите как использовать Axios для HTTP запросов в React. Установка, базовые методы, interceptors, отмена запросов и примеры с TypeScript

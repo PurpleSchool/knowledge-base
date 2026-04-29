@@ -1,6 +1,6 @@
 ---
 metaTitle: Бесконечная прокрутка в React - Infinite Scroll с Intersection Observer
-metaDescription: Как реализовать infinite scroll в React: Intersection Observer, react-infinite-scroll-component, useInfiniteQuery и виртуализация списков
+metaDescription: "Как реализовать infinite scroll в React: Intersection Observer, react-infinite-scroll-component, useInfiniteQuery и виртуализация списков"
 author: Олег Марков
 title: Бесконечная прокрутка
 preview: Реализуйте бесконечную прокрутку в React с помощью Intersection Observer, react-infinite-scroll-component или useInfiniteQuery из React Query

@@ -1,6 +1,6 @@
 ---
 metaTitle: "useDebugValue в React — отладка кастомных хуков в DevTools"
-metaDescription: "Разбираемся с хуком useDebugValue в React: как добавить метки к кастомным хукам в React DevTools, использовать форматтер и ленивое вычисление. Практические примеры на TypeScript."
+metaDescription: "Разбираемся с хуком useDebugValue в React: как добавить метки к кастомным хукам в React DevTools, использовать форматтер и ленивое вычисление. Практические..."
 author: Олег Марков
 title: useDebugValue — отладка кастомных хуков
 preview: Хук useDebugValue позволяет добавлять читаемые метки к кастомным хукам в React DevTools. В этой статье разберём синтаксис, форматтер, ленивое вычисление и реальные сценарии использования.

@@ -1,6 +1,6 @@
 ---
 metaTitle: Styled Components — стилизация React-компонентов через JavaScript
-metaDescription: Полное руководство по Styled Components — библиотеке CSS-in-JS для React. Создание стилизованных компонентов, динамические стили, темизация, производительность и лучшие практики
+metaDescription: Полное руководство по Styled Components — библиотеке CSS-in-JS для React. Создание стилизованных компонентов, динамические стили, темизация,...
 author: Олег Марков
 title: Styled Components — стилизация через JS
 preview: Узнайте, как использовать Styled Components для написания CSS прямо в JavaScript — от базового синтаксиса до продвинутых паттернов с темами и динамическими стилями

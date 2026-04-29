@@ -1,6 +1,6 @@
 ---
 metaTitle: Feature Sliced Design для React и библиотека react-fsd
-metaDescription: Подробное руководство по применению Feature Sliced Design в React приложениях - структура слоев и слайсов правила разбиения кода и примеры с использованием библиотеки react-fsd
+metaDescription: Подробное руководство по применению Feature Sliced Design в React приложениях - структура слоев и слайсов правила разбиения кода и примеры с использованием...
 author: Олег Марков
 title: Архитектура Feature Sliced Design для React с использованием react-fsd
 preview: Разбор архитектурного подхода Feature Sliced Design для React - как устроены слои и слайсы как организовывать модули и как использовать вспомогательные инструменты вроде react-fsd на практике

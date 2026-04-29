@@ -1,6 +1,6 @@
 ---
 metaTitle: Архитектура Feature-Sliced Design для Svelte - практическое руководство по svelte-fsd
-metaDescription: Разбор подхода Feature-Sliced Design для Svelte - как организовать код проекта с помощью svelte-fsd чтобы масштабировать и сопровождать приложение без хаоса в структурах
+metaDescription: Разбор подхода Feature-Sliced Design для Svelte - как организовать код проекта с помощью svelte-fsd чтобы масштабировать и сопровождать приложение без хаоса...
 author: Олег Марков
 title: Архитектура Feature-Sliced Design в Svelte с помощью svelte-fsd
 preview: Пошаговое объяснение как применить Feature-Sliced Design в Svelte-проектах с помощью svelte-fsd - структура слоев примеры кода и практические советы по организации фронтенд архитектуры

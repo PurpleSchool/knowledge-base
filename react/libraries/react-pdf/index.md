@@ -1,6 +1,6 @@
 ---
 metaTitle: React PDF - работа с PDF файлами в React приложениях
-metaDescription: Полное руководство по react-pdf и @react-pdf/renderer: отображение PDF в браузере, генерация PDF-документов из React-компонентов, настройка страниц, аннотации, текстовый слой, TypeScript
+metaDescription: "Полное руководство по react-pdf и @react-pdf/renderer: отображение PDF в браузере, генерация PDF-документов из React-компонентов, настройка страниц,..."
 author: Олег Марков
 title: React PDF - работа с PDF файлами
 preview: Узнайте как работать с PDF файлами в React. Отображение PDF через react-pdf с поддержкой PDF.js, генерация документов с помощью @react-pdf/renderer, настройка страниц, текстовый слой, аннотации и TypeScript поддержка

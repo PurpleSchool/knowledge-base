@@ -1,6 +1,6 @@
 ---
 metaTitle: CSSTransition - CSS переходы в React с react-transition-group
-metaDescription: Полное руководство по CSSTransition из react-transition-group: установка, classNames, lifecycle-коллбэки, TransitionGroup, SwitchTransition и анимации появления/исчезновения
+metaDescription: "Полное руководство по CSSTransition из react-transition-group: установка, classNames, lifecycle-коллбэки, TransitionGroup, SwitchTransition и анимации..."
 author: Олег Марков
 title: CSSTransition - переходы
 preview: Изучите CSSTransition из react-transition-group для плавных CSS-переходов в React. classNames, lifecycle-коллбэки, TransitionGroup для анимации списков и SwitchTransition для смены компонентов

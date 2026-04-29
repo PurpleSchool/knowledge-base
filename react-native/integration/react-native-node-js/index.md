@@ -1,6 +1,6 @@
 ---
 metaTitle: Интеграция Node.js с React Native
-metaDescription: Пошаговое руководство по интеграции Node.js с React Native - разбор архитектуры, примеры общения через REST и WebSocket, настройка, безопасность и live-обновления
+metaDescription: Пошаговое руководство по интеграции Node.js с React Native - разбор архитектуры, примеры общения через REST и WebSocket, настройка, безопасность и...
 author: Олег Марков
 title: Интеграция Node.js с React Native
 preview: Разберитесь в интеграции Node.js и React Native - настройте обмен данными, выберите архитектуру, реализуйте обмен по REST API и WebSocket с примерами

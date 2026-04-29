@@ -1,6 +1,6 @@
 ---
 metaTitle: "Concurrent Mode в React — конкурентный режим рендеринга"
-metaDescription: "Полное руководство по Concurrent Mode в React 18: как работает планировщик, прерывание рендера, Suspense и Transitions. Практические примеры useTransition и startTransition."
+metaDescription: "Полное руководство по Concurrent Mode в React 18: как работает планировщик, прерывание рендера, Suspense и Transitions. Практические примеры useTransition и..."
 author: Олег Марков
 title: Concurrent Mode — конкурентный режим в React
 preview: Разбираемся с Concurrent Mode в React 18 — конкурентным режимом рендеринга, который позволяет React прерывать, откладывать и приоритизировать обновления интерфейса для обеспечения максимальной отзывчивости приложения.

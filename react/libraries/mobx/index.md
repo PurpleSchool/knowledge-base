@@ -1,6 +1,6 @@
 ---
 metaTitle: MobX — реактивное управление состоянием в React
-metaDescription: Полное руководство по MobX — библиотеке реактивного управления состоянием для React. Observable, action, computed, reaction, интеграция с React, сравнение с Redux, лучшие практики
+metaDescription: Полное руководство по MobX — библиотеке реактивного управления состоянием для React. Observable, action, computed, reaction, интеграция с React, сравнение с...
 author: Олег Марков
 title: MobX — реактивное управление состоянием в React
 preview: Узнайте, как использовать MobX для реактивного управления состоянием в React-приложениях — от базовых концепций observable и action до продвинутых паттернов с computed, reaction и TypeScript-декораторами

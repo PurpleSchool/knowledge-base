@@ -1,6 +1,6 @@
 ---
 metaTitle: Настройка Ingress с Nginx в Kubernetes
-metaDescription: Подробная инструкция по настройке Ingress с Nginx в Kubernetes - настройте маршрутизацию HTTP и HTTPS трафика, ознакомьтесь с примерами манифестов и полезными советами
+metaDescription: Подробная инструкция по настройке Ingress с Nginx в Kubernetes - настройте маршрутизацию HTTP и HTTPS трафика, ознакомьтесь с примерами манифестов и...
 author: Олег Марков
 title: Настройка Ingress с Nginx в Kubernetes
 preview: Эффективно управляйте сетевым трафиком в Kubernetes с помощью Nginx Ingress - изучите практические примеры и получите понятные инструкции по настройке маршрутизации

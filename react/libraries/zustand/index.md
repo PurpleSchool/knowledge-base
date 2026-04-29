@@ -1,6 +1,6 @@
 ---
 metaTitle: Zustand — управление состоянием в React
-metaDescription: Полное руководство по Zustand — минималистичной библиотеке управления состоянием для React. Установка, создание стора, middleware, TypeScript, сравнение с Redux и Context API
+metaDescription: Полное руководство по Zustand — минималистичной библиотеке управления состоянием для React. Установка, создание стора, middleware, TypeScript, сравнение с...
 author: Олег Марков
 title: Zustand — управление состоянием в React
 preview: Узнайте, как использовать Zustand для управления глобальным состоянием в React-приложениях — от базового стора до продвинутых паттернов с middleware, persist и Immer

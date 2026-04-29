@@ -1,6 +1,6 @@
 ---
 metaTitle: "useSyncExternalStore в React — работа с внешними сторами"
-metaDescription: "Полное руководство по хуку useSyncExternalStore в React 18. Узнайте, как подписываться на внешние источники данных, обеспечивать совместимость с Concurrent Mode и SSR, типизировать с TypeScript."
+metaDescription: "Полное руководство по хуку useSyncExternalStore в React 18. Узнайте, как подписываться на внешние источники данных, обеспечивать совместимость с Concurrent..."
 author: Олег Марков
 title: useSyncExternalStore — работа с внешними сторами
 preview: Хук useSyncExternalStore позволяет безопасно подписываться на внешние источники данных вне React. Разберём синтаксис, интеграцию с Redux и Zustand, поддержку SSR и Concurrent Mode, а также типичные паттерны использования.

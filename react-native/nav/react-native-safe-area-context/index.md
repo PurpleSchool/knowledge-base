@@ -1,6 +1,6 @@
 ---
 metaTitle: Адаптация safe area context в React Native
-metaDescription: Изучите адаптивную работу с safe area context в React Native - подробное руководство по интеграции, настройке и поддержке современных интерфейсов для iOS и Android с учетом безопасных областей экрана
+metaDescription: Изучите адаптивную работу с safe area context в React Native - подробное руководство по интеграции, настройке и поддержке современных интерфейсов для iOS и...
 author: Олег Марков
 title: Адаптация safe area context на React Native
 preview: Подробная инструкция по работе с Safe Area Context в React Native - настройка, интеграция, теория и практические примеры, позволяющие создавать современные и корректно отображающиеся интерфейсы

@@ -1,6 +1,6 @@
 ---
 metaTitle: Работа с RFR в Python
-metaDescription: Узнайте, как работать с Random Forest Regressor (RFR) в Python — настройка модели, обучение, предсказание и оценка качества с использованием scikit-learn и практическими примерами.
+metaDescription: Узнайте, как работать с Random Forest Regressor (RFR) в Python — настройка модели, обучение, предсказание и оценка качества с использованием scikit-learn и...
 author: Олег Марков
 title: Работа с RFR в Python
 preview: Разберем работу с Random Forest Regressor в Python — настройка, обучение модели, предсказания и оценка качества с помощью scikit-learn.

@@ -1,6 +1,6 @@
 ---
 metaTitle: Обзор библиотек для навигации в React Native
-metaDescription: Разбираемся в современных библиотеках навигации для React Native - сравниваем React Navigation, React Native Navigation и другие, изучаем подходы и варианты внедрения
+metaDescription: Разбираемся в современных библиотеках навигации для React Native - сравниваем React Navigation, React Native Navigation и другие, изучаем подходы и варианты...
 author: Олег Марков
 title: Обзор библиотек для навигации в React Native
 preview: Подробно сравниваем основные библиотеки навигации для React Native - примеры кода, советы по выбору и объяснения различий между стэковой, табовой и другой навигацией

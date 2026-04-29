@@ -1,6 +1,6 @@
 ---
 metaTitle: Микрофронтенды с React - архитектура, Module Federation и практические примеры
-metaDescription: Полное руководство по микрофронтендам с React. Module Federation, iframes, Web Components, коммуникация, роутинг, шаринг зависимостей и best practices с примерами кода
+metaDescription: Полное руководство по микрофронтендам с React. Module Federation, iframes, Web Components, коммуникация, роутинг, шаринг зависимостей и best practices с...
 author: Олег Марков
 title: Микрофронтенды с React (micro-frontends)
 preview: Разбираем архитектуру микрофронтендов на React от основ до продакшена. Webpack Module Federation, коммуникация между приложениями, роутинг, шаринг зависимостей и реальные примеры кода

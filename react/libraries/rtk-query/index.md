@@ -1,6 +1,6 @@
 ---
 metaTitle: "RTK Query - работа с API в Redux Toolkit"
-metaDescription: "Полное руководство по RTK Query: createApi, fetchBaseQuery, queries, mutations, кэширование, инвалидация тегов, оптимистичные обновления, пагинация, TypeScript и сравнение с React Query"
+metaDescription: "Полное руководство по RTK Query: createApi, fetchBaseQuery, queries, mutations, кэширование, инвалидация тегов, оптимистичные обновления, пагинация,..."
 author: Олег Марков
 title: RTK Query - работа с API
 preview: RTK Query — мощный инструмент для работы с API, встроенный в Redux Toolkit. Изучите создание API срезов, управление кэшем, мутации, оптимистичные обновления и пагинацию с полными примерами кода.

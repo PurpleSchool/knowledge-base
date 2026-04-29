@@ -1,6 +1,6 @@
 ---
 metaTitle: Динамические маршруты в Next.js — App Router, [slug], generateStaticParams
-metaDescription: Полное руководство по динамическим маршрутам в Next.js App Router. Параметры [slug], catch-all [...slug], опциональные [[...slug]], generateStaticParams для статической генерации, вложенные динамические сегменты и примеры кода
+metaDescription: "Полное руководство по динамическим маршрутам в Next.js App Router. Параметры [slug], catch-all [...slug], опциональные [[...slug]], generateStaticParams для..."
 author: Олег Марков
 title: Динамические маршруты в Next.js
 preview: Освойте динамические маршруты в Next.js App Router — изучите синтаксис [slug], catch-all [...slug] и опциональные [[...slug]] сегменты, generateStaticParams для SSG, params в Server Components и Client Components

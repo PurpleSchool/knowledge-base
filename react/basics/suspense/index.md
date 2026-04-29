@@ -1,6 +1,6 @@
 ---
 metaTitle: React Suspense — приостановка рендера и отложенная загрузка
-metaDescription: Полное руководство по React Suspense — как использовать границы ожидания для code splitting, data fetching, стриминга в Next.js App Router и вложенных границ Suspense.
+metaDescription: Полное руководство по React Suspense — как использовать границы ожидания для code splitting, data fetching, стриминга в Next.js App Router и вложенных...
 author: Олег Марков
 title: React Suspense — приостановка рендера
 preview: Разбираем React Suspense от основ до продвинутых паттернов — code splitting с React.lazy, границы ожидания, data fetching, вложенные Suspense-границы и стриминг SSR в Next.js App Router.

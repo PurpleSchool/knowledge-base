@@ -1,6 +1,6 @@
 ---
 metaTitle: React Icons - библиотека иконок для React приложений
-metaDescription: Полное руководство по react-icons: установка, использование FontAwesome, Material Design, Bootstrap Icons, настройка размера и цвета, IconContext, TypeScript и tree-shaking
+metaDescription: "Полное руководство по react-icons: установка, использование FontAwesome, Material Design, Bootstrap Icons, настройка размера и цвета, IconContext,..."
 author: Олег Марков
 title: React Icons - библиотека иконок для React
 preview: Узнайте, как использовать react-icons для добавления иконок в React-приложения. FontAwesome, Material Design, Bootstrap Icons, настройка через props и IconContext, tree-shaking для оптимальной производительности

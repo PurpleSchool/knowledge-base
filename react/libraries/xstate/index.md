@@ -1,6 +1,6 @@
 ---
 metaTitle: XState - конечные автоматы и statecharts в React
-metaDescription: Полное руководство по XState — библиотеке конечных автоматов для JavaScript и React. Машины состояний, statecharts, акторы, TypeScript и интеграция с React через @xstate/react
+metaDescription: Полное руководство по XState — библиотеке конечных автоматов для JavaScript и React. Машины состояний, statecharts, акторы, TypeScript и интеграция с React...
 author: Олег Марков
 title: XState - конечные автоматы
 preview: Узнайте, как использовать XState для управления сложной логикой состояний в React-приложениях через конечные автоматы и statecharts — предсказуемо, тестируемо и визуально

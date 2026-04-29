@@ -1,6 +1,6 @@
 ---
 metaTitle: Навигация в React Native с react-navigation — полное руководство
-metaDescription: Полное руководство по react-navigation в React Native — Stack Navigator, Tab Navigator, Drawer Navigator, передача параметров, вложенная навигация, кастомизация заголовков и примеры кода
+metaDescription: Полное руководство по react-navigation в React Native — Stack Navigator, Tab Navigator, Drawer Navigator, передача параметров, вложенная навигация,...
 author: Олег Марков
 title: Навигация в React Native (react-navigation)
 preview: Разбираем react-navigation во всех деталях — устанавливаем и настраиваем, работаем со Stack, Tab и Drawer навигаторами, передаём параметры между экранами, создаём вложенную навигацию и кастомизируем заголовки

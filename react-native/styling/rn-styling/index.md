@@ -1,6 +1,6 @@
 ---
 metaTitle: Стили в React Native - полное руководство по StyleSheet и Flexbox
-metaDescription: Изучите систему стилей в React Native: StyleSheet API, Flexbox-раскладка, адаптивные размеры, платформенные стили, темизация и практические примеры для iOS и Android
+metaDescription: "Изучите систему стилей в React Native: StyleSheet API, Flexbox-раскладка, адаптивные размеры, платформенные стили, темизация и практические примеры для iOS..."
 author: Олег Марков
 title: Стили в React Native
 preview: Разберитесь, как работают стили в React Native - от базового StyleSheet.create до Flexbox-раскладки, адаптивных размеров и платформенных стилей. Практические примеры для реальных проектов

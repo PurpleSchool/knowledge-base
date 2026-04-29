@@ -1,6 +1,6 @@
 ---
 metaTitle: Динамические маршруты в React Router — useParams, вложенные и генерируемые пути
-metaDescription: Подробное руководство по динамическим маршрутам в React Router v6. Параметры URL, useParams, wildcard-маршруты, программная генерация путей, index-маршруты и breadcrumbs
+metaDescription: Подробное руководство по динамическим маршрутам в React Router v6. Параметры URL, useParams, wildcard-маршруты, программная генерация путей, index-маршруты...
 author: Олег Марков
 title: Динамические маршруты
 preview: Научитесь работать с динамическими маршрутами в React Router v6 — параметры URL, вложенные динамические пути, wildcard-маршруты, breadcrumbs и генерация ссылок через useHref

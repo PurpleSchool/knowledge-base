@@ -1,6 +1,6 @@
 ---
 metaTitle: Redux Toolkit - современный Redux для React-приложений
-metaDescription: Полное руководство по Redux Toolkit — официальному набору инструментов для Redux. createSlice, createAsyncThunk, configureStore, RTK Query, TypeScript и лучшие практики
+metaDescription: Полное руководство по Redux Toolkit — официальному набору инструментов для Redux. createSlice, createAsyncThunk, configureStore, RTK Query, TypeScript и...
 author: Олег Марков
 title: Redux Toolkit - современный Redux
 preview: Узнайте, как использовать Redux Toolkit для упрощения работы с Redux — от createSlice и createAsyncThunk до настройки стора с middleware и полноценной TypeScript-интеграции

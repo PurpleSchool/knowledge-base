@@ -1,6 +1,6 @@
 ---
 metaTitle: Работа с Redux в React-приложении
-metaDescription: Получите полное руководство по работе с Redux в React-приложении – узнайте, как настраивать хранилище, использовать actions, reducer и middleware, интегрировать с react-redux
+metaDescription: Получите полное руководство по работе с Redux в React-приложении – узнайте, как настраивать хранилище, использовать actions, reducer и middleware,...
 author: Олег Марков
 title: Работа с Redux в React-приложении
 preview: Подробное руководство по использованию Redux в React – настройка хранилища, reducers, actions, интеграция с React-компонентами и FAQ для уверенного старта

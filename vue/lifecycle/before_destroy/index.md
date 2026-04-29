@@ -1,6 +1,6 @@
 ---
 metaTitle: Разрушение компонента во Vue beforeDestroy и beforeUnmount
-metaDescription: Подробное объяснение хуков разрушения компонента во Vue beforeDestroy и beforeUnmount - когда они вызываются - как правильно освобождать ресурсы и избегать утечек памяти
+metaDescription: Подробное объяснение хуков разрушения компонента во Vue beforeDestroy и beforeUnmount - когда они вызываются - как правильно освобождать ресурсы и избегать...
 author: Олег Марков
 title: Разрушение компонента во Vue - beforeDestroy и beforeUnmount
 preview: Разберите этап разрушения компонента во Vue - как работает хук beforeDestroy и его аналог beforeUnmount во Vue 3 - как отписываться от подписок и очищать ресурсы без ошибок

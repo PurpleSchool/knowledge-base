@@ -1,6 +1,6 @@
 ---
 metaTitle: Как реализовать linking на React Native
-metaDescription: Откройте возможности linking на React Native - учитесь работать с deep linking, открытием внешних ссылок, настройкой навигации и интеграцией с другими приложениями
+metaDescription: Откройте возможности linking на React Native - учитесь работать с deep linking, открытием внешних ссылок, настройкой навигации и интеграцией с другими...
 author: Олег Марков
 title: Как реализовать linking на React Native
 preview: Научитесь реализовывать linking на React Native - подробное руководство по deep linking и использованию Linking API в мобильных приложениях

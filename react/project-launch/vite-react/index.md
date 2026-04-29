@@ -1,6 +1,6 @@
 ---
 metaTitle: Vite и React - полная настройка сборщика для современных React проектов
-metaDescription: Полное руководство по настройке Vite для React проектов: vite.config.ts, плагины, алиасы, переменные окружения, оптимизация production-сборки, code splitting и TypeScript
+metaDescription: "Полное руководство по настройке Vite для React проектов: vite.config.ts, плагины, алиасы, переменные окружения, оптимизация production-сборки, code..."
 author: Олег Марков
 title: Vite и React
 preview: Узнайте как настроить Vite для React проекта — от базовой конфигурации до продвинутой оптимизации: vite.config.ts, TypeScript, алиасы путей, переменные окружения, code splitting и деплой

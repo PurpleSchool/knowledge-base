@@ -1,6 +1,6 @@
 ---
 metaTitle: "Transition API в React — плавные обновления интерфейса"
-metaDescription: "Полное руководство по Transition API в React 18+: useTransition, startTransition, разница между срочными и несрочными обновлениями. Практические примеры для повышения отзывчивости UI."
+metaDescription: "Полное руководство по Transition API в React 18+: useTransition, startTransition, разница между срочными и несрочными обновлениями. Практические примеры для..."
 author: Олег Марков
 title: Transition API — плавные обновления интерфейса в React
 preview: Разбираемся с Transition API в React 18 — механизмом разделения обновлений состояния на срочные и несрочные. Вы узнаете, как useTransition и startTransition помогают устранить «подвисания» интерфейса при тяжёлых перерисовках, и научитесь применять их на практике.

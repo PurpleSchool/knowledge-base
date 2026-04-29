@@ -1,6 +1,6 @@
 ---
 metaTitle: Настройка псевдонимов aliases-config в фронтенд проектах
-metaDescription: Подробное руководство по настройке псевдонимов aliases-config в JavaScript и TypeScript проектах - разбираем конфигурацию Webpack TypeScript Node и тестовых сред
+metaDescription: Подробное руководство по настройке псевдонимов aliases-config в JavaScript и TypeScript проектах - разбираем конфигурацию Webpack TypeScript Node и тестовых...
 author: Олег Марков
 title: Настройка псевдонимов aliases-config в JavaScript и TypeScript проектах
 preview: Разберитесь как настроить aliases-config и использовать псевдонимы импортов в современном фронтенд стеке - от Webpack и TypeScript до Jest и ESLint

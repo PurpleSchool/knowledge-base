@@ -1,6 +1,6 @@
 ---
 metaTitle: Работа с lifecycle-хуками beforeCreate и beforeMount во Vue
-metaDescription: Изучите подробное руководство по работе с lifecycle-хуками beforeCreate и beforeMount во Vue - с примерами кода, тонкостями использования и нюансами их применения на практике
+metaDescription: Изучите подробное руководство по работе с lifecycle-хуками beforeCreate и beforeMount во Vue - с примерами кода, тонкостями использования и нюансами их...
 author: Олег Марков
 title: Работа с lifecycle-хуками beforeCreate и beforeMount во Vue
 preview: Разберитесь в том, как использовать beforeCreate и beforeMount в жизненном цикле компонентов Vue - подробные пояснения, практические советы и реальные примеры

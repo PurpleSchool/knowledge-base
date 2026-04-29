@@ -1,6 +1,6 @@
 ---
 metaTitle: "Анимация списков в React — TransitionGroup из react-transition-group"
-metaDescription: "Полное руководство по анимации списков в React с помощью компонента TransitionGroup из библиотеки react-transition-group. Примеры добавления и удаления элементов с плавной анимацией, настройка CSS переходов и лучшие практики."
+metaDescription: "Полное руководство по анимации списков в React с помощью компонента TransitionGroup из библиотеки react-transition-group. Примеры добавления и удаления..."
 author: Олег Марков
 title: Анимация списков в React
 preview: В этой статье мы разберём, как анимировать добавление и удаление элементов списка в React с помощью компонента TransitionGroup из библиотеки react-transition-group. Рассмотрим установку, базовое использование, CSS-стили для переходов, важность prop key и практические примеры с лучшими практиками.

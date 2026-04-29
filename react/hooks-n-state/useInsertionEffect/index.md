@@ -1,6 +1,6 @@
 ---
 metaTitle: "useInsertionEffect в React — внедрение стилей до мутаций DOM"
-metaDescription: "Полное руководство по хуку useInsertionEffect в React 18. Узнайте, когда и зачем он нужен, чем отличается от useEffect и useLayoutEffect, как его используют CSS-in-JS библиотеки для вставки стилей."
+metaDescription: "Полное руководство по хуку useInsertionEffect в React 18. Узнайте, когда и зачем он нужен, чем отличается от useEffect и useLayoutEffect, как его используют..."
 author: Олег Марков
 title: useInsertionEffect — внедрение стилей до мутаций DOM
 preview: Хук useInsertionEffect запускается синхронно до любых мутаций DOM, раньше useLayoutEffect и useEffect. Он предназначен для CSS-in-JS библиотек, которым нужно вставлять теги <style> до того, как браузер вычислит стили. Разберём синтаксис, отличия от других хуков жизненного цикла и правила использования.

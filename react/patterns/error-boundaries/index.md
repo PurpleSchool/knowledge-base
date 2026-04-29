@@ -1,6 +1,6 @@
 ---
 metaTitle: "Error Boundaries в React — обработка и изоляция ошибок"
-metaDescription: "Полное руководство по Error Boundaries в React: создание декларативных предохранителей, работа с getDerivedStateFromError и componentDidCatch, интеграция с Next.js и библиотекой react-error-boundary."
+metaDescription: "Полное руководство по Error Boundaries в React: создание декларативных предохранителей, работа с getDerivedStateFromError и componentDidCatch, интеграция с..."
 author: "Олег Марков"
 title: "Error Boundaries: создаем надежные React-приложения"
 preview: "Узнайте, как предотвратить «белый экран смерти» в вашем приложении. Разберем, как изолировать ошибки в отдельных виджетах, настроить автоматическое логирование в Sentry и предоставить пользователям возможность восстановить работу страницы без перезагрузки."

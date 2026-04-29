@@ -1,6 +1,6 @@
 ---
 metaTitle: Webpack и React - настройка сборщика для React проектов
-metaDescription: Полное руководство по настройке Webpack для React проектов: webpack.config.js, Babel, CSS/SCSS лоадеры, HtmlWebpackPlugin, code splitting и оптимизация для production
+metaDescription: "Полное руководство по настройке Webpack для React проектов: webpack.config.js, Babel, CSS/SCSS лоадеры, HtmlWebpackPlugin, code splitting и оптимизация для..."
 author: Олег Марков
 title: Webpack и React
 preview: Узнайте как настроить Webpack для React проекта с нуля: конфигурация webpack.config.js, Babel для JSX, CSS/SCSS лоадеры, dev-server, оптимизация и code splitting для production

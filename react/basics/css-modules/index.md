@@ -1,6 +1,6 @@
 ---
 metaTitle: CSS Modules в React - локальные стили без конфликтов
-metaDescription: Полное руководство по CSS Modules в React. Локальная область видимости стилей, композиция классов, динамические стили, TypeScript и интеграция с Create React App и Vite
+metaDescription: Полное руководство по CSS Modules в React. Локальная область видимости стилей, композиция классов, динамические стили, TypeScript и интеграция с Create...
 author: Олег Марков
 title: CSS Modules в React
 preview: Узнайте, как использовать CSS Modules в React для создания изолированных стилей компонентов без конфликтов имён — с примерами, динамическими классами, TypeScript и лучшими практиками

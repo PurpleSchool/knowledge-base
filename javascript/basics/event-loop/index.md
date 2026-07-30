@@ -4,6 +4,7 @@ metaDescription: Event Loop в JavaScript — что это, как работа
 author: Антон Ларичев
 title: Event Loop в JavaScript — как работает цикл событий
 preview: Разбираем Event Loop в JavaScript — стек вызовов, Web APIs, очередь задач, микрозадачи и макрозадачи. Понимание этого механизма критично для работы с async/await.
+canonical: https://purpleschool.ru/blog/event-loop-v-node.js-kak-rabotaet-i-zachem-eto-znat
 ---
 
 ## Введение

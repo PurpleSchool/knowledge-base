@@ -129,7 +129,7 @@ npx nuxt build
 Запуск:
 
 ```bash
-npm run start
+node .output/server/index.mjs
 ```
 или:
 
@@ -164,7 +164,7 @@ npx nuxt start
 2. Затем запустили сервер:
 
    ```bash
-   npm run start
+   node .output/server/index.mjs
    ```
 
 **Опции:**

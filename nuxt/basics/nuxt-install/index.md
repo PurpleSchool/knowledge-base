@@ -99,7 +99,7 @@ Nuxt 4 наследует архитектуру Nuxt 3:
 
 ```bash
 npm run build
-npm run start   # запуск собранного приложения в режиме production
+node .output/server/index.mjs   # запуск собранного приложения в режиме production
 ```
 Файлы для деплоя будут находиться в `.output/` или `dist/` (зависит от шаблона и вашего build-режима).
 
@@ -152,8 +152,8 @@ export default defineNuxtConfig({
 ### Сборка и деплой
 
 ```bash
-npm run build    # сборка проекта
-npm run start    # запуск production-сервера
+npm run build                   # сборка проекта
+node .output/server/index.mjs   # запуск production-сервера
 ```
 
 Весь билд будет находиться в папке `.output`.
@@ -228,7 +228,7 @@ export default {
 
 ```bash
 npm run build
-npm run start      # для production
+npm run start      # для production (команда актуальна для Nuxt 2)
 ```
 После сборки проект можно развернуть на любом Node.js сервере.
 

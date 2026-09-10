@@ -133,15 +133,16 @@ export default {
 
 ```js
 <script setup>
-import { onMounted } from 'vue'
-
-const userAgentData = ref(null)
-onMounted(async () => {
-  // Данные будут получены только на клиенте
-  userAgentData.value = await $fetch('/api/userinfo')
+// server: false отключает запрос на этапе SSR — данные загрузятся только в браузере
+const { data: userAgentData } = await useFetch('/api/userinfo', {
+  server: false
 })
 </script>
 ```
+
+Здесь не нужно ни `ref`, ни `onMounted`: `useFetch` с опцией `server: false` пропускает запрос при серверном рендеринге и выполняет его на клиенте. При этом вы бесплатно получаете `status`, `error` и `refresh`, а данные корректно попадают в кеш Nuxt.
+
+Вариант с `onMounted` и `$fetch` тоже работает, но состояние загрузки и ошибки вам придётся заводить и поддерживать вручную.
 
 ### Использование собственного сервера API (Nuxt API routes)
 
@@ -174,17 +175,25 @@ const { data: posts } = await useFetch('/api/posts')
 
 ```js
 <script setup>
-const { data, error, pending } = await useFetch('/api/posts')
+const { data, error, status } = await useFetch('/api/posts')
+</script>
 
-if (pending.value) {
-  // Покажите индикатор загрузки
-}
-if (error.value) {
-  // Покажите ошибку
-}
-if (data.value) {
-  // Выводите данные
-}
+<template>
+  <!-- Статусы проверяем в шаблоне: он реагирует на изменения реактивно -->
+  <div v-if="status === 'pending'">Загрузка...</div>
+  <div v-else-if="error">Ошибка: {{ error.message }}</div>
+  <ul v-else>
+    <li v-for="post in data" :key="post.id">{{ post.title }}</li>
+  </ul>
+</template>
+```
+
+Обратите внимание на важную деталь. Проверять статус загрузки сразу после `await` в скрипте бессмысленно: `await` дожидается завершения запроса, поэтому к следующей строке `status` уже никогда не будет равен `'pending'`. Индикатор загрузки имеет смысл только в шаблоне — либо при вызове `useFetch` без `await`:
+
+```js
+<script setup>
+// lazy: true не блокирует навигацию — состояние pending станет наблюдаемым
+const { data, error, status } = await useFetch('/api/posts', { lazy: true })
 </script>
 ```
 
@@ -286,10 +295,11 @@ const { data } = await useFetch<Post[]>('/api/posts')
 В Nuxt 3 можно управлять кэшированием useFetch:
 
 ```js
-const { data } = await useFetch('/api/items', {
+// С lazy: true await не нужен — запрос не должен блокировать рендер
+const { data, status } = useFetch('/api/items', {
   key: 'items-list', // уникальный ключ для кэширования
-  lazy: true,        // не выполнять при монтировании компонента
-  server: false      // всегда выполнять на клиенте
+  lazy: true,        // не блокировать навигацию, отрисовать страницу сразу
+  server: false      // не выполнять запрос при SSR, только в браузере
 })
 ```
 - `key` нужен, если хотите явно управлять кэшированием (например, при пагинации).

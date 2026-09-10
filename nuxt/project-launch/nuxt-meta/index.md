@@ -258,7 +258,7 @@ Nuxt прекрасно поддерживает изоморфный ренде
 
 ```sh
 npm run build
-npm run start
+npm run preview
 ```
 
 Для статических сайтов — откройте итоговые `*.html` файлы после `nuxt generate`.

@@ -398,7 +398,7 @@ Nuxt можно деплоить как SSR-приложение, SSG или SPA
 
 ```bash
 npm run build
-npm run start
+node .output/server/index.mjs
 ```
 В режиме SSG после `npx nuxi generate` загрузите содержимое `.output/public` на любой статиеский хостинг.
 

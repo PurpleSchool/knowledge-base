@@ -48,8 +48,8 @@ npm run dev                   # Запускаем сервер разработ
 В продакшене нужно собирать проект и запускать сервер отдельно:
 
 ```bash
-npm run build                 # Сборка проекта
-npm run start                 # Запуск Nuxt в режиме Production
+npm run build                   # Сборка проекта
+node .output/server/index.mjs   # Запуск Nuxt в режиме Production
 ```
 
 #### Конфигурация `nuxt.config.ts`

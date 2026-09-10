@@ -133,7 +133,7 @@ export default defineComponent({
 })
 ```
 
-Для больших компонентов удобно использовать интерфейсы:
+Для больших компонентов удобно использовать интерфейсы. Обратите внимание: аннотировать параметр `setup(props: MyProps)` не нужно и вредно — Vue выводит тип пропсов из опции `props`, а ручная аннотация этот вывод перекрывает и может разойтись с реальным описанием:
 
 ```ts
 interface MyProps {
@@ -142,13 +142,14 @@ interface MyProps {
 }
 
 export default defineComponent({
+  // Тип пропсов задаётся через PropType, аннотировать setup не нужно
   props: {
-    title: String,
-    count: Number
+    title: { type: String as PropType<MyProps['title']>, required: true },
+    count: { type: Number as PropType<MyProps['count']>, default: 0 }
   },
-  setup(props: MyProps) {
-    // props будет иметь тип MyProps
-    // Теперь получите автодополнение для props.title и props.count
+  setup(props) {
+    // props уже типизирован по описанию выше
+    // Здесь доступно автодополнение для props.title и props.count
     return { ... }
   }
 })
@@ -160,10 +161,18 @@ export default defineComponent({
 
 ```ts
 export function useCounter() {
-  const count = ref<number>(0)
+  // Тип выводится из начального значения — писать ref<number> здесь не нужно
+  const count = ref(0)
   const increment = () => { count.value++ }
   return { count, increment }
 }
+```
+
+Явный тип-параметр `ref<number>(0)` тут избыточен: TypeScript и так выведет `Ref<number>` из начального значения. Указывайте его только тогда, когда вывод типа не даёт нужного результата — например, если значение изначально пустое или может быть шире:
+
+```ts
+// Здесь без явного типа получился бы Ref<null>
+const user = ref<User | null>(null)
 ```
 
 Теперь используем в компонентах:
@@ -356,16 +365,80 @@ TypeScript и Composition API идеально совместимы:
 
 ```ts
 <script setup lang="ts">
-import { ref } from 'vue'
+const counter = ref(0)
 
-const counter = ref<number>(0)
-function increment(amount: number): void {
+function increment(amount: number) {
   counter.value += amount
 }
 </script>
 ```
 
-Здесь вы сразу получаете автодополнение и строгую проверку входных параметров.
+Здесь вы сразу получаете автодополнение и строгую проверку входных параметров. Обратите внимание на две детали: `ref` в Nuxt импортировать не нужно — работает автоимпорт, а тип возвращаемого значения `void` выводится автоматически. Явно указан только тип параметра `amount`, потому что вывести его неоткуда.
+
+### Типизация пропсов и событий
+
+Основной инструмент типизации компонента в `<script setup>` — это `defineProps` и `defineEmits` с тип-параметрами:
+
+```ts
+<script setup lang="ts">
+interface Props {
+  title: string
+  count?: number
+}
+
+// Типы пропсов задаются тип-параметром, без объектного описания
+const props = defineProps<Props>()
+
+const emit = defineEmits<{
+  // Имя события и типы его аргументов
+  select: [id: number]
+  close: []
+}>()
+
+function onSelect(id: number) {
+  emit('select', id)
+}
+</script>
+```
+
+Значения по умолчанию для необязательных пропсов задаются через `withDefaults`:
+
+```ts
+<script setup lang="ts">
+const props = withDefaults(defineProps<Props>(), {
+  count: 0
+})
+</script>
+```
+
+### Альтернативный синтаксис: defineComponent
+
+Если вы не используете `<script setup>`, тот же компонент описывается через `defineComponent` с блоком `setup`:
+
+```ts
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  props: {
+    title: { type: String, required: true },
+    count: { type: Number, default: 0 }
+  },
+  emits: ['select'],
+  setup(props, { emit }) {
+    const counter = ref(props.count)
+
+    function increment(amount: number) {
+      counter.value += amount
+    }
+
+    return { counter, increment }
+  }
+})
+</script>
+```
+
+Оба варианта равноценны по возможностям типизации. `<script setup>` короче и рекомендуется для нового кода, `defineComponent` пригодится в существующих проектах и там, где нужны опции компонента, недоступные в `<script setup>`.
 
 ### Немного о хранении и повторном использовании типов
 

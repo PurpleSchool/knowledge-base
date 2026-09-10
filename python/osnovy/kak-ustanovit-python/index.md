@@ -99,6 +99,7 @@ python --version
 
 Комментарии к команде:
 
+```bat
 REM Запрашиваем версию установленного Python
 python --version
 ```
@@ -212,6 +213,7 @@ python3 --version
 
 Комментарий:
 
+```bash
 # На macOS нередко команда python указывает на старый Python 2
 # Поэтому мы проверяем python3
 python3 --version
@@ -307,6 +309,7 @@ python3 --version
 
 Комментарии:
 
+```bash
 # В новых системах python может указывать на python3
 # Но в старых - на python2, поэтому проверяем обе команды
 python --version
@@ -329,6 +332,7 @@ sudo apt install python3 python3-pip
 
 Комментарии:
 
+```bash
 # sudo - выполняем команды с правами администратора
 # apt install python3 - ставим интерпретатор Python 3
 # apt install python3-pip - ставим менеджер пакетов pip для Python 3
@@ -357,6 +361,7 @@ sudo dnf install python3 python3-pip
 
 Комментарии:
 
+```bash
 # dnf - пакетный менеджер Fedora
 # python3 - интерпретатор
 # python3-pip - менеджер пакетов pip для Python 3
@@ -388,6 +393,7 @@ sudo pacman -S python-pip
 
 Комментарии:
 
+```bash
 # pacman - пакетный менеджер Arch
 # python - последняя версия Python 3 из репозитория
 # python-pip - менеджер пакетов
@@ -416,6 +422,7 @@ which python3
 
 Комментарии:
 
+```bash
 # where / which помогают понять, какой именно бинарный файл вызывается
 where python
 which python3
@@ -606,6 +613,7 @@ venv\Scripts\activate
 
 Комментарии:
 
+```bat
 REM python -m venv venv - создает папку venv с изолированной установкой Python
 REM activate - переключает текущую сессию командной строки на использование окружения venv
 cd C:\Users\user\myproject
@@ -637,6 +645,7 @@ source venv/bin/activate
 
 Комментарии:
 
+```bash
 # python3 -m venv venv - создает виртуальное окружение
 # source venv/bin/activate - активирует его в текущем терминале
 cd ~/myproject
@@ -669,6 +678,7 @@ py -3.11 script.py
 
 Комментарии:
 
+```bat
 REM py -3.8 - явно выбираем Python 3.8
 REM py -3.11 - явно выбираем Python 3.11
 py -3.8 script.py
@@ -765,6 +775,7 @@ source ~/.bashrc
 
 Комментарии:
 
+```bash
 # alias python=python3 - переназначает команду python на python3 для текущего пользователя
 echo 'alias python=python3' >> ~/.bashrc
 source ~/.bashrc

@@ -61,6 +61,8 @@ git clone https://github.com/user/project.git my-project
 
 Это полезно, когда вы хотите другое имя папки, чем у удаленного репозитория.
 
+Застряли на ошибке `git clone` или не понимаете, что Git написал в ответ? AI-агент в терминале прочитает вывод и объяснит его простыми словами. Как поставить такого помощника и учиться вместе с ним, показываем в бесплатном курсе [«AI в обучении: OpenCode и skills»](https://purpleschool.ru/course/ai-learn?utm_source=knowledgebase&utm_medium=text&utm_campaign=gitclone&utm_content=ailearn).
+
 ### Общий формат команды
 
 Давайте разберем общий формат:

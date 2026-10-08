@@ -29,6 +29,8 @@ preview: Исследуйте HTML элемент iframe - когда его и�
 
 Давайте по шагам разберем, как устроен iframe и что вы реально можете с ним сделать.
 
+Если iframe не отображается из-за `X-Frame-Options` или CSP, AI-агент разберёт ошибку из консоли браузера и подскажет, что поменять. Как поставить такого помощника и учиться вместе с ним, показываем в бесплатном курсе [«AI в обучении: OpenCode и skills»](https://purpleschool.ru/course/ai-learn?utm_source=knowledgebase&utm_medium=text&utm_campaign=iframe&utm_content=ailearn).
+
 ## Основы элемента iframe
 
 ### Базовый синтаксис

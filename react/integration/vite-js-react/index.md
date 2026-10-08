@@ -45,6 +45,8 @@ node -v
 ```
 Если необходимо установить или обновить Node.js — это можно сделать с официального сайта nodejs.org или через ваш менеджер пакетов.
 
+AI-агент может создать проект на Vite, запустить его и объяснить структуру файлов — хороший способ быстро освоиться с новым инструментом. Как поставить такого помощника и учиться вместе с ним, показываем в бесплатном курсе [«AI в обучении: OpenCode и skills»](https://purpleschool.ru/course/ai-learn?utm_source=knowledgebase&utm_medium=text&utm_campaign=chto-takoe-vite-i-kak-zapuskat-proekty-react-cherez-nego&utm_content=ailearn).
+
 ### Инициализация нового проекта через Vite
 
 Смотрите, Vite предлагает свой способ создания новых приложений через официальную утилиту npm или yarn (или pnpm):

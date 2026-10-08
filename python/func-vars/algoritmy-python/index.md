@@ -27,6 +27,8 @@ sorted_numbers = sorted(numbers, reverse=True)
 print(sorted_numbers)  # [9, 6, 5, 5, 2, 1]
 ```
 
+Попросите AI-агента объяснить, чем `sort()` отличается от `sorted()`, и дать задачу на сортировку для практики. Как поставить такого помощника и учиться вместе с ним, показываем в бесплатном курсе [«AI в обучении: OpenCode и skills»](https://purpleschool.ru/course/ai-learn?utm_source=knowledgebase&utm_medium=text&utm_campaign=Algoritmy_na_Python_primery_i_obyasnenie&utm_content=ailearn).
+
 ### Поиск элемента
 
 Алгоритмы поиска позволяют находить нужные значения в коллекциях:

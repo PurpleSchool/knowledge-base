@@ -119,6 +119,8 @@ py --version
 
 Если `py` выдает версию Python 3.x, то Python установлен, но команда `python` может не быть доступна напрямую. В этом случае вы можете использовать `py` везде, где нужно запускать Python.
 
+Если после установки `python --version` выдаёт ошибку, AI-агент в терминале поможет разобраться с PATH и версиями Python. Как поставить такого помощника и учиться вместе с ним, показываем в бесплатном курсе [«AI в обучении: OpenCode и skills»](https://purpleschool.ru/course/ai-learn?utm_source=knowledgebase&utm_medium=text&utm_campaign=kak-ustanovit-python&utm_content=ailearn).
+
 ### Шаг 4. Проверка работы pip
 
 pip — это стандартный менеджер пакетов Python. Он устанавливается вместе с Python (если вы не отключали его в настройках установки).

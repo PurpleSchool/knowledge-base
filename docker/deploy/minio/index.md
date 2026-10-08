@@ -38,6 +38,8 @@ sudo apt update
 sudo apt install docker-ce
 ```
 
+Если контейнер MinIO не поднимается, AI-агент в терминале сам прочитает логи Docker и подскажет, что не так с портами или томами. Как поставить такого помощника и учиться вместе с ним, показываем в бесплатном курсе [«AI в обучении: OpenCode и skills»](https://purpleschool.ru/course/ai-learn?utm_source=knowledgebase&utm_medium=text&utm_campaign=Razvertyvanie_MinIO_v_Docker&utm_content=ailearn).
+
 ### Проверка установки Docker
 
 После установки Docker, вы можете проверить его работу:

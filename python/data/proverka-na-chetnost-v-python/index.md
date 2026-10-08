@@ -27,6 +27,8 @@ else:
 
 Для системного освоения работы с числами и базовых операций Python, включая проверки условий, рекомендуем курс [Основы Python](https://purpleschool.ru/course/python-basics?utm_source=knowledgebase&utm_medium=article&utm_campaign=Proverka_na_chetnost_v_Python). Курс содержит 209 уроков, 34 упражнения, AI-тренажёры для практики 24/7 и живое ревью наставников. Он помогает закрепить знания на практике и научиться применять условия в реальных задачах.
 
+Попросите AI-агента дать вам пять задач на остаток от деления и проверить решения — так тема закрепится быстрее. Как поставить такого помощника и учиться вместе с ним, показываем в бесплатном курсе [«AI в обучении: OpenCode и skills»](https://purpleschool.ru/course/ai-learn?utm_source=knowledgebase&utm_medium=text&utm_campaign=Proverka_na_chetnost_v_Python&utm_content=ailearn).
+
 ### Использование логических выражений
 
 Можно комбинировать проверку четности с другими условиями для более сложной логики:

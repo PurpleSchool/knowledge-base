@@ -27,6 +27,8 @@ python --version
 
 Если система возвращает номер версии, значит установка прошла успешно.
 
+Python установлен — дальше удобно учиться с AI-агентом: он объясняет ошибки и подбирает задачи под ваш уровень. Как поставить такого помощника и учиться вместе с ним, показываем в бесплатном курсе [«AI в обучении: OpenCode и skills»](https://purpleschool.ru/course/ai-learn?utm_source=knowledgebase&utm_medium=text&utm_campaign=Kak_skachat_Python_na_kompyuter&utm_content=ailearn).
+
 ### Для macOS
 
 На macOS можно также использовать официальный установщик с сайта python.org или пакетный менеджер **Homebrew**.

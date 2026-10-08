@@ -60,6 +60,8 @@ git branch -d feature/login
 - если да — удаляет ветку
 - если нет — отказывается удалять и показывает предупреждение
 
+Боитесь удалить не ту ветку? AI-агент покажет, какие коммиты в ней не влиты, и только потом предложит команду удаления. Как поставить такого помощника и учиться вместе с ним, показываем в бесплатном курсе [«AI в обучении: OpenCode и skills»](https://purpleschool.ru/course/ai-learn?utm_source=knowledgebase&utm_medium=text&utm_campaign=checkout_d&utm_content=ailearn).
+
 ### Важное правило безопасности
 
 git branch -d НЕ удаляет ветку, если:

@@ -28,6 +28,8 @@ docker logs <container_id>
 
 Здесь `<container_id>` — это ID или имя вашего контейнера. Команда вернёт все доступные логи, начиная с момента запуска контейнера. 
 
+Логи длинные и непонятные? AI-агент в терминале прочитает вывод `docker logs` и найдёт строку, из-за которой падает контейнер. Как поставить такого помощника и учиться вместе с ним, показываем в бесплатном курсе [«AI в обучении: OpenCode и skills»](https://purpleschool.ru/course/ai-learn?utm_source=knowledgebase&utm_medium=text&utm_campaign=Prosmotr_logov_v_Docker_s_pomoschyu_komandy_get_logs&utm_content=ailearn).
+
 #### Просмотр последних логов
 
 Иногда требуется лишь быстрое обновление состояния контейнера. Для этого используйте `--tail`, чтобы увидеть последние строки лога:

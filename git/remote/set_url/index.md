@@ -47,6 +47,8 @@ git remote -v
 
 Каждый remote имеет свой URL. Именно его вы будете менять с помощью `git remote set-url`.
 
+Не уверены, какой URL ставить — HTTPS или SSH? AI-агент в терминале посмотрит `git remote -v` и объяснит разницу на вашем репозитории. Как поставить такого помощника и учиться вместе с ним, показываем в бесплатном курсе [«AI в обучении: OpenCode и skills»](https://purpleschool.ru/course/ai-learn?utm_source=knowledgebase&utm_medium=text&utm_campaign=set_url&utm_content=ailearn).
+
 ---
 
 ## Команда git remote set-url — базовый синтаксис

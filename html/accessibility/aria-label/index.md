@@ -862,4 +862,4 @@ document.getElementById('toggle-password').addEventListener('click', function ()
 </div>
 ```
 
-// Но по возможности лучше заменить div на нативный <button>
+// Но по возможности лучше заменить div на нативный `<button>`

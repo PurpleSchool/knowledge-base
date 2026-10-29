@@ -28,7 +28,6 @@ preview: "Изучаем подходы к документированию Reac
  * Универсальная кнопка с поддержкой вариантов стиля и состояний загрузки.
  *
  * @example
- * ```tsx
  * // Основное использование
  * <Button onClick={handleSubmit}>Сохранить</Button>
  *
@@ -36,7 +35,6 @@ preview: "Изучаем подходы к документированию Reac
  * <Button variant="danger" isLoading={submitting} onClick={handleDelete}>
  *   Удалить
  * </Button>
- * ```
  */
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /**
@@ -100,7 +98,6 @@ function Button({
  * @returns Объект с данными, состоянием загрузки, ошибкой и функцией execute
  *
  * @example
- * ```tsx
  * function UserProfile({ userId }: { userId: string }) {
  *   const { data: user, isLoading, error, execute } = useAsync(
  *     () => fetchUser(userId)
@@ -114,7 +111,6 @@ function Button({
  *
  *   return <div>{user.name}</div>;
  * }
- * ```
  */
 function useAsync<T>(asyncFn: () => Promise<T>) {
   const [data, setData] = useState<T | null>(null);
@@ -383,7 +379,6 @@ UserAvatar.defaultProps = {
  * Должен оборачивать всё приложение или секцию, которой нужен доступ к теме.
  *
  * @example
- * ```tsx
  * // В root layout
  * <ThemeProvider defaultTheme="light">
  *   <App />
@@ -391,7 +386,6 @@ UserAvatar.defaultProps = {
  *
  * // В компоненте
  * const { theme, toggleTheme } = useTheme();
- * ```
  */
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 

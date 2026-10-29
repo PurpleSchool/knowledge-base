@@ -393,7 +393,7 @@ git branch -r
 
 ## Распространенные ошибки при использовании git remote remove
 
-### Ошибка: «error: Could not remove config section 'remote.<name>'»
+### Ошибка: «error: Could not remove config section '`remote.<name>`'»
 
 Эта ошибка говорит о том, что Git не нашел секцию с таким remote в конфигурации.
 

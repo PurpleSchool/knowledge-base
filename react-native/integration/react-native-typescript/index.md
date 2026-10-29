@@ -357,7 +357,7 @@ function counterReducer(state: number, action: CounterAction): number {
 — Проверьте, что у вас указан параметр "skipLibCheck": true и не слишком ограничивающий "types" в tsconfig.json. Иногда помогает удалить node_modules и файл tsconfig.tsbuildinfo, затем выполнить npm install.
 
 **3. Как типизировать navigation props в экранах React Navigation v6?**  
-— Используйте StackScreenProps<RootStackParamList, 'ScreenName'> для типизации параметров navigation и route. Это позволит TypeScript контролировать правильную передачу данных между экранами.
+— Используйте `StackScreenProps<RootStackParamList, 'ScreenName'>` для типизации параметров navigation и route. Это позволит TypeScript контролировать правильную передачу данных между экранами.
 
 **4. Как правильно использовать стороннюю библиотеку без доступных типов?**  
 — Если типы отсутствуют на DefinitelyTyped, создайте файл типа `declarations.d.ts` и напишите: 

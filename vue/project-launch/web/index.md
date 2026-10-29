@@ -439,7 +439,7 @@ router.addRoute({ name: 'Admin', path: '/admin', component: AdminView })
 ```vue
 <router-view :key="$route.fullPath" />
 ```
-Либо настройте <keep-alive> и используйте методы activated/deactivated в компонентах.
+Либо настройте `<keep-alive>` и используйте методы activated/deactivated в компонентах.
 
 **Вопрос 3: Как использовать Vue с SSR (Server Side Rendering)?**  
 — Воспользуйтесь [Nuxt.js](https://nuxt.com/) или [Vite SSR](https://vitejs.dev/guide/ssr.html). Nuxt автоматизирует большую часть работы по SSR и имеет интеграцию с экосистемой Vue.

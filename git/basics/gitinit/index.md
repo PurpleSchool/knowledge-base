@@ -572,7 +572,7 @@ $ git push -u origin main                                        # Отправ�
 Автоматически связать init и remote одной командой нельзя, но можно быстро сделать последовательность:
 
 1. git init  
-2. git remote add origin <url>  
+2. git remote add origin `<url>`  
 3. git add .  
 4. git commit -m "Initial commit"  
 5. git push -u origin master (или main).  

@@ -431,7 +431,7 @@ export function useInit() {
 
 ### Как типизировать props, возвращаемые значения и зависимости в Composition API при использовании TypeScript?
 
-Декларируйте типы props через defineProps<[тип]>(), возвращаемые значения setup — через интерфейсы, composables — через явные типы. Используйте тип Ref<T> для ref-переменных:
+Декларируйте типы props через defineProps<[тип]>(), возвращаемые значения setup — через интерфейсы, composables — через явные типы. Используйте тип `Ref<T>` для ref-переменных:
 
 ```ts
 import { Ref } from 'vue'

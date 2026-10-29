@@ -82,17 +82,14 @@ interface DataTableProps<T extends Record<string, unknown>> {
  * @template T - Тип элемента данных. Должен быть объектом.
  *
  * @example Базовое использование
- * ```tsx
  * const columns: ColumnDef<User>[] = [
  *   { key: 'name', header: 'Имя' },
  *   { key: 'email', header: 'Email' },
  * ];
  *
  * <DataTable data={users} columns={columns} />
- * ```
  *
  * @example С сортировкой и пагинацией
- * ```tsx
  * <DataTable
  *   data={products}
  *   columns={productColumns}
@@ -101,7 +98,6 @@ interface DataTableProps<T extends Record<string, unknown>> {
  *   pageSize={25}
  *   onRowClick={(product) => navigate(`/products/${product.id}`)}
  * />
- * ```
  *
  * @see {@link https://company-storybook.example.com/?path=/docs/data-table} Storybook
  */
@@ -139,7 +135,6 @@ function DataTable<T extends Record<string, unknown>>({
  * @returns Объект с состоянием и функцией запуска
  *
  * @example
- * ```tsx
  * function UserProfile({ userId }: { userId: string }) {
  *   const { data, isLoading, error, execute } = useAsync(
  *     () => api.fetchUser(userId),
@@ -150,7 +145,6 @@ function DataTable<T extends Record<string, unknown>>({
  *   if (error) return <ErrorMessage error={error} />;
  *   return <ProfileView user={data} />;
  * }
- * ```
  */
 function useAsync<T, E = Error>(
   asyncFunction: () => Promise<T>,
@@ -410,7 +404,7 @@ export const FormSubmission: Story = {
 
 ### Структура хорошего README
 
-```markdown
+~~~markdown
 # ComponentName
 
 Краткое описание в одном предложении — что делает компонент и для чего.
@@ -466,7 +460,7 @@ function App() {
 ## Связанные компоненты
 
 - [RelatedComponent](./RelatedComponent/README.md)
-```
+~~~
 
 ### Документирование сложных паттернов использования
 
@@ -481,7 +475,6 @@ function App() {
  * Компонент SelectField с поиском и мультивыбором.
  *
  * @example Одиночный выбор
- * ```tsx
  * const [value, setValue] = useState('');
  *
  * <SelectField
@@ -490,10 +483,8 @@ function App() {
  *   onChange={setValue}
  *   placeholder="Выберите страну"
  * />
- * ```
  *
  * @example Мультивыбор
- * ```tsx
  * const [values, setValues] = useState<string[]>([]);
  *
  * <SelectField
@@ -503,10 +494,8 @@ function App() {
  *   onChange={setValues}
  *   placeholder="Выберите теги"
  * />
- * ```
  *
  * @example Асинхронная загрузка опций
- * ```tsx
  * <SelectField
  *   options={[]}
  *   isLoading={isLoadingOptions}
@@ -515,7 +504,6 @@ function App() {
  *     setOptions(results);
  *   }}
  * />
- * ```
  */
 ```
 

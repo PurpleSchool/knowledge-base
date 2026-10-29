@@ -182,7 +182,7 @@ git tag -l "*draft*"
 Сценарий такой:
 
 1. удалить тег локально — git tag -d;
-2. удалить тег на удаленном репозитории — git push origin :refs/tags/<tagname> или git push origin --delete <tagname>.
+2. удалить тег на удаленном репозитории — git push origin :refs/tags/`<tagname>` или git push origin --delete `<tagname>`.
 
 Давайте разберем эти варианты детальнее.
 
@@ -349,9 +349,9 @@ git tag -d v1.0.0
 
 Исходный commit по-прежнему остается в истории. Если вы знаете его хеш, вы можете:
 
-- посмотреть его через git show <hash>;
+- посмотреть его через git show `<hash>`;
 - создать на нем новый тег;
-- перейти к нему через git checkout <hash>.
+- перейти к нему через git checkout `<hash>`.
 
 Тег — это всего лишь «ярлык» на уже существующий commit.
 

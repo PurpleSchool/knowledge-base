@@ -919,13 +919,13 @@ interface UserState {
 }
 ```
 
-2. Создавайте состояние через reactive<UserState>:
+2. Создавайте состояние через `reactive<UserState>`:
 
 ```ts
 const user = reactive<UserState>({ name: '', age: 0 })
 ```
 
-3. В дочернем компоненте описывайте пропс как UserState, а не как ReturnType<typeof reactive>. Тогда TS будет работать с "формой" объекта, а не с Proxy-типа.
+3. В дочернем компоненте описывайте пропс как UserState, а не как `ReturnType<typeof reactive>`. Тогда TS будет работать с "формой" объекта, а не с Proxy-типа.
 
 ### Как сделать глубокий watch за объектом, созданным через reactive, но не отслеживать лишние изменения
 
@@ -980,7 +980,7 @@ watch(
 
 Vue может работать с Date, Map, Set, но есть нюансы:
 
-1. Для Date обычно достаточно ref<Date> или поле Date в reactive-объекте. Изменяйте значение через новые объекты: date.value = new Date().
+1. Для Date обычно достаточно `ref<Date>` или поле Date в reactive-объекте. Изменяйте значение через новые объекты: date.value = new Date().
 2. Для Map и Set используйте методы, а затем "подталкивайте" Vue к обновлению, если нужно:
 
 ```ts

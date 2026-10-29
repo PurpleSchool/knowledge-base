@@ -22,11 +22,11 @@ TypeScript имеет три JSX режима: `preserve`, `react` и `react-nat
 
 | Режим | Вход | Выход | Выходное расширение файла |
 | --- | --- | --- | --- |
-| preserve | <div /> | <div /> | .jsx |
-| react | <div /> | React.createElement("div") | .js |
-| react-native | <div /> | <div /> | .js |
-| react-jsx | <div /> | _jsx("div", {}, void 0); | .js |
-| react-jsxdev | <div /> | _jsxDEV("div", {}, void 0, false, {...}, this); | .js |
+| preserve | `<div />` | `<div />` | .jsx |
+| react | `<div />` | React.createElement("div") | .js |
+| react-native | `<div />` | `<div />` | .js |
+| react-jsx | `<div />` | _jsx("div", {}, void 0); | .js |
+| react-jsxdev | `<div />` | _jsxDEV("div", {}, void 0, false, {...}, this); | .js |
 
 Вы можете указать этот режим с помощью флага командной строки jsx или соответствующей опции jsx в файле tsconfig.json.
 

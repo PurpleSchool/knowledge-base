@@ -254,7 +254,7 @@ const FormWithKeyboardAware = () => (
 ## Особенности работы с клавиатурой на Android и iOS
 
 - На Android события `keyboardWillShow` и `keyboardWillHide` не поддерживаются, только `keyboardDidShow` и `keyboardDidHide`.
-- Поведение клавиатуры может зависеть от настроек AndroidManifest.xml: параметр `windowSoftInputMode` в <activity> определяет, как изменять layout при появлении клавиатуры (resize, pan, adjustNothing).
+- Поведение клавиатуры может зависеть от настроек AndroidManifest.xml: параметр `windowSoftInputMode` в `<activity>` определяет, как изменять layout при появлении клавиатуры (resize, pan, adjustNothing).
 - На iOS появление клавиатуры сопровождается анимациями, события "will" приходят заранее, есть параметры анимации (easing, duration), что можно использовать для создания плавных переходов.
 
 Настройки AndroidManifest.xml для корректной работы (обычно рекомендуется):

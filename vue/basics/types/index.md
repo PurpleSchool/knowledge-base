@@ -77,7 +77,7 @@ npm create vite@latest my-vue-ts-app -- --template vue-ts
 
 В Vue 3 появилась сильная поддержка TypeScript из коробки. Рассмотрим основные способы объявления компонентов.
 
-### SFC (Single File Component) с <script lang="ts">
+### SFC (Single File Component) с `<script lang="ts">`
 
 Это рекомендуемый подход: каждый компонент живет в своем `.vue` файле.
 
@@ -150,7 +150,7 @@ export default defineComponent({
 
 TypeScript позволяет явно указывать типы props с помощью дженериков и отдельных интерфейсов.
 
-#### Использование с defineProps (SFC с <script setup>)
+#### Использование с defineProps (SFC с `<script setup>`)
 
 Vue 3 поддерживает `<script setup>` — это самый лаконичный способ сочетания Vue и TypeScript.
 

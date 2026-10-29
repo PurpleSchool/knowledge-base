@@ -159,12 +159,10 @@ JSDoc-комментарии особенно полезны для переис
  * Карточка пользователя с аватаром и основной информацией.
  *
  * @example
- * ```tsx
  * <UserCard
  *   user={currentUser}
  *   onEdit={(id) => router.push(`/users/${id}/edit`)}
  * />
- * ```
  */
 interface UserCardProps {
   /** Объект пользователя из API */
@@ -199,9 +197,7 @@ function UserCard({ user, onEdit, className }: UserCardProps) {
  * @returns Текущая страница, общее количество страниц и функции навигации
  *
  * @example
- * ```tsx
  * const { page, totalPages, nextPage, prevPage } = usePagination(100, 20);
- * ```
  */
 function usePagination(totalItems: number, itemsPerPage = 10) {
   const [page, setPage] = useState(1);

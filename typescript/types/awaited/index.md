@@ -29,7 +29,7 @@ type Result = Awaited<Promise<number>>;
 // Result примет значение number
 ```
 
-Это значит, что если у какой-то функции есть возвращаемый тип Promise<T>, то благодаря Awaited вы легко пишете тип для уже "распакованного" значения.
+Это значит, что если у какой-то функции есть возвращаемый тип `Promise<T>`, то благодаря Awaited вы легко пишете тип для уже "распакованного" значения.
 
 ### Awaited и обычные типы
 
@@ -43,7 +43,7 @@ Awaited проверяет — если на входе "чистый" тип, �
 
 ### Awaited и вложенные Promise
 
-Часто бывают ситуации, когда имеем дело с Promise<Promise<T>>. Awaited распаковует все уровни Promise, пока не доберется до настоящего значения.
+Часто бывают ситуации, когда имеем дело с `Promise<Promise<T>>`. Awaited распаковует все уровни Promise, пока не доберется до настоящего значения.
 
 ```typescript
 type Nested = Awaited<Promise<Promise<number>>>;
@@ -120,7 +120,7 @@ type Res = Awaited<Thenable<number>>;
 
 ### 4. Сложные вложенные сценарии
 
-Awaited рекурсивно распаковывает типы, поэтому он удобен, когда вы работаете с типами вроде Promise<Promise<MaybePromise<T>>> — он всегда дойдет до "чистой" сущности.
+Awaited рекурсивно распаковывает типы, поэтому он удобен, когда вы работаете с типами вроде Promise<`Promise<MaybePromise<T>>`> — он всегда дойдет до "чистой" сущности.
 
 ```typescript
 type Foo = Awaited<Promise<Promise<{ done: boolean }>>>;
@@ -142,7 +142,7 @@ type Resolved = Awaited<ReturnType<typeof example>>;
 // Resolved — это number
 ```
 
-ReturnType возвращает Promise<number>, а Awaited превращает его просто в number.
+ReturnType возвращает `Promise<number>`, а Awaited превращает его просто в number.
 
 ### Awaited и Parameters
 
@@ -232,7 +232,7 @@ type UnwrapPromise<T> = T extends Promise<infer U> ? U : T;
 
 ### 1. Попытка распаковать уже "чистый" тип
 
-Awaited<string> все равно вернет string — это не ошибка, но может быть неожиданно на первый взгляд.
+`Awaited<string>` все равно вернет string — это не ошибка, но может быть неожиданно на первый взгляд.
 
 ### 2. Ошибки при работе с необобщёнными или нестандартными Promise
 
@@ -250,7 +250,7 @@ Awaited корректно работает только с типами, под
 
 ## Частозадаваемые технические вопросы по теме статьи и ответы на них
 
-### 1. Как типизировать функцию, возвращающую Promise<any>, чтобы получить конкретный тип результата?
+### 1. Как типизировать функцию, возвращающую `Promise<any>`, чтобы получить конкретный тип результата?
 
 Если у вас есть функция, возвращающая `Promise<any>`, и нужно указать конкретный тип результата на уровне типов, используйте обобщения и Awaited:
 
@@ -262,7 +262,7 @@ async function fetchData<T>(): Promise<T> {
 type Data = Awaited<ReturnType<typeof fetchData<string>>>;
 ```
 
-### 2. Чем Awaited отличается от UnwrapPromise<T>?
+### 2. Чем Awaited отличается от `UnwrapPromise<T>`?
 
 `UnwrapPromise<T>` обычно реализуется с помощью конструкции `T extends Promise<infer U> ? U : T`. Awaited работает глубже: он не только рекурсивно распаковывает вложенные Promise, но и поддерживает thenable-объекты.
 
@@ -277,7 +277,7 @@ type Result = Awaited<ThenableObj>; // Result — number
 
 ### 4. Как типизировать функцию-хелпер, работающую с sync и async-аргументами?
 
-Вы можете объявить тип аргумента как T | Promise<T> и использовать Awaited<T> для результата:
+Вы можете объявить тип аргумента как T | `Promise<T>` и использовать `Awaited<T>` для результата:
 
 ```typescript
 function helper<T>(value: T | Promise<T>): Promise<Awaited<T>> {

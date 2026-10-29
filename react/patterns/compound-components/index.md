@@ -1175,14 +1175,12 @@ function TabsTrigger({ value, children }: TabsTriggerProps) {
  * Компонент Accordion — раскрывающиеся секции с поддержкой множественного раскрытия.
  *
  * @example
- * ```tsx
  * <Accordion type="single" defaultValue="item-1">
  *   <Accordion.Item value="item-1">
  *     <Accordion.Trigger>Заголовок секции</Accordion.Trigger>
  *     <Accordion.Content>Содержимое секции</Accordion.Content>
  *   </Accordion.Item>
  * </Accordion>
- * ```
  *
  * @param type - "single" (одна секция) или "multiple" (несколько секций)
  * @param defaultValue - значение по умолчанию открытой секции

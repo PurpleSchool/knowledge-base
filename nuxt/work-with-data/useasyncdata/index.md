@@ -82,20 +82,15 @@ const { data: posts, pending, error } = await useAsyncData('posts', () => {
 
 ```vue
 <script setup>
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 
 const userId = ref(1)
 
-const { data: user, refresh } = await useAsyncData(
+const { data: user } = await useAsyncData(
   // Ключ зависит от параметра - для уникальности кэширования
   () => `user-${userId.value}`,
   () => $fetch(`https://jsonplaceholder.typicode.com/users/${userId.value}`)
 )
-
-// Обновление данных при изменении userId
-watch(userId, () => {
-  refresh()
-})
 </script>
 
 <template>
@@ -104,7 +99,7 @@ watch(userId, () => {
 </template>
 ```
 
-*В этом примере пользователь загружается при изменении `userId`. Благодаря зависимости ключа кэш также ведёт себя корректно.*
+*Ключ-геттер зависит от `userId`: когда он меняется, меняется и ключ, поэтому useAsyncData запрашивает данные заново. Отдельный `watch` с `refresh()` здесь не нужен — он привёл бы к повторному запросу.*
 
 ### Пример 3. Загрузка с условием
 
@@ -113,12 +108,18 @@ watch(userId, () => {
 ```js
 const isEnabled = ref(false)
 
-// useAsyncData не будет ничего делать, пока isEnabled — false
-const { data, refresh } = await useAsyncData(
+// Запрос не выполнится, пока не вызовем execute()
+const { data, execute } = await useAsyncData(
   'conditional',
   () => $fetch('/api/data'),
-  { enabled: isEnabled }
+  { immediate: false }
 )
+
+watch(isEnabled, (enabled) => {
+  if (enabled) {
+    execute()
+  }
+})
 ```
 
 ## Параметры и расширенные возможности useAsyncData
@@ -133,7 +134,7 @@ const { data } = await useAsyncData(
   () => $fetch('/api/posts'),
   {
     server: true,       // Запускать на сервере (по умолчанию true)
-    lazy: false,        // Дожидаться выполнения при SSR (если true — only on client hydration)
+    lazy: false,        // true — не блокировать навигацию (запрос на сервере всё равно идёт)
     default: () => [],  // Значение по умолчанию для data
     transform: (data) => data.slice(0, 10), // Обработка результата
     watch: [someReactiveVar] // Рефы, при изменении которых вызывается refresh()
@@ -144,7 +145,7 @@ const { data } = await useAsyncData(
 #### Коротко о каждом параметре:
 
 - `server` — выполнять ли функцию на сервере (по умолчанию true).
-- `lazy` — если true, загрузка начнётся только после гидрации клиента.
+- `lazy` — если true, навигация не блокируется: страница показывается сразу, а состояние загрузки нужно обрабатывать самому. При SSR запрос всё равно выполняется на сервере.
 - `default` — функция, возвращающая значение по умолчанию для data до окончания загрузки.
 - `transform` — функция для постобработки полученных данных.
 - `watch` — массив реактивных переменных, при изменении которых данные перезапрашиваются.
@@ -187,17 +188,19 @@ const { data, pending, error, refresh } = await useAsyncData('notes', () => $fet
 
 ### Как работает кэш
 
-Nuxt автоматически кэширует данные, полученные через useAsyncData, чтобы не делать лишние запросы при переходе страниц или навигации. Ключевую роль играет уникальный ключ первого аргумента.
+Nuxt кладёт результат useAsyncData в payload, поэтому при гидрации клиент не повторяет запрос — данные приходят вместе с HTML. Ключевую роль играет уникальный ключ первого аргумента.
 
-- Если ключ одинаков и страница уже запрашивалась — данные мгновенно появляются из кэша.
-- После перехода между страницами useAsyncData сохраняет кэшированные данные (если ключ совпал).
+- При гидрации данные берутся из payload по ключу — повторного запроса нет.
+- Чтобы данные переиспользовались при переходах между страницами, нужен `experimental.payloadExtraction`. Без него при клиентской навигации запрос выполнится заново, даже если ключ совпадает.
 
 ### Когда кэш сбрасывается?
 
-Кэш сбрасывается при:
-- Изменении значения ключа (например, при изменении route params).
-- Вызове явного refresh().
-- Перезагрузке приложения (страницы).
+Кэш перестаёт использоваться при:
+- изменении значения ключа — для нового ключа создаётся отдельная запись;
+- вызове `clear()` или `clearNuxtData()` — они сбрасывают данные и отменяют текущий запрос;
+- перезагрузке приложения (страницы).
+
+`refresh()` кэш не сбрасывает: он повторно выполняет handler и обновляет `data`.
 
 #### Принудительное обновление данных
 
@@ -213,7 +216,7 @@ refresh() // повторяет запрос
 ### Поведение при SSR
 
 - useAsyncData выполняется на сервере при первом рендере.
-- Данные из асинхронных хуков сериализуются в HTML, чтобы клиент мог их моментально использовать (без повторного запроса).
+- Данные из асинхронных хуков сериализуются в payload, встроенный в HTML, чтобы клиент мог использовать их без повторного запроса.
 
 ### Поведение при SSG
 
@@ -225,7 +228,7 @@ refresh() // повторяет запрос
 
 ## Использование useAsyncData во Vue-компонентах и setup
 
-useAsyncData предназначен для вызова внутри `<script setup>` (или setup() функции). Не используйте его вне компонента или после инициализации приложения — это нарушает концепцию SSR и кэширования.
+useAsyncData вызывается там, где доступен Nuxt-контекст: в setup компонента, в плагине или в route middleware. Вне этого контекста (например, в обычной функции после инициализации приложения) он не сработает.
 
 #### Пример верного использования:
 
@@ -246,7 +249,7 @@ const { data } = useAsyncData('outside', fetchSomething)
 
 Оба хука — useAsyncData и useFetch — предназначены для загрузки асинхронных данных. Но есть различия:
 
-- **useFetch** — используется главным образом для запросов HTTP и возвращает немного другой интерфейс (есть status, требует сразу передать URL или опции для `fetch`). Подходит для простых HTTP-запросов.
+- **useFetch** — обёртка над useAsyncData и $fetch для HTTP-запросов: сразу требует URL и сам строит ключ. Набор полей у него тот же (data, status, error, refresh), поэтому разница — в удобстве для HTTP, а не в интерфейсе.
 - **useAsyncData** — более универсален, позволяет работать с любой асинхронной логикой, не обязательно ограничиваясь сетевыми запросами.
 
 ## Рекомендации по работе с useAsyncData
@@ -255,7 +258,7 @@ const { data } = useAsyncData('outside', fetchSomething)
 - Не используйте await вне setup — это приведёт к синтаксическим ошибкам и неправильному SSR.
 - Следите за глубиной вложенности — хук не должен вызываться слишком глубоко внутри колбэков или watch, используйте его прямо внутри setup.
 - Для сложных реактивных данных лучше использовать опцию watch.
-- Для работы с условными запросами используйте опцию enabled.
+- Для условных запросов используйте `immediate: false` и вызов `execute()`; в Nuxt 4.5+ появилась опция `enabled`.
 
 ## Дополнительные возможности
 
@@ -308,21 +311,28 @@ const { data } = await useAsyncData(
   { watch: [() => route.query.category] }
 )
 ```
-Когда query изменится — кэш будет очищен для нового ключа и useAsyncData снова запросит данные.
+Когда query изменится, ключ станет другим — useAsyncData выполнит новый запрос.
 
 ### Как остановить useAsyncData до выполнения запроса (cancel/abort)?
 
-useAsyncData сам по себе не предоставляет abortController для отмены fetch-запроса, но если вы используете $fetch/$axios с поддержкой abort, передайте туда abortController. Например:
+useAsyncData не создаёт AbortController сам, но handler получает `signal`, а `execute` и `refresh` принимают `AbortSignal`. Этого достаточно, чтобы отменить запрос до его завершения. Например:
 
 ```js
 const controller = new AbortController()
-const { data } = await useAsyncData(
-  'delayed',
-  () => $fetch('/api/slow', { signal: controller.signal })
+
+const { data, execute } = useAsyncData(
+  'slow',
+  (_nuxtApp, { signal }) => $fetch('/api/slow', { signal }),
+  { immediate: false }
 )
-// Для отмены запроса
+
+execute({ signal: controller.signal })
+
+// Позже, пока запрос ещё выполняется:
 controller.abort()
 ```
+
+Текущий запрос также отменяет `clear()`.
 
 ### Можно ли вызывать useAsyncData внутри других composable функций?
 
@@ -343,8 +353,10 @@ export function useUserData(id) {
 В Nuxt 3 можно вызывать несколько useAsyncData, а затем применить Promise.all для того, чтобы дождаться их завершения, либо обрабатывать каждое состояние отдельно (pending, error и т.д.). Пример:
 
 ```js
-const { data: posts } = await useAsyncData('posts', fetchPosts)
-const { data: users } = await useAsyncData('users', fetchUsers)
+const [{ data: posts }, { data: users }] = await Promise.all([
+  useAsyncData('posts', fetchPosts),
+  useAsyncData('users', fetchUsers),
+])
 ```
 
 ### Как типизировать useAsyncData в TypeScript?

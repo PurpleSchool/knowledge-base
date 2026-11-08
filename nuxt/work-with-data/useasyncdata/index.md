@@ -14,7 +14,7 @@ preview: Разберитесь, как с помощью useAsyncData в Nuxt �
 
 ## Что такое useAsyncData в Nuxt
 
-useAsyncData — это компоновочный хук (composable) из Nuxt 3, который позволяет асинхронно получать данные при рендеринге страницы. 
+useAsyncData — это компоновочный хук (composable) из Nuxt 3, который позволяет асинхронно получать данные при рендеринге страницы.
 
 ### Главные особенности useAsyncData
 
@@ -46,7 +46,7 @@ const { data, pending, error, refresh } = await useAsyncData('users', async () =
   - `error` — ошибка, если она возникла;
   - `refresh` — функция для повторной загрузки данных.
 
-useAsyncData - это composable функция, позволяющая просто и удобно асинхронно получать данные в компонентах Nuxt. Для эффективного использования useAsyncData необходимо понимать, как работают composables, как обрабатывать ошибки и как обеспечить оптимальную производительность при получении данных. Если вы хотите научиться эффективно использовать useAsyncData в Nuxt, приходите на наш большой курс [Nuxt - fullstack Vue фреймворк](https://purpleschool.ru/course/nuxt?utm_source=knowledgebase&utm_medium=article&utm_campaign=kak-ispolzovat-useasyncdata). На курсе 129 уроков и 13 упражнений, AI-тренажеры для безлимитной практики с кодом и задачами 24/7, решение задач с живым ревью наставника, еженедельные встречи с менторами.
+useAsyncData - это composable-функция, позволяющая просто и удобно асинхронно получать данные в компонентах Nuxt. Для эффективного использования useAsyncData необходимо понимать, как работают composables, как обрабатывать ошибки и как обеспечить оптимальную производительность при получении данных. Если вы хотите научиться эффективно использовать useAsyncData в Nuxt, приходите на наш большой курс [Nuxt - fullstack Vue фреймворк](https://purpleschool.ru/course/nuxt?utm_source=knowledgebase&utm_medium=article&utm_campaign=kak-ispolzovat-useasyncdata). На курсе 129 уроков и 13 упражнений, AI-тренажеры для безлимитной практики с кодом и задачами 24/7, решение задач с живым ревью наставника, еженедельные встречи с менторами.
 
 ## Боевые примеры использования useAsyncData
 
@@ -54,7 +54,7 @@ useAsyncData - это composable функция, позволяющая прос
 
 В pages/index.vue:
 
-```js
+```vue
 <script setup>
 // Загрузка списка постов при открытии страницы
 const { data: posts, pending, error } = await useAsyncData('posts', () => {
@@ -80,7 +80,7 @@ const { data: posts, pending, error } = await useAsyncData('posts', () => {
 
 Часто нужно реагировать на изменения параметров запроса. Смотрите пример:
 
-```js
+```vue
 <script setup>
 import { ref, watch } from 'vue'
 
@@ -166,7 +166,7 @@ const { data } = await useAsyncData(
 
 Смотрите, как можно показать пользователю разные состояния — загрузка, ошибка, данные готовы:
 
-```js
+```vue
 <script setup>
 const { data, pending, error, refresh } = await useAsyncData('notes', () => $fetch('/api/notes'))
 </script>
@@ -229,7 +229,7 @@ useAsyncData предназначен для вызова внутри `<script 
 
 #### Пример верного использования:
 
-```js
+```vue
 <script setup>
 const { data } = await useAsyncData('info', fetchInfo)
 </script>

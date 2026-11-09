@@ -108,7 +108,7 @@ API Nuxt по умолчанию принимает все методы — GET,
 // server/api/echo.js
 
 export default defineEventHandler(async (event) => {
-  if (event.req.method === 'POST') {
+  if (event.method === 'POST') {
     // Получаем тело запроса
     const body = await readBody(event)
     // Возвращаем его обратно
@@ -160,7 +160,7 @@ server/api/user/[id].js
 // server/api/user/[id].js
 
 export default defineEventHandler((event) => {
-  const { id } = event.context.params  // Получаем id из URL
+  const id = getRouterParam(event, 'id') // Получаем id из URL
   return { userId: id }
 })
 ```
@@ -181,9 +181,9 @@ export default defineEventHandler((event) => {
 // server/api/items/[id].js
 
 export default defineEventHandler(async (event) => {
-  const { id } = event.context.params
+  const id = getRouterParam(event, 'id')
 
-  switch (event.req.method) {
+  switch (event.method) {
     case 'GET':
       return { item: { id, name: "Sample" } }
     case 'PUT': {
@@ -208,7 +208,7 @@ export default defineEventHandler(async (event) => {
 
 ### Пример: fetch внутри компонента
 
-```js
+```vue
 <script setup>
 import { ref, onMounted } from 'vue'
 
@@ -255,7 +255,7 @@ type Task = {
 
 export default defineEventHandler<Task>((event) => {
   const task: Task = {
-    id: event.context.params.id,
+    id: getRouterParam(event, 'id') as string,
     title: 'Задача',
     completed: false
   }
@@ -291,42 +291,39 @@ export default defineEventHandler((event) => {
 
 ### Использование middleware для проверки прав
 
-Создайте middleware-файл в `server/middleware`:
+Файл в `server/middleware` — это **глобальная** серверная middleware: Nuxt подключает её сам и выполняет на каждом запросе раньше всех маршрутов, включая страницы, а не только `/api`. Возвращать ответ из неё нельзя — можно только читать или дополнять контекст либо бросить ошибку:
 
 ```js
 // server/middleware/auth.js
 
 export default defineEventHandler((event) => {
   const cookies = parseCookies(event)
-  if (!cookies.token) {
-    // Бросаем ошибку, если нет токена
-    throw createError({ statusCode: 401, statusMessage: 'Не авторизован' })
-  }
-  // Логика проверки токена/прав...
+  // Пробрасываем токен дальше в контекст запроса
+  event.context.token = cookies.token || null
 })
 ```
 
-А потом добавьте его в нужный endpoint:
+Если проверка нужна только части маршрутов, `server/middleware` не подходит: вынесите функцию в `server/utils` (этот каталог в Nitro автоимпортируется) и вызывайте её из нужных обработчиков:
 
 ```js
-// server/api/secret.js
+// server/utils/requireAuth.js
 
-import auth from '../middleware/auth.js'
-
-export default defineEventHandler((event) => {
-  auth(event) // вызов middleware
-  return { message: 'Секретные данные' }
-})
+export function requireAuth(event) {
+  const cookies = parseCookies(event)
+  if (!cookies.token) {
+    throw createError({ statusCode: 401, statusMessage: 'Не авторизован' })
+  }
+  return cookies.token
+}
 ```
-
-Важно! Для более продвинутых сценариев используйте server plugins или кастомные мидлвари, подключаемые глобально в проект.
 
 ## Особенности деплоя и различие локального и продакшн режима
 
 ### Ядро работы
 
 - В режиме dev и prod сервер Nitro обрабатывает server/api единообразно.
-- Для SSR и стастической сборки endpoint'ы будут работать как serverless-функции, вы можете деплоить их на Vercel, Netlify, Cloudflare без изменений.
+- При SSR-деплое endpoint'ы работают как serverless-функции на Vercel, Netlify, Cloudflare без изменений.
+- При полностью статической сборке (`nuxt generate`) серверных маршрутов в рантайме нет: они доступны, только если страницы пререндерены на этапе сборки.
 
 ### Ограничения
 
@@ -363,7 +360,7 @@ export default defineEventHandler(async (event) => {
 })
 ```
 
-- `$fetch` — это функция Nitro, работает во всех handler'ах как fetch, но удобнее в Node.
+- `$fetch` — это ofetch: он автоимпортируется в Nuxt и Nitro, работает в handler'ах как fetch, но сам парсит JSON и удобнее в Node.
 
 ## Заключение
 
@@ -379,16 +376,16 @@ API-маршруты в Nuxt открывают возможности созд�
 
 ```js
 export default defineEventHandler((event) => {
-  const config = useRuntimeConfig()
+  const config = useRuntimeConfig(event)
   // Получаем, например, config.apiSecret
   return { secret: config.apiSecret }
 })
 ```
-Важно: значения, начинающиеся с "public", будут доступны и на клиенте, остальные — только на сервере.
+Важно: ключи из `runtimeConfig.public` доступны и на клиенте, остальные — только на сервере.
 
 ### Могу ли я использовать middleware глобально для всех server/api endpoints?
 
-Да, объявите middleware в `server/middleware` и используйте его с помощью опции router в nuxt.config. Однако чаще всего проще добавить вызов middleware в каждый нужный handler вручную.
+Да. Любой файл в `server/middleware` Nuxt подключает автоматически, и он срабатывает на каждом запросе — отдельной опции `router` в `nuxt.config` для этого нет. Если проверка нужна только части маршрутов, вынесите её в `server/utils` и вызывайте из обработчиков.
 
 ### Как выполнять валидацию данных, приходящих в POST запросах?
 

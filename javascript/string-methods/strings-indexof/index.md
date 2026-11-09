@@ -2,8 +2,8 @@
 metaTitle: indexOf() – JavaScript String – Методы строк в JS
 metaDescription: Как работает метод indexOf() в JavaScript. Всё о методах работы со строками в JavaScript | База знаний PurpleSchool
 author: Виталий Котов
-title: Как работает метод indexOf() - JavaScript
-preview: Метод indexOf() возвращает индекс первого вхождения данной подстроки в строке...
+title: Как работает метод indexOf() для строк - JavaScript
+preview: Метод indexOf() возвращает индекс первого вхождения подстроки в строке или -1 — разбираем синтаксис, поиск с позиции и типичные ошибки.
 ---
 
 Метод `indexOf()` возвращает индекс первого вхождения данной подстроки в строке.

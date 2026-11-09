@@ -26,12 +26,27 @@ gRPC решает задачу эффективного взаимодейств
 
 Перед началом работы необходимо установить пакет gRPC и компилятор Protocol Buffers:
 
-```
-go install google.golang.org/protobuf/cmd/protoc@latest
-go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
-go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+Компилятор `protoc` не является Go-программой, поэтому через `go install` он не ставится. Установите его пакетным менеджером или скачайте готовый архив со [страницы релизов protobuf](https://github.com/protocolbuffers/protobuf/releases):
 
+```bash
+# Debian / Ubuntu
+sudo apt install -y protobuf-compiler
+
+# macOS
+brew install protobuf
+
+# Проверка
+protoc --version
 ```
+
+Плагины для генерации Go-кода устанавливаются через `go install`:
+
+```bash
+go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+```
+
+Убедитесь, что каталог `$(go env GOPATH)/bin` добавлен в `PATH`, иначе `protoc` не найдёт плагины.
 
 Эти инструменты нужны для генерации Go-кода из `.proto` файлов. Теперь добавим зависимости в проект:
 

@@ -44,6 +44,8 @@ services:
       GRAYLOG_PASSWORD_SECRET: somepasswordpepper # Используйте более сложный и случайный пароль
       GRAYLOG_ROOT_PASSWORD_SHA2: 8c6976e5b5410415bde908bd4dee15df8bf4419bd031df1a8c3b25a1214e0f90 # SHA2 хэш "admin"
       GRAYLOG_HTTP_EXTERNAL_URI: http://127.0.0.1:9000/ # Убедитесь, что это соответствует вашему домену или IP
+      GRAYLOG_MONGODB_URI: mongodb://mongodb:27017/graylog # Хост совпадает с именем сервиса MongoDB
+      GRAYLOG_ELASTICSEARCH_HOSTS: http://elasticsearch:9200
     networks:
       - graylog
     depends_on:
@@ -51,11 +53,14 @@ services:
       - elasticsearch
     ports:
       - "9000:9000"
+      - "1514:1514/udp" # Порт для приёма логов через Syslog UDP
 
 networks:
   graylog:
     driver: bridge
 ```
+
+Обратите внимание на `GRAYLOG_MONGODB_URI`: по умолчанию образ Graylog подключается к хосту `mongo`, а сервис в этом файле называется `mongodb`. Без этой переменной Graylog не запустится и будет писать в лог `UnknownHostException: mongo`.
 
 ### Запуск контейнеров
 

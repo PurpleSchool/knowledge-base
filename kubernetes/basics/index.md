@@ -1,6 +1,6 @@
 ---
-metaTitle: Meta title для Основы
-metaDescription: Meta Description для раздела Основы
+metaTitle: Основы Kubernetes — кластер, поды и архитектура
+metaDescription: Базовые понятия Kubernetes: из чего состоит кластер, какие компоненты отвечают за работу, чем Kubernetes отличается от Docker и как выбрать версию.
 title: Основы
 ---
 Основы

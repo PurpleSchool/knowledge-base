@@ -51,9 +51,15 @@ const cookies = document.cookie // Строка всех cookie вида "key1=v
 function parseCookies(cookieString) {
   const cookies = {}
   cookieString.split(';').forEach(cookie => {
-    const [key, value] = cookie.split('=')
+    // Делим только по первому '=': в значении он тоже может встречаться (base64, JWT)
+    const index = cookie.indexOf('=')
+    if (index === -1) {
+      return
+    }
+    const key = cookie.slice(0, index).trim()
+    const value = cookie.slice(index + 1)
     if (key && value) {
-      cookies[key.trim()] = decodeURIComponent(value)
+      cookies[key] = decodeURIComponent(value)
     }
   })
   return cookies
@@ -110,9 +116,14 @@ export default function (req, res, next) {
   // Примитивный парсинг cookie в объект
   const cookies = {}
   cookieHeader.split(';').forEach(cookie => {
-    const parts = cookie.split('=')
-    if (parts.length === 2) {
-      cookies[parts[0].trim()] = decodeURIComponent(parts[1])
+    const index = cookie.indexOf('=')
+    if (index === -1) {
+      return
+    }
+    const key = cookie.slice(0, index).trim()
+    const value = cookie.slice(index + 1)
+    if (key && value) {
+      cookies[key] = decodeURIComponent(value)
     }
   })
 
@@ -220,20 +231,19 @@ export default function ({ req, redirect }) {
 
 ## Работа с cookie в Nuxt 3
 
-В Nuxt 3 появился встроенный Composables API для работы с cookie (например, `useCookie`). Это упрощает многие сценарии.
+В Nuxt 3 появился встроенный Composables API для работы с cookie (например, `useCookie`). Он работает в setup компонентов, плагинах и route middleware — там, где есть Nuxt-контекст. В серверных маршрутах (`server/api`) контекста Nuxt нет, поэтому используют хелперы h3: `getCookie` и `setCookie`.
 
 ```js
 // На сервере (например, в server/api/…)
 export default defineEventHandler((event) => {
   // Чтение cookie
-  const theme = useCookie('theme').value
+  const theme = getCookie(event, 'theme')
 
   // Установка cookie
-  const counter = useCookie('counter')
-  counter.value = 5
+  setCookie(event, 'counter', '5', { path: '/' })
 
   // Возвращаем данные с учетом куки
-  return { theme, counter: counter.value }
+  return { theme, counter: 5 }
 })
 ```
 
@@ -263,7 +273,7 @@ userId.value = '54321'
 
 ### HttpOnly и Secure
 
-- Используйте флаг `HttpOnly` для cookie, которые не должны читаться на клиенте (например, токены сесcий).
+- Используйте флаг `HttpOnly` для cookie, которые не должны читаться на клиенте (например, токены сессий).
 - Включайте флаг `Secure` для cookie, передаваемых только по HTTPS.
 - Всегда задавайте параметр `SameSite` (lax или strict) для улучшения безопасности.
 
@@ -294,7 +304,7 @@ import cookie from 'cookie'
 
 // Получить cookie
 export function getCookie(ctx, name) {
-  if (process.server && ctx.req) {
+  if (import.meta.server && ctx.req) {
     // Сервер — парсим заголовок
     const cookies = cookie.parse(ctx.req.headers.cookie || '')
     return cookies[name]
@@ -306,7 +316,7 @@ export function getCookie(ctx, name) {
 
 // Установить cookie
 export function setCookie(ctx, name, value, opts = {}) {
-  if (process.server && ctx.res) {
+  if (import.meta.server && ctx.res) {
     // Сервер — готовим заголовок
     ctx.res.setHeader('Set-Cookie', cookie.serialize(name, value, opts))
   } else {
@@ -317,7 +327,7 @@ export function setCookie(ctx, name, value, opts = {}) {
 
 // Удалить cookie
 export function removeCookie(ctx, name) {
-  if (process.server && ctx.res) {
+  if (import.meta.server && ctx.res) {
     ctx.res.setHeader('Set-Cookie', cookie.serialize(name, '', {
       maxAge: -1
     }))
@@ -372,7 +382,7 @@ this.$cookies.remove('theme')
 
 Частая задача — показать баннер с просьбой согласиться на использование cookie и сохранить решение:
 
-```js
+```vue
 <template>
   <div v-if="showBanner" class="cookie-banner">
     Этот сайт использует cookie.
@@ -425,7 +435,7 @@ export const actions = {
 
 Конечно, работа с cookie в Nuxt требует понимания нюансов SSR и различий между клиентским и серверным контекстом. На практике вы часто комбинируете подходы: используете удобные библиотеки на клиенте, строгие парсеры на сервере и фасадные методы для унификации логики. Не забывайте о безопасности: всегда используйте `HttpOnly`, `Secure` и `SameSite` флаги, ограничивайте срок действия и минимизируйте объем и значимость хранимых данных. Такой подход обеспечит стабильную и безопасную работу вашего приложения.
 
-Работа с cookie - это важный аспект веб-разработки, особенно в контексте аутентификации и персонализации пользовательского опыта. Чтобы создавать гибкие и масштабируемые приложения, необходимо освоить все возможности фреймворка, включая работу с сервером, базами данных и API. На нашем курсе [Nuxt - fullstack Vue фреймворк](https://purpleschool.ru/course/nuxt?utm_source=knowledgebase&utm_medium=article&utm_campaign=nastroyka-i-ispolzovanie-cookie-v-nuxt) вы найдете все необходимые знания и навыки для достижения успеха. В первых 3 модулях уже доступно бесплатное содержание — начните погружаться в Nuxt прямо сегодня.
+Работа с cookie — это важный аспект веб-разработки, особенно в контексте аутентификации и персонализации пользовательского опыта. Чтобы создавать гибкие и масштабируемые приложения, необходимо освоить все возможности фреймворка, включая работу с сервером, базами данных и API. На нашем курсе [Nuxt - fullstack Vue фреймворк](https://purpleschool.ru/course/nuxt?utm_source=knowledgebase&utm_medium=article&utm_campaign=nastroyka-i-ispolzovanie-cookie-v-nuxt) вы найдете все необходимые знания и навыки для достижения успеха. В первых 3 модулях уже доступно бесплатное содержание — начните погружаться в Nuxt прямо сегодня.
 
 ## Частозадаваемые технические вопросы по теме статьи и ответы на них
 

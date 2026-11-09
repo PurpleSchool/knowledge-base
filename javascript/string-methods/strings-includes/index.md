@@ -2,8 +2,8 @@
 metaTitle: includes() – JavaScript String – Методы строк в JS
 metaDescription: Как работает метод includes() в JavaScript. Всё о методах работы со строками в JavaScript | База знаний PurpleSchool
 author: Виталий Котов
-title: Как работает метод includes() - JavaScript
-preview: Метод includes() проверяет, можно ли найти данную строку внутри другой строки...
+title: Как работает метод includes() для строк - JavaScript
+preview: Метод includes() проверяет, можно ли найти строку внутри другой строки, и возвращает true или false — разбираем синтаксис, регистр и примеры поиска подстроки.
 ---
 
 Метод `includes()` проверяет, можно ли найти данную строку внутри другой строки.

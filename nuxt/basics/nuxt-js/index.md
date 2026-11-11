@@ -20,20 +20,18 @@ Nuxt JS — это фреймворк для разработки веб-при�
 node -v
 npm -v
 ```
-Если версия Node.js ниже 14, обновите Node для корректной работы современного Nuxt.
+Для современного Nuxt нужен Node.js 22.x или новее (рекомендуется активный LTS-релиз).
 
 ### Установка с помощью создания нового проекта Nuxt
 
-Самый простой способ начать — использовать утилиту create-nuxt-app. Смотрите, как это делается:
+Самый простой способ начать — создать проект через официальный CLI Nuxt. Смотрите, как это делается:
 
 ```bash
-npx nuxi init my-nuxt-app
+npm create nuxt@latest my-nuxt-app
 cd my-nuxt-app
-npm install
 npm run dev
 ```
-- `npx nuxi init` — инициализация шаблона.
-- `npm install` — установка зависимостей.
+- `npm create nuxt@latest` — создание проекта по шаблону и установка зависимостей.
 - `npm run dev` — запуск проекта в режиме разработки.
 
 Когда команда завершится, откройте браузер и перейдите по адресу http://localhost:3000. Вы увидите стартовую страницу Nuxt-проекта.
@@ -54,13 +52,15 @@ my-nuxt-app/
   ├─ nuxt.config.ts  // Главная конфигурация Nuxt
 ```
 
+Структура выше показана для Nuxt 3. В Nuxt 4 по умолчанию используется каталог `app/`: `app/pages/`, `app/components/`, `app/layouts/`, `app/plugins/` и `app/assets/`, а `public/` и `server/` остаются в корне проекта.
+
 Давайте разберём каждую папку и возможную логику их применения.
 
 ### pages/
 
 Все файлы в `pages` автоматически становятся страницами вашего приложения. Например, если создать файл `about.vue`, то страница будет доступна по адресу `/about`. Это делает настройку маршрутизации очень простой.
 
-```js
+```vue
 <!-- pages/about.vue -->
 <template>
   <div>
@@ -75,13 +75,13 @@ my-nuxt-app/
 
 Макеты (layouts) позволяют определить общий шаблон для страницы или группы страниц. Например, можно сделать основной макет с “шапкой” и “подвалом” сайта.
 
-```js
+```vue
 <!-- layouts/default.vue -->
 <template>
   <div>
     <Header />
     <main>
-      <NuxtPage /> <!-- Здесь рендерится содержимое страницы -->
+      <slot /> <!-- Здесь рендерится содержимое страницы -->
     </main>
     <Footer />
   </div>
@@ -95,7 +95,7 @@ import Footer from '../components/Footer.vue'
 ```
 Чтобы изменить макет для конкретной страницы, пропишите:
 
-```js
+```vue
 <script setup>
 definePageMeta({
   layout: 'custom' // Используем макет custom.vue
@@ -107,7 +107,7 @@ definePageMeta({
 
 В эту папку помещаются все Vue-компоненты, которые будут использоваться внутри страниц и макетов. Nuxt поддерживает автоматическое подключение компонентов — не нужно явно их импортировать внутри каждой страницы.
 
-```js
+```vue
 <!-- components/Button.vue -->
 <template>
   <button class="my-btn"><slot /></button>
@@ -122,7 +122,7 @@ definePageMeta({
 
 ### plugins/
 
-Папка для подключения сторонних библиотек и ваших собственных плагинов. Здесь удобно регистрировать фильтры, миксины или сторонние пакеты.
+Папка для подключения сторонних библиотек и ваших собственных плагинов. Здесь удобно подключать Vue-плагины, регистрировать директивы и внедрять зависимости.
 
 ### nuxt.config.ts
 
@@ -182,7 +182,7 @@ Nuxt использует file-based routing — маршруты создают
 
 #### Пример динамического маршрута:
 
-```js
+```vue
 <!-- pages/posts/[id].vue -->
 <template>
   <div>
@@ -202,7 +202,7 @@ const id = route.params.id
 
 Для навигации используйте компонент `<NuxtLink>` (аналоги router-link из Vue Router):
 
-```js
+```vue
 <NuxtLink to="/about">О нас</NuxtLink>
 ```
 Он позволяет делать переходы между страницами без перезагрузки.
@@ -215,7 +215,7 @@ Nuxt поддерживает работу с сервером и API-запро
 
 С помощью `useAsyncData` вы можете получать данные при загрузке страницы. Давайте рассмотрим пример, где мы получаем список пользователей с тестового API:
 
-```js
+```vue
 <template>
   <div>
     <h2>Пользователи</h2>
@@ -238,17 +238,31 @@ const { data, pending, error } = await useAsyncData('users', () =>
 
 ### Подключение ENV переменных
 
-Nuxt позволяет безопасно хранить ключи API и другие переменные окружения в файле `.env`, используя модуль @nuxtjs/dotenv.
+Nuxt читает `.env` из коробки — отдельный модуль `@nuxtjs/dotenv` из Nuxt 2 не нужен. Чтобы переменные были доступны в приложении (в том числе на клиенте), их объявляют в `runtimeConfig`.
 
-Пример переменной в `.env`:
+Объявите значение в `runtimeConfig` в `nuxt.config.ts`:
+
+```ts
+export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      apiUrl: 'https://api.example.com'
+    }
+  }
+})
 ```
-API_URL=https://api.example.com
+
+Публичное значение можно переопределить через `.env` переменной с префиксом `NUXT_`:
+
+```ini
+NUXT_PUBLIC_API_URL=https://api.example.com
 ```
-Для доступа к переменным используйте `useRuntimeConfig`:
+
+Для доступа к значениям используйте `useRuntimeConfig`:
 
 ```ts
 const config = useRuntimeConfig()
-const apiUrl = config.public.API_URL
+const apiUrl = config.public.apiUrl
 ```
 
 ## Стилизация и работа с CSS
@@ -271,7 +285,7 @@ export default defineNuxtConfig({
 
 Внутри любого компонента вы можете использовать `<style scoped>`, чтобы стили применялись только к текущему компоненту.
 
-```js
+```vue
 <template>
   <div class="card">Контент</div>
 </template>
@@ -298,7 +312,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 ```
 Теперь этот метод доступен во всех компонентах:
 
-```js
+```vue
 <script setup>
 const { $hello } = useNuxtApp()
 console.log($hello('Вася')) // Выведет: Привет, Вася!
@@ -361,7 +375,7 @@ export const useCounter = defineStore('counter', {
 
 Используем в компоненте:
 
-```js
+```vue
 <script setup>
 const counter = useCounter()
 </script>
@@ -400,7 +414,7 @@ Nuxt можно деплоить как SSR-приложение, SSG или SPA
 npm run build
 node .output/server/index.mjs
 ```
-В режиме SSG после `npx nuxi generate` загрузите содержимое `.output/public` на любой статиеский хостинг.
+В режиме SSG после `npx nuxi generate` загрузите содержимое `.output/public` на любой статический хостинг.
 
 ## Заключение
 
@@ -416,7 +430,7 @@ Nuxt, как и любой инструмент, требует мастерст
 const router = useRouter()
 router.push('/new-path') // Редирект на другую страницу
 ```
-В мидлваре или серверном коде используйте `sendRedirect`:
+В мидлваре используйте `navigateTo`, а в серверном коде — `sendRedirect`:
 ```ts
 export default defineNuxtRouteMiddleware((to, from) => {
   if (условие) {
@@ -433,18 +447,17 @@ await useFetch('/api/protected', { headers: { Authorization: `Bearer ${token.val
 ```
 
 **Вопрос 3. Как подключить стороннюю JS-библиотеку только на клиенте?**  
-Создайте плагин в папке plugins с указанием { client: true }:
+Создайте плагин с суффиксом `.client` в имени файла — он выполнится только на клиенте:
 ```ts
+// plugins/my-lib.client.ts
 export default defineNuxtPlugin(() => {
-  if (process.client) {
-    // Подключение библиотеки
-  }
+  // Подключение библиотеки
 })
 ```
 
 **Вопрос 4. Как делать глобальную обработку ошибок в Nuxt?**  
 Используйте error middleware или глобальный layout с обработкой error:
-```js
+```vue
 <template>
   <div>
     <NuxtErrorBoundary>
@@ -465,4 +478,4 @@ export default defineNuxtConfig({
   modules: ['@vite-pwa/nuxt']
 })
 ```
-Так приложение сразу становится `Progressive Web App` с поддержкой установки на устройства.
+Так приложение сразу становится Progressive Web App с поддержкой установки на устройства.

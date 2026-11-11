@@ -20,7 +20,7 @@ Nuxt берет на себя много рутинной работы: наст
 
 ### Подготовка рабочего окружения
 
-Перед началом убедитесь, что у вас установлен Node.js (желательно версия 16 и выше). Проверьте это командой:
+Перед началом убедитесь, что у вас установлен Node.js (нужна версия 22.x или новее). Проверьте это командой:
 
 ```bash
 node -v
@@ -28,17 +28,16 @@ node -v
 
 Если у вас нет Node.js, скачайте его с официального сайта nodejs.org.
 
-### Установка Nuxt 3 с помощью npx
+### Установка Nuxt с помощью npm create nuxt
 
-Nuxt 3 сейчас является актуальной версией и рекомендуется для новых проектов. Переходим к инициализации проекта:
+Nuxt 4 — актуальная версия и рекомендуется для новых проектов; примеры ниже работают и в Nuxt 4, и в Nuxt 3. Переходим к инициализации проекта:
 
 ```bash
-npx nuxi init my-nuxt-app
+npm create nuxt@latest my-nuxt-app
 cd my-nuxt-app
-npm install
 ```
 
-- `nuxi` — CLI инструмент для работы с Nuxt 3.
+- `npm create nuxt@latest` — официальный способ создать проект Nuxt.
 - `my-nuxt-app` — директория вашего нового проекта.
 
 После установки вы можете стартовать локальный сервер:
@@ -63,6 +62,8 @@ my-nuxt-app/
 |-- nuxt.config.ts
 ```
 
+Структура показана для Nuxt 3. В Nuxt 4 папки приложения лежат внутри `app/` (`app/pages/`, `app/components/`, `app/layouts/`, `app/plugins/`, `app/assets/`), а `public/` остаётся в корне проекта.
+
 - `components/` — здесь будут располагаться Vue-компоненты.
 - `pages/` — Nuxt автоматически создает маршруты на основе файлов в этой папке.
 
@@ -78,7 +79,7 @@ my-nuxt-app/
 
 Допустим, у вас есть следующий компонент (MyButton.vue):
 
-```js
+```vue
 <template>
   <button @click="handleClick">
     <slot></slot>
@@ -101,7 +102,7 @@ const handleClick = () => {
 
 Nuxt автоматически регистрирует все компоненты в папке `components/`. Просто используйте компонент в любом шаблоне страницы (например, в `pages/index.vue`):
 
-```js
+```vue
 <template>
   <div>
     <MyButton>Привет из компонента!</MyButton>
@@ -138,7 +139,7 @@ export default defineNuxtPlugin(nuxtApp => {
 
 Теперь любой компонент Element Plus можно использовать в ваших шаблонах:
 
-```js
+```vue
 <template>
   <el-button>Нажмите меня</el-button>
 </template>
@@ -159,7 +160,7 @@ export default defineNuxtPlugin(nuxtApp => {
 
 Стандартная страница во Vue:
 
-```js
+```vue
 <template>
   <div>
     <h1>Мой профиль</h1>
@@ -174,7 +175,7 @@ export default {
 
 В Nuxt 3 эта страница просто размещается в `pages/profile.vue`, роутинг происходит автоматически:
 
-```js
+```vue
 <template>
   <div>
     <h1>Мой профиль в Nuxt</h1>
@@ -192,7 +193,7 @@ Nuxt 3 предоставляет интеграцию для загрузки �
 
 Посмотрите пример получения данных на сервере:
 
-```js
+```vue
 <script setup>
 const { data: posts, error } = await useFetch('https://jsonplaceholder.typicode.com/posts')
 // posts теперь содержит результат fetch-запроса
@@ -218,7 +219,7 @@ const { data: posts, error } = await useFetch('https://jsonplaceholder.typicode.
 
 В папке `layouts/` вы можете создавать шаблоны, общие для групп страниц. Например, файл `default.vue` определяет базовый layout:
 
-```js
+```vue
 <template>
   <div>
     <header>Заголовок приложения</header>
@@ -230,7 +231,7 @@ const { data: posts, error } = await useFetch('https://jsonplaceholder.typicode.
 
 В каждой странице вы можете указать свой layout:
 
-```js
+```vue
 <script setup>
 definePageMeta({
   layout: "default"
@@ -253,7 +254,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
 
 Подключите middleware в нужной странице:
 
-```js
+```vue
 <script setup>
 definePageMeta({
   middleware: 'auth'
@@ -265,7 +266,7 @@ definePageMeta({
 
 Nuxt 3 позволяет удобно управлять мета-тегами страницы:
 
-```js
+```vue
 <script setup>
 useHead({
   title: 'О нас - Мой сайт',
@@ -278,19 +279,17 @@ useHead({
 
 ### Интеграция Vuex или Pinia
 
-С переходом на Nuxt 3, рекомендуется использовать Pinia для глобального состояния. Установка Pinia:
+С переходом на Nuxt 3 и Nuxt 4 рекомендуется использовать Pinia для глобального состояния. Установите модуль:
 
 ```bash
-npm install pinia
+npm install pinia @pinia/nuxt
 ```
 
-Создайте файл плагина `plugins/pinia.js`:
+И включите его в `nuxt.config.ts`:
 
-```js
-import { createPinia } from 'pinia'
-
-export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.vueApp.use(createPinia())
+```ts
+export default defineNuxtConfig({
+  modules: ['@pinia/nuxt']
 })
 ```
 
@@ -313,7 +312,7 @@ export const useCounterStore = defineStore('counter', {
 
 В компоненте используйте так:
 
-```js
+```vue
 <script setup>
 import { useCounterStore } from '~/stores/counter'
 const counter = useCounterStore()
@@ -335,16 +334,16 @@ const counter = useCounterStore()
 ```js
 // plugins/global-func.js
 export default defineNuxtPlugin(nuxtApp => {
-  nuxtApp.vueApp.config.globalProperties.$sayHello = (name) => `Привет, ${name}!`
+  nuxtApp.provide('sayHello', (name) => `Привет, ${name}!`)
 })
 ```
 
 И используем её в компоненте:
 
-```js
+```vue
 <script setup>
-const nuxtApp = useNuxtApp()
-const message = nuxtApp.$sayHello('Анна')
+const { $sayHello } = useNuxtApp()
+const message = $sayHello('Анна')
 </script>
 
 <template>{{ message }}</template>
@@ -378,7 +377,7 @@ export const useCounter = () => {
 
 Он сразу будет доступен в любом компоненте:
 
-```js
+```vue
 <script setup>
 const { count, increment } = useCounter()
 </script>
@@ -408,7 +407,7 @@ Nuxt отлично работает как с REST, так и с GraphQL API. �
 
 ### Почему мой компонент не отображается при размещении его в components/?
 
-**Ответ:** Проверьте, совпадает ли имя файла и тега (например, MyButton.vue и `<MyButton>`), нет ли опечаток, и находится ли файл именно в папке components, а не вложенной подпапке (для вложенных — используйте PascalCase: `<ButtonMy>` для `Button/My.vue`).
+**Ответ:** Проверьте, совпадает ли имя файла и тега (например, `MyButton.vue` и `<MyButton>`), нет ли опечаток и лежит ли файл в папке `components/`. Вложенные подпапки поддерживаются: имя собирается из пути, например `components/Button/My.vue` → `<ButtonMy />`.
 
 ### Как добавить собственный favicon или изображения для статических ресурсов?
 
@@ -418,7 +417,7 @@ Nuxt отлично работает как с REST, так и с GraphQL API. �
 
 **Ответ:** Используйте проверки на наличие сервера/клиента через хуки, например:  
 ```js
-if (process.client) {
+if (import.meta.client) {
   // Здесь безопасно использовать window/document
 }
 ```

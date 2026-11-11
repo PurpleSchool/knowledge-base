@@ -16,10 +16,10 @@ Nuxt 4 — это современная версия популярного ф�
 
 ### Переход к Native ES Modules
 
-В Nuxt 4 полностью перешли на использование ES-модулей (`.mjs`) для конфигурации и всех внутренних механизмов. Это обеспечивает нативную поддержку современных инструментов и повышает совместимость с экосистемой.
+Nuxt использует ES-модули (`.mjs`) для конфигурации и всех внутренних механизмов — начиная с Nuxt 3. Это обеспечивает нативную поддержку современных инструментов и повышает совместимость с экосистемой.
 
 ```js
-// nuxt.config.mjs — основной конфиг теперь обязательно .mjs
+// nuxt.config.ts — рекомендуемый формат конфига (поддерживаются .ts, .js и .mjs)
 export default defineNuxtConfig({
   modules: [
     '@nuxt/image'
@@ -28,7 +28,7 @@ export default defineNuxtConfig({
 })
 // Тут мы подключаем модуль работы с изображениями и включаем SSR
 ```
-Обратите внимание: старые конфигурации на CommonJS (`nuxt.config.js`) не будут поддерживаться. Такое новшество сокращает возможные ошибки и обеспечивает работу с ESM-бандлерами (например, Vite).
+Обратите внимание: Nuxt читает `nuxt.config.ts`, `nuxt.config.js` и `nuxt.config.mjs`, а CommonJS-формат из Nuxt 2 больше не поддерживается. ESM-конфигурация сокращает возможные ошибки и обеспечивает работу с ESM-бандлерами (например, Vite).
 
 ### Улучшенная поддержка TypeScript
 
@@ -64,7 +64,7 @@ Nuxt 4 сохраняет принцип файлового роутинга и�
 
 #### Пример структуры
 ```
-pages/
+app/pages/
   index.vue       // Главная
   about.vue       // /about
   blog/
@@ -72,9 +72,9 @@ pages/
 ```
 
 #### Пример динамического маршрута:
-```js
+```vue
 <script setup>
-// Файл pages/blog/[slug].vue
+// Файл app/pages/blog/[slug].vue
 const route = useRoute()
 const { data } = await useFetch(`/api/post/${route.params.slug}`)
 // Загружаем пост по динамическому slug
@@ -89,7 +89,7 @@ const { data } = await useFetch(`/api/post/${route.params.slug}`)
 Лэйауты и middleware реализованы декларативно, с поддержкой автоматического импорта соответствующих функций.
 
 #### Использование layout:
-```js
+```vue
 <script setup>
 definePageMeta({ layout: 'custom-layout' }) // Назначаем макет для этой страницы
 </script>
@@ -103,13 +103,13 @@ Nuxt 4 делает акцент на гибридное рендеринг: в�
 
 #### Пример генерации статических страниц:
 ```js
-// nuxt.config.mjs
+// nuxt.config.ts
 export default defineNuxtConfig({
   nitro: {
-    preset: "vercel" // Можно деплоить сразу в облака
-  },
-  generate: {
-    routes: ['/posts/1', '/posts/2']
+    preset: "vercel", // Можно деплоить сразу в облака
+    prerender: {
+      routes: ['/posts/1', '/posts/2']
+    }
   }
 })
 ```
@@ -117,7 +117,7 @@ export default defineNuxtConfig({
 
 ### On-demand Server API (Nitro)
 
-SSR теперь базируется на движке Nitro — он позволяет создавать собственные endpoints прямо внутри Nuxt проекта.
+SSR базируется на движке Nitro — он позволяет создавать собственные endpoints прямо внутри Nuxt проекта.
 
 #### Как это выглядит:
 ```
@@ -142,20 +142,20 @@ Middlewares могут быть как клиентскими (vue роутер)
 // server/middleware/auth.ts
 export default defineEventHandler((event) => {
   // Здесь можно реализовать проверку токена и отдавать 401 при ошибке
-  const token = event.headers['authorization']
+  const token = getRequestHeader(event, 'authorization')
   if (!token) throw createError({ statusCode: 401, statusMessage: 'Unauthorized' })
 })
 ```
 
 ## Новый подход к state management
 
-### Интернализация Pinia
+### Интеграция Pinia
 
 Pinia стал стандартом для работы с состоянием во всех новых Nuxt-проектах. Vuex официально не поддерживается.
 
 #### Пример store на Pinia:
 ```ts
-// stores/useUserStore.ts
+// app/stores/useUserStore.ts
 import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('user', {
@@ -172,7 +172,7 @@ export const useUserStore = defineStore('user', {
 })
 ```
 И используем в компоненте:
-```js
+```vue
 <script setup>
 import { useUserStore } from '~/stores/useUserStore'
 
@@ -191,7 +191,7 @@ const userStore = useUserStore()
 В Nuxt 4 асинхронная загрузка — базовая возможность через composables.
 
 #### Пример useFetch:
-```js
+```vue
 <script setup>
 const { data, pending, error } = await useFetch('/api/items')
 // pending и error упростят отображение лоадеров и ошибок
@@ -199,7 +199,7 @@ const { data, pending, error } = await useFetch('/api/items')
 ```
 
 #### Пример useAsyncData:
-```js
+```vue
 <script setup>
 const { data, refresh } = await useAsyncData('items', () =>
   $fetch('/api/items')
@@ -214,15 +214,15 @@ const { data, refresh } = await useAsyncData('items', () =>
 
 ### Автоматические импорты composables, компонентов и утилит
 
-Больше не нужно ручных импортов — все компоненты и util-функции из папки `composables/`, `components/` или `utils/` подключаются автоматически.
+Больше не нужно ручных импортов — все компоненты и util-функции из папок `app/composables/`, `app/components/` или `app/utils/` подключаются автоматически.
 
 #### Пример:
 ```
-composables/
+app/composables/
   useColorMode.ts
 // можно просто использовать useColorMode в любом компоненте без импортов
 ```
-```js
+```vue
 <script setup>
 const { mode, setMode } = useColorMode() // Работает сразу, если файл есть
 </script>
@@ -234,17 +234,17 @@ Nuxt 4 глубже интегрирован с VSCode и WebStorm, автоко
 
 ## Обновленная система плагинов
 
-Плагины теперь регистрируются через папку `/plugins`, поддержка TypeScript и ESM.
+Плагины регистрируются через папку `app/plugins`, поддержка TypeScript и ESM.
 
 #### Пример:
-// plugins/hello.ts
 ```ts
+// app/plugins/hello.ts
 export default defineNuxtPlugin(nuxtApp => {
   nuxtApp.provide('hello', () => 'Hello Nuxt 4!')
 })
 ```
 Использование в компоненте:
-```js
+```vue
 <script setup>
 const { $hello } = useNuxtApp()
 console.log($hello()) // Выведет 'Hello Nuxt 4!'
@@ -256,7 +256,7 @@ console.log($hello()) // Выведет 'Hello Nuxt 4!'
 ### Основные шаги и советы
 
 1. **Обновите свои зависимости** — приведите все ключевые пакеты (`nuxt`, `@nuxt/*`, `pinia`, `vite` и т.д.) к последним версиям.
-2. **Переименуйте файл конфигурации** на `nuxt.config.mjs` (или `nuxt.config.ts`).
+2. **Проверьте файл конфигурации** — подойдёт `nuxt.config.ts` (рекомендуется), `.js` или `.mjs`.
 3. **Проверьте плагины и middleware** — перепишите их с учетом нового синтаксиса (ESM, TypeScript).
 4. **Перенесите сторы на Pinia** — Vuex не поддерживается.
 5. **Используйте новые composables** — замените устаревшие функции на новые аналоги (`useAsyncData`, `useFetch` и др.).
@@ -266,7 +266,7 @@ console.log($hello()) // Выведет 'Hello Nuxt 4!'
 
 ### Vite как основной бандлер
 
-В Nuxt 4 Vite стал основным инструментом сборки, что увеличило скорость старта и перезапуска серверов, ускорило hot-reload.
+Vite — основной инструмент сборки Nuxt (начиная с Nuxt 3), он ускоряет старт и перезапуск серверов и hot-reload.
 
 ### Edge rendering и автоматический деплой
 
@@ -278,7 +278,7 @@ Nuxt 4 сохранил философию "модульной" архитект
 
 ## Заключение
 
-Nuxt 4 — это качественный эволюционный шаг для разработки современных приложений на Vue. Он сосредотачивается на скорости, гибкости и простоте — теперь создание Full-Stack решений возможно практически без лишней конфигурации, напрямую используя современные API и инструменты. Благодаря переходу на ES-модули, новой системе SSR и Nitro, глубокому внедрению TypeScript и Pinia, Nuxt 4 становится отличной базой как для MVP-продуктов, так и для масштабных веб-приложений корпоративного уровня.
+Nuxt 4 — это качественный эволюционный шаг для разработки современных приложений на Vue. Он сосредотачивается на скорости, гибкости и простоте — теперь создание Full-Stack решений возможно практически без лишней конфигурации, напрямую используя современные API и инструменты. Благодаря ES-модулям, движку Nitro, TypeScript и Pinia, Nuxt 4 становится отличной базой как для MVP-продуктов, так и для масштабных веб-приложений корпоративного уровня.
 
 Ознакомившись с ключевыми изменениями и примерами, вы сможете быстро начать использовать новые возможности Nuxt 4 уже в ближайших своих проектах.
 
@@ -299,11 +299,11 @@ export default defineEventHandler((event) => {
 
 ### Как внедрить сторонний модуль, если он пока не обновлен под Nuxt 4?
 
-Часто поможет форк или временно использование его кода через папку `modules/` собственного проекта. Проверьте, что модуль совместим с ESM и обновите егоImports под Nuxt 4. Для некоторых пакетов потребуется переписать плагины и проверить пути резолвинга.
+Часто поможет форк или временное использование его кода через папку `modules/` собственного проекта. Проверьте, что модуль совместим с ESM, и обновите его imports под Nuxt 4. Для некоторых пакетов потребуется переписать плагины и проверить пути резолвинга.
 
 ### Мой layout не применяется — что делать?
 
-Проверьте, что layout определен в папке `layouts/` и имеет правильное имя файла (например, `my-layout.vue`). На странице используйте `definePageMeta({ layout: 'my-layout' })`.
+Проверьте, что layout определен в папке `app/layouts/` и имеет правильное имя файла (например, `my-layout.vue`). На странице используйте `definePageMeta({ layout: 'my-layout' })`.
 
 ### SSR отключен, страница не рендерится на сервере?
 

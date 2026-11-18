@@ -23,6 +23,24 @@ preview: Изучите, как реализовать безопасную и �
 
 В этой статье я сфокусируюсь на `@sidebase/nuxt-auth`, так как он максимально актуален и гибок для Nuxt 3. Однако многие концепции и примеры подойдут для других схожих модулей.
 
+Примеры ниже — для актуальной версии модуля (1.x). В ней провайдеры, колбэки и события описываются не в `nuxt.config`, а в серверном обработчике `NuxtAuthHandler`:
+
+```ts
+// server/api/auth/[...].ts
+import { NuxtAuthHandler } from '#auth'
+import GithubProvider from 'next-auth/providers/github'
+
+export default NuxtAuthHandler({
+  secret: process.env.AUTH_SECRET,
+  providers: [
+    GithubProvider({
+      clientId: process.env.GITHUB_CLIENT_ID!,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
+    }),
+  ],
+})
+```
+
 ### Установка nuxt-auth
 
 Для начала убедитесь, что у вас установлен Nuxt 3. Затем добавьте nuxt-auth следующей командой:
@@ -57,18 +75,12 @@ export default defineNuxtConfig({
   ],
   auth: {
     origin: process.env.NUXT_PUBLIC_SITE_URL,
-    enableGlobalAppMiddleware: true,
-    providers: [
-      {
-        provider: 'github',
-        clientId: process.env.GITHUB_CLIENT_ID,
-        clientSecret: process.env.GITHUB_CLIENT_SECRET
-      }
-    ]
+    globalAppMiddleware: true,
   }
 });
 
-// Здесь мы указываем URL вашего приложения, включаем глобальную middleware для обработки сессий и добавляем GitHub как OAuth-провайдер.
+// Здесь мы указываем URL приложения и включаем глобальную middleware для обработки сессий.
+// Провайдеры (например, GitHub) описываются в NuxtAuthHandler — см. пример выше.
 ```
 
 Аутентификация является важной частью многих веб-приложений, и Nuxt предоставляет гибкие возможности для ее реализации. Однако чтобы создать надежную и безопасную систему аутентификации, необходимо понимать различные стратегии, уметь работать с JWT, и правильно обрабатывать ошибки. Если вы хотите стать экспертом в аутентификации в Nuxt, приходите на наш большой курс [Nuxt - fullstack Vue фреймворк](https://purpleschool.ru/course/nuxt?utm_source=knowledgebase&utm_medium=article&utm_campaign=gayd-po-autentifikatsii-auth-v-nuxt). На курсе 129 уроков и 13 упражнений, AI-тренажеры для безлимитной практики с кодом и задачами 24/7, решение задач с живым ревью наставника, еженедельные встречи с менторами.
@@ -77,9 +89,9 @@ export default defineNuxtConfig({
 
 ### Встроенные и кастомные провайдеры
 
-nuxt-auth поддерживает множество популярных провайдеров из "коробки": Google, GitHub, Auth0, Discord и другие. Каждый провайдер требует отдельной настройки (обычно clientId и clientSecret).
+nuxt-auth поддерживает множество популярных провайдеров из "коробки": Google, GitHub, Auth0, Discord и другие. Каждый провайдер требует отдельной настройки (обычно clientId и clientSecret). В версии 1.x они передаются в `providers` внутри `NuxtAuthHandler` — обычно через готовые фабрики `GithubProvider`, `GoogleProvider`, `CredentialsProvider` из `next-auth/providers/*`.
 
-**Пример с Google:**
+**Пример с Google** (внутри `NuxtAuthHandler`, в поле `providers`):
 
 ```typescript
 providers: [
@@ -98,6 +110,7 @@ providers: [
 Иногда вам нужна собственная логика авторизации (например, проверка email и пароля с бэкендом). Для этого подойдет credentials-провайдер:
 
 ```typescript
+// providers внутри NuxtAuthHandler
 providers: [
   {
     provider: 'credentials',
@@ -147,10 +160,10 @@ session: {
 В клиентском коде вы делаете следующее:
 
 ```javascript
-const { data: session, status } = useSession()
+const { data: session, status } = useAuth()
 // session содержит объект пользователя, если он залогинен
 
-// useSession — это Composable (hook), предоставляемый nuxt-auth. Он управляет загрузкой и реактивными изменениями сессии.
+// useAuth — это Composable (hook), предоставляемый nuxt-auth. Он управляет загрузкой и реактивными изменениями сессии.
 ```
 
 Если пользователь не залогинен, session.value будет null.
@@ -161,13 +174,13 @@ const { data: session, status } = useSession()
 
 ```js
 <script setup>
-const { data: session, status } = useSession()
+const { data: session, status, signIn, signOut } = useAuth()
 
-function signInWithGithub() {
-  signIn('github') // Запускает flow авторизации через GitHub
+async function signInWithGithub() {
+  await signIn('github') // Запускает flow авторизации через GitHub
 }
-function signOutUser() {
-  signOut() // Производит выход пользователя
+async function signOutUser() {
+  await signOut() // Производит выход пользователя
 }
 </script>
 
@@ -228,20 +241,22 @@ auth: {
 
 ### Использование useSession и реактивности
 
-Вы всегда можете получить актуальное состояние пользователя через useSession:
+Вы всегда можете получить актуальное состояние пользователя через `useAuth()`:
 
 ```javascript
-const { data: session, status, update } = useSession()
+const { data: session, status, getSession } = useAuth()
 ```
 
 - session — объект пользователя с email, именем, и другими полями
 - status — 'authenticated', 'unauthenticated', 'loading'
-- update — ручное обновление сессии (если, например, пользователь изменил профиль)
+- getSession — ручное обновление сессии (если, например, пользователь изменил профиль)
 
-Также можно использовать useAuthState, если нужны только булевые флаги:
+Булевы флаги удобно вывести из `status`:
 
 ```javascript
-const { isLoggedIn, isLoading } = useAuthState()
+const { status } = useAuth()
+const isLoggedIn = computed(() => status.value === 'authenticated')
+const isLoading = computed(() => status.value === 'loading')
 ```
 
 ### Автоматическая реакторизация при изменении токена
@@ -249,7 +264,7 @@ const { isLoggedIn, isLoading } = useAuthState()
 Если вы обновляете токен или иные данные на сервере, можно вручную вызвать обновление сессии:
 
 ```javascript
-await update() // Перезагрузит данные пользователя без выхода и входа
+await getSession() // Перезагрузит данные пользователя без выхода и входа
 ```
 
 Это удобно при изменении профиля или прав пользователя.
@@ -269,7 +284,7 @@ export default defineEventHandler(async (event) => {
   // Теперь у вас есть доступ к сессии пользователя сервера
   // Можно проверить права или отправить запрос к другому сервису
   if (!session) {
-    throw createError({ statusCode: 401, message: 'Not authorized' })
+    throw createError({ statusCode: 401, statusMessage: 'Not authorized' })
   }
   
   // Используйте session.token для ваших задач
@@ -285,10 +300,11 @@ export default defineEventHandler(async (event) => {
 
 ### Обработка событий
 
-nuxt-auth позволяет слушать события (signIn, signOut, error и тд):
+nuxt-auth позволяет слушать события (signIn, signOut, error и тд) — они настраиваются в серверном `NuxtAuthHandler`:
 
 ```typescript
-auth: {
+// server/api/auth/[...].ts
+NuxtAuthHandler({
   events: {
     signIn: async (message) => {
       // message содержит данные о входе пользователя
@@ -298,7 +314,7 @@ auth: {
       // После выхода пользователя, например очистка данных
     }
   }
-}
+})
 ```
 
 ### Расширение объекта сессии
@@ -306,7 +322,8 @@ auth: {
 Можно добавить дополнительные поля в объект пользователя через callbacks:
 
 ```typescript
-auth: {
+// server/api/auth/[...].ts
+NuxtAuthHandler({
   callbacks: {
     async session({ session, token }) {
       // Например, добавим userId
@@ -314,7 +331,7 @@ auth: {
       return session
     }
   }
-}
+})
 ```
 
 ## Безопасность и лучшие практики
@@ -335,7 +352,7 @@ auth: {
 
 Помните, что безопасность всегда важна: используйте https, внимательно проверяйте работу сессий и куки, не храните чувствительные данные на клиенте. Nuxt-auth предоставляет все необходимые механизмы для соблюдения этих правил.
 
-Аутентификация - это важная часть разработки современных веб-приложений. Чтобы создавать гибкие и масштабируемые приложения, необходимо освоить все возможности фреймворка, включая работу с сервером, базами данных и API. На нашем курсе [Nuxt - fullstack Vue фреймворк](https://purpleschool.ru/course/nuxt?utm_source=knowledgebase&utm_medium=article&utm_campaign=gayd-po-autentifikatsii-auth-v-nuxt) вы найдете все необходимые знания и навыки для достижения успеха. В первых 3 модулях уже доступно бесплатное содержание — начните погружаться в Nuxt прямо сегодня.
+Аутентификация — это важная часть разработки современных веб-приложений. Чтобы создавать гибкие и масштабируемые приложения, необходимо освоить все возможности фреймворка, включая работу с сервером, базами данных и API. На нашем курсе [Nuxt - fullstack Vue фреймворк](https://purpleschool.ru/course/nuxt?utm_source=knowledgebase&utm_medium=article&utm_campaign=gayd-po-autentifikatsii-auth-v-nuxt) вы найдете все необходимые знания и навыки для достижения успеха. В первых 3 модулях уже доступно бесплатное содержание — начните погружаться в Nuxt прямо сегодня.
 
 ## Частозадаваемые технические вопросы по nuxt-auth
 
@@ -356,17 +373,18 @@ providers: [
 Вы можете настроить redirect на страницу ошибок или показать сообщение пользователю:
 
 ```typescript
-auth: {
+// server/api/auth/[...].ts
+NuxtAuthHandler({
   pages: {
     error: '/auth/error'
   }
-}
+})
 ```
 А внутри error.vue обработать разные варианты ошибки.
 
 ### Могу ли я получить access token стороннего провайдера (например, Google) на клиенте?
 
-Стандартно access token хранится в session, возвращаемой hook useSession(). Для безопасности он может быть недоступен на клиенте. Если нужно использовать токен на клиентбе, настройте callbacks.session и явно добавьте token в session.user.
+Стандартно access token хранится в session, возвращаемой хук useAuth(). Для безопасности он может быть недоступен на клиенте. Если нужно использовать токен на клиенте, настройте callbacks.session и явно добавьте token в session.user.
 
 ### Как работать с SSR-запросами к backend, если требуется авторизация?
 
@@ -377,7 +395,8 @@ auth: {
 Добавьте callback session:
 
 ```typescript
-auth: {
+// server/api/auth/[...].ts
+NuxtAuthHandler({
   callbacks: {
     async session({ session, token }) {
       session.role = token.role
@@ -385,6 +404,6 @@ auth: {
       return session
     }
   }
-}
+})
 ```
-Теперь эти поля будут приходить в useSession.
+Теперь эти поля будут приходить в `useAuth().data`.

@@ -335,7 +335,7 @@ PORT=4000 node .output/server/index.mjs
 Да, создайте `Dockerfile` с установкой зависимостей, сборкой проекта и запуском сервера. Вот краткий пример:
 
 ```
-FROM node:20-alpine
+FROM node:22-alpine
 WORKDIR /app
 COPY . .
 RUN npm ci && npm run build

@@ -57,7 +57,7 @@ npm run dev   # для проверки, что проект стартует
 
 ```Dockerfile
 # Выбираем официальный Node.js образ. Лучше брать LTS (долгосрочную поддержку)
-FROM node:18-alpine
+FROM node:22-alpine
 
 # Создаем рабочую директорию внутри контейнера
 WORKDIR /usr/src/app
@@ -108,7 +108,7 @@ coverage
 
 ```Dockerfile
 # Первая стадия — билд приложения
-FROM node:18-alpine AS build
+FROM node:22-alpine AS build
 
 WORKDIR /usr/src/app
 COPY package*.json ./
@@ -118,7 +118,7 @@ COPY . .
 RUN npm run build   # Сборка Nuxt-приложения
 
 # Вторая стадия — только для запуска (тут меньше всего файлов!)
-FROM node:18-alpine AS production
+FROM node:22-alpine AS production
 
 WORKDIR /usr/src/app
 COPY package*.json ./

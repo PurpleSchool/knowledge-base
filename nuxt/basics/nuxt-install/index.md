@@ -26,28 +26,28 @@ Nuxt — мощный фреймворк для разработки униве�
 
 ### Требования к окружению
 
-- Node.js: v18 или выше (рекомендуется LTS)
+- Node.js: v22.x или выше (рекомендуется активный LTS)
 - NPM: v9 или выше, или Yarn/Bun
 - git (для создания исходных шаблонов)
 
-### Установка через nuxi (рекомендуемый способ)
+### Установка через create nuxt (рекомендуемый способ)
 
 #### 1. Инициализация нового проекта
 
-Самый простой способ — воспользоваться CLI-командой `nuxi` (Nuxt CLI):
+Самый простой способ — воспользоваться командой `create nuxt`:
 
 ```bash
-# Создаём новый проект с помощью nuxi (npm >= 9)
-npm create nuxt-app@latest my-nuxt4-project
+# Создаём новый проект (npm >= 9)
+npm create nuxt@latest my-nuxt4-project
 
 # Или с помощью pnpm
-pnpm create nuxt-app@latest my-nuxt4-project
+pnpm create nuxt@latest my-nuxt4-project
 
 # Или с помощью yarn
-yarn create nuxt-app my-nuxt4-project
+yarn create nuxt my-nuxt4-project
 
 # Или с помощью bun
-bunx create-nuxt-app@latest my-nuxt4-project
+bun create nuxt@latest my-nuxt4-project
 ```
 
 **Что происходит:**  
@@ -101,7 +101,7 @@ Nuxt 4 наследует архитектуру Nuxt 3:
 npm run build
 node .output/server/index.mjs   # запуск собранного приложения в режиме production
 ```
-Файлы для деплоя будут находиться в `.output/` или `dist/` (зависит от шаблона и вашего build-режима).
+Файлы для деплоя будут находиться в `.output/` (`.output/public` — для статики). Папка `dist/` — это Nuxt 2.
 
 ## Установка Nuxt 3
 
@@ -109,15 +109,14 @@ Nuxt 3 — первый релиз, полностью основанный на
 
 ### Требования
 
-- Node.js: v16.11.0 или выше
+- Node.js: v22.x или выше (в ранних Nuxt 3 минимальной была 16.11)
 - NPM: v8 или выше
 
-### Установка через nuxi
+### Установка через create nuxt
 
 ```bash
-npx nuxi init my-nuxt3-app
+npm create nuxt@latest my-nuxt3-app -- -t v3
 cd my-nuxt3-app
-npm install
 npm run dev
 ```
 
@@ -125,7 +124,7 @@ npm run dev
 
 #### Пояснения:
 
-- `nuxi init` — создаёт начальный шаблон проекта с нужной структурой
+- `npm create nuxt@latest -- -t v3` — создаёт шаблон Nuxt 3 (без `-t v3` установится Nuxt 4)
 - После `npm run dev` — вы получите работающий сервер разработки на http://localhost:3000
 
 #### Стартовое редактирование
@@ -222,7 +221,7 @@ export default {
 - Использует Vue 2
 - Только Webpack (Vite официально не поддерживается)
 - File-based routing на основе папки `pages/`
-- handle middleware, плагины, layouts как отдельные сущности
+- middleware, плагины, layouts как отдельные сущности
 
 ### Сборка Nuxt 2
 
@@ -329,7 +328,7 @@ export default defineNuxtConfig({
 
 Да, во всех версиях используются стандартные Node.js-окружения. Пример Dockerfile:
 ```dockerfile
-FROM node:18
+FROM node:22
 WORKDIR /app
 COPY . .
 RUN npm install

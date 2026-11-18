@@ -304,7 +304,7 @@ import cookie from 'cookie'
 
 // Получить cookie
 export function getCookie(ctx, name) {
-  if (import.meta.server && ctx.req) {
+  if (process.server && ctx.req) {
     // Сервер — парсим заголовок
     const cookies = cookie.parse(ctx.req.headers.cookie || '')
     return cookies[name]
@@ -316,7 +316,7 @@ export function getCookie(ctx, name) {
 
 // Установить cookie
 export function setCookie(ctx, name, value, opts = {}) {
-  if (import.meta.server && ctx.res) {
+  if (process.server && ctx.res) {
     // Сервер — готовим заголовок
     ctx.res.setHeader('Set-Cookie', cookie.serialize(name, value, opts))
   } else {
@@ -327,7 +327,7 @@ export function setCookie(ctx, name, value, opts = {}) {
 
 // Удалить cookie
 export function removeCookie(ctx, name) {
-  if (import.meta.server && ctx.res) {
+  if (process.server && ctx.res) {
     ctx.res.setHeader('Set-Cookie', cookie.serialize(name, '', {
       maxAge: -1
     }))

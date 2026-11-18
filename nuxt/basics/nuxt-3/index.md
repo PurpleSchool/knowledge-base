@@ -93,7 +93,7 @@ export default defineNuxtConfig({
 
 В Nuxt 3 и Nuxt 4 хуки жизненного цикла похожи, но добавлены новые возможности или изменен порядок вызова.
 
-```js
+```vue
 // Пример - работы с хуками в Nuxt 4
 <script setup>
 onMounted(() => {
@@ -110,14 +110,14 @@ onMounted(() => {
 В Nuxt 3 очень часто использовались функции useAsyncData для асинхронной загрузки на сервере.
 
 **Nuxt 3:**
-```js
+```vue
 <script setup>
 const { data, pending, error } = await useAsyncData('posts', () => $fetch('/api/posts'))
 </script>
 ```
 
 **Nuxt 4:**
-```js
+```vue
 <script setup>
 const { data, pending, error } = await useAsyncData('posts', () => $fetch('/api/posts'))
 // Этот код остался актуальным, но теперь стал поддерживать типизацию шире и работает с новыми server-only методами.
@@ -126,7 +126,7 @@ const { data, pending, error } = await useAsyncData('posts', () => $fetch('/api/
 
 ### Новое в Middleware
 
-Middleware в Nuxt 3 и Nuxt 4 все так же регистрируются через каталог `middleware`.
+Middleware в Nuxt 3 регистрируются через каталог `middleware`, а в Nuxt 4 — через `app/middleware`.
 
 #### Пример глобального middleware для авторизации
 
@@ -140,7 +140,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
 
 **Nuxt 4:**
 ```js
-// middleware/auth.global.ts
+// app/middleware/auth.global.ts
 export default defineNuxtRouteMiddleware((to, from) => {
   // Проверка осталась прежней, но теперь сохранился порядок вызова global
 })
@@ -158,12 +158,12 @@ export default defineEventHandler(() => {
 })
 ```
 
-В Nuxt 4 такой же код продолжает работать. Но добавлены новые возможности по типизации и взаимосвязи с runtimeConfig. Например, теперь проще получить значения из конфига Nuxt прямо внутри handler:
+В Nuxt 4 такой же код продолжает работать. Значения из конфига внутри handler читаются через `useRuntimeConfig(event)` — параметр `event` обязателен, как и в Nuxt 3:
 
 ```js
 // server/api/hello.get.ts
 export default defineEventHandler((event) => {
-  const config = useRuntimeConfig(event) // Теперь вы получаете доступ к runtimeConfig
+  const config = useRuntimeConfig(event) // event обязателен в серверных роутах (как и в Nuxt 3)
   return { hello: 'world' }
 })
 ```
@@ -210,14 +210,13 @@ Nuxt 4 теперь официально поддерживает Vue 3 посл
 
 ## Работа с генерацией статических сайтов и SSR
 
-В Nuxt 4 изменился подход к статической генерации:
+В Nuxt 4 режим рендеринга и деплой задаются через `ssr` и пресеты Nitro:
 
 **Nuxt 3:**
 ```js
 // nuxt.config.ts
 export default defineNuxtConfig({
-  ssr: false, // SPA
-  target: 'static'
+  ssr: false // SPA
 })
 ```
 
@@ -230,10 +229,10 @@ export default defineNuxtConfig({
     preset: 'vercel'
   }
 })
-// target устарел, используйте настройки Nitro Presets для деплоя в облака
+// target из Nuxt 2 не нужен: режим задаётся через ssr и Nitro Presets
 ```
 
-В генерации статических сайтов теперь все управление идет через Nitro Engine. Рекомендуется обновить скрипты деплоя.
+Статикой и деплоем управляет Nitro (как и в Nuxt 3): `nuxt generate` собирает статические файлы в `.output/public`, а пресеты Nitro задают платформу деплоя.
 
 ## Проверка всего проекта и тестирование
 
@@ -271,11 +270,11 @@ npm run preview
 
 ### Как перейти на новый Nuxt, если много кастомных Webpack-плагинов?
 
-В Nuxt 4 стандартная система сборки основывается на Vite или Nitro, а поддержка Webpack минимальна. Если ваши плагины незаменимы, проверьте, поддерживаются ли они Vite — многие плагины можно переписать под плагин для Vite. Для редких случаев можно явно включить режим `webpack` через настройку сборки, но рекомендуется по возможности мигрировать на Vite-плагины.
+В Nuxt 4 по умолчанию используется Vite (Nitro — это серверный движок, а не сборщик). Webpack и Rspack поддерживаются как альтернативные сборщики: установите `@nuxt/webpack-builder` или `@nuxt/rspack-builder` и укажите `builder: 'webpack'` или `builder: 'rspack'` в `nuxt.config.ts`. Если ваши плагины незаменимы, проверьте, есть ли у них версия для Vite, — многие можно заменить Vite-плагинами.
 
 ### Что делать, если мой модуль для Nuxt еще не поддерживает четвертую версию?
 
-Проверьте репозиторий/issue tracker этого модуля — часто разработчики указывают ветку или forк, совместимый с Nuxt 4. Если форка нет, попробуйте временно отказаться от модуля или реализовать нужную функциональность вручную, опираясь на документацию по внутренним API Nuxt 4.
+Проверьте репозиторий/issue tracker этого модуля — часто разработчики указывают ветку или форк, совместимый с Nuxt 4. Если форка нет, попробуйте временно отказаться от модуля или реализовать нужную функциональность вручную, опираясь на документацию по внутренним API Nuxt 4.
 
 ### Есть ли способ частично мигрировать проект или переключаться между версиями?
 
@@ -287,4 +286,4 @@ npm run preview
 
 ### Как перейти на новую систему environment переменных в Nuxt 4?
 
-В Nuxt 4 рекомендуется использовать runtimeConfig. Для передачи переменных окружения используйте секции `public` и `private` в nuxt.config.ts. Все переменные передавайте в runtimeConfig из-прод файла или через process.env прямо на сервере. Прямое использование process.env по всей кодовой базе не приветствуется — замените его на обращения через useRuntimeConfig внутри компонентов и серверных обработчиков.
+В Nuxt 4 рекомендуется использовать runtimeConfig. Публичные значения кладите в секцию `public`, а приватные — в корень `runtimeConfig` (отдельной секции `private` нет). Значения можно задать прямо в nuxt.config.ts или переопределить переменными окружения с префиксом `NUXT_` (в dev/build — и через `.env`). Прямое использование process.env по всей кодовой базе не приветствуется — замените его на обращения через useRuntimeConfig внутри компонентов и серверных обработчиков.
